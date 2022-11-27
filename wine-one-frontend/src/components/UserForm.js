@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { useUsersContext } from '../hooks/useUsersContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const UserForm = () => {
   const {dispatch} = useUsersContext();
+  const {user: _user} = useAuthContext();
+
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,11 +15,17 @@ const UserForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault() // prevents page refresh
 
+    if (!_user) {
+      setError('You must be logged in');
+      return;
+    }
+
     const user = {username, email, password}
     const response = await fetch('/api/users', {
       method: 'POST',
       headers: { 
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${_user.token}`
       },
       body: JSON.stringify(user)
     });

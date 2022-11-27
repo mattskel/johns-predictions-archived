@@ -12,7 +12,8 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-app.use('/api/users', routes)
+app.use('/api/users', routes);
+app.use('/api/user', routes)
 
 // connect to the db
 const url = process.env.MONGO_URL;
