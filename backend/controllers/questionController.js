@@ -22,6 +22,13 @@ const createQuestion = async (req, res) => {
   }
 }
 
+const getQuestions = async (req, res) => {
+  const questions = await Question.find({}).sort({createdAt: -1});
+
+  res.status(200).json(questions);
+}
+
 module.exports = {
-  createQuestion
+  createQuestion,
+  getQuestions
 }
