@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useUsersContext } from '../hooks/useUsersContext';
 import { useAuthContext } from '../hooks/useAuthContext';
+// import { QuestionsContextProvider } from '../context/QuestionsContext';
+import { useQuestionsContext } from '../hooks/useQuestionsContext';
 
 // Components
 // import UserDetails from '../components/UserDetails';
@@ -11,7 +13,8 @@ import QuestionForm from '../components/QuestionForm';
 const Home = () => {
   // const {users, dispatch} = useUsersContext();
   // const {user} = useAuthContext()
-  const [questions, setQuestions] = useState(null)
+  // const [questions, setQuestions] = useState(null)
+  const {questions, dispatch} = useQuestionsContext();
 
   useEffect(() => {
     // const fetchUsers = async () => {
@@ -32,7 +35,8 @@ const Home = () => {
       const json = await response.json()
 
       if (response.ok) {
-        setQuestions(json);
+        // setQuestions(json);
+        dispatch({type: 'SET_QUESTIONS', payload: json});
       }
     }
 

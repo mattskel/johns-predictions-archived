@@ -1,5 +1,6 @@
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import { useAuthContext } from './hooks/useAuthContext';
+import { QuestionsContextProvider } from './context/QuestionsContext';
 
 // Pages & components
 import Home from './pages/Home';
@@ -17,7 +18,10 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={user ? <Home /> : <Navigate to="/login" />}
+              element={user 
+                ? <QuestionsContextProvider><Home /></QuestionsContextProvider> 
+                : <Navigate to="/login" />
+              }
             />
             <Route
               path="/login"

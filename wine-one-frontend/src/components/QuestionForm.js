@@ -1,6 +1,8 @@
 import {useState} from 'react';
+import { useQuestionsContext } from '../hooks/useQuestionsContext';
 
 const QuestionForm = () => {
+  const {dispatch} = useQuestionsContext();
   const [text, setText] = useState('');
   const [error, setError] = useState(null);
 
@@ -16,7 +18,7 @@ const QuestionForm = () => {
       body: JSON.stringify(question)
     });
 
-    const json = response.json();
+    const json = await response.json();
     if (!response.ok) {
       setError(json.error);
       return;
@@ -24,6 +26,7 @@ const QuestionForm = () => {
 
     setText('');
     setError(null);
+    dispatch({type: 'CREATE_QUESTION', payload: json})
   }
 
   return (
