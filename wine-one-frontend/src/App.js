@@ -6,7 +6,6 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Questions from './pages/Questions';
 
 function App() {
   const {user} = useAuthContext();
@@ -19,10 +18,6 @@ function App() {
             <Route
               path="/"
               element={user ? <Home /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/questions"
-              element={user ? <Questions /> : <Navigate to="/login" />}
             />
             <Route
               path="/login"
