@@ -44,7 +44,7 @@ header a {
   gap: 100px;
 }
 
-.user-details {
+.user-details, .question-details {
   background: #fff;
   border-radius: 4px;
   margin: 20px auto;
@@ -53,7 +53,7 @@ header a {
   box-shadow: 2px 2px 5px rgba(0,0,0,0,05);
 }
 
-.user-details h4 {
+.user-details, .question-details h4 {
   margin: 0 0 10px 0;
   color: var(--primary);
   font-size: 1.2em;
