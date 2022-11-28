@@ -28,7 +28,22 @@ const getQuestions = async (req, res) => {
   res.status(200).json(questions);
 }
 
+const deleteQuestion = async (req, res) => {
+  const {id} = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: 'Id is not valid'});
+  }
+
+  const question = await Question.findOneAndDelete({_id: id});
+  if (!question) {
+    return res.status(400).json({error: 'Question not found'});
+  }
+
+  res.status(200).json(question);
+}
+
 module.exports = {
   createQuestion,
-  getQuestions
+  getQuestions,
+  deleteQuestion
 }
