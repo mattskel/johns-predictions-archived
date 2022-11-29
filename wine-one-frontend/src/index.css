@@ -44,7 +44,7 @@ header a {
   gap: 100px;
 }
 
-.user-details {
+.user-details, .question-details {
   background: #fff;
   border-radius: 4px;
   margin: 20px auto;
@@ -53,20 +53,20 @@ header a {
   box-shadow: 2px 2px 5px rgba(0,0,0,0,05);
 }
 
-.user-details h4 {
+.user-details, .question-details h4 {
   margin: 0 0 10px 0;
   color: var(--primary);
   font-size: 1.2em;
 }
 
-.user-details p {
+.user-details, .question-details p {
   margin: 0;
   color: #555;
   font-size: 0.9em;
 }
 
 /* For later - delete button */
-.user-details span {
+.user-details, .question-details span {
   position: absolute;
   top: 20px;
   right: 20px;

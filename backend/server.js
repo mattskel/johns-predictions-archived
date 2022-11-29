@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const routes = require('./routes');
+const questionRoutes = require('./routes/questions');
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -14,6 +15,7 @@ app.use(express.json());
 // routes
 app.use('/api/users', routes);
 app.use('/api/user', routes)
+app.use('/api/questions', questionRoutes);
 
 // connect to the db
 const url = process.env.MONGO_URL;
