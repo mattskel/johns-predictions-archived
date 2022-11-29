@@ -12,6 +12,10 @@ export const questionsReducer = (state, action) => {
       return {
         questions: [action.payload, ...state.questions]
       }
+    case 'DELETE_QUESTION':
+      return {
+        questions: state.questions.filter((question) => question._id !== action.payload._id)
+      }  
     default:
       return state  
   }

@@ -5,6 +5,7 @@ const QuestionForm = () => {
   const {dispatch} = useQuestionsContext();
   const [text, setText] = useState('');
   const [error, setError] = useState(null);
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,11 +22,13 @@ const QuestionForm = () => {
     const json = await response.json();
     if (!response.ok) {
       setError(json.error);
+      setEmptyFields(json.emptyFields);
       return;
     }
 
     setText('');
     setError(null);
+    setEmptyFields([]);
     dispatch({type: 'CREATE_QUESTION', payload: json})
   }
 
@@ -37,6 +40,7 @@ const QuestionForm = () => {
         type="text"
         onChange={(e) => setText(e.target.value)}
         value={text}
+        className={emptyFields.includes('text') ? 'error': ''}
       />
 
       <button>Add question</button>
