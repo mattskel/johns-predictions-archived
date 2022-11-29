@@ -59,14 +59,14 @@ header a {
   font-size: 1.2em;
 }
 
-.user-details p {
+.user-details, .question-details p {
   margin: 0;
   color: #555;
   font-size: 0.9em;
 }
 
 /* For later - delete button */
-.user-details span {
+.user-details, .question-details span {
   position: absolute;
   top: 20px;
   right: 20px;
