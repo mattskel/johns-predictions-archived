@@ -15,10 +15,7 @@ const Navbar = () => {
     <header>
       <div className="container">
         <Link to="/">
-          <h1>Users</h1>
-        </Link>
-        <Link to="/Questions">
-          <h1>Questions</h1>
+          <h1>Johns predictions</h1>
         </Link>
         <nav>
           {user && (
