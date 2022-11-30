@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     // required: true
   },
+  isAdmin: {
+    type: Boolean
+  }
 }, {timestamps: true});
 
 // static signup method
