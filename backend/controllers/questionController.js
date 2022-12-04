@@ -23,7 +23,14 @@ const createQuestion = async (req, res) => {
 }
 
 const getQuestions = async (req, res) => {
-  const questions = await Question.find({}).sort({createdAt: -1});
+  const {prospectiveId} = req.query;
+
+  let query = {}
+  if (prospectiveId) {
+    query.prospectiveId = prospectiveId
+  }
+
+  const questions = await Question.find(query).sort({createdAt: -1});
 
   res.status(200).json(questions);
 }
@@ -42,8 +49,21 @@ const deleteQuestion = async (req, res) => {
   res.status(200).json(question);
 }
 
+const updateQuestion = async (req, res) => {
+  const {id} = req.params;
+  const update = req.body || {};
+
+  const question = await Question.findOneAndUpdate({_id: id}, {...update});
+  if (!question) {
+    return res.status(400).json({error: 'Question not found'});
+  }
+
+  res.status(200).json(question)
+}
+
 module.exports = {
   createQuestion,
   getQuestions,
-  deleteQuestion
+  deleteQuestion,
+  updateQuestion
 }
