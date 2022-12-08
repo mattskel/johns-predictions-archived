@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useQuestionsContext } from '../hooks/useQuestionsContext';
+import { useAuthContext } from '../hooks/useAuthContext'
 
 // Components
 import QuestionDetails from '../components/QuestionDetails';
@@ -7,10 +8,15 @@ import QuestionForm from '../components/QuestionForm';
 
 const Questions = () => {
   const {questions, dispatch} = useQuestionsContext();
+  const {user} = useAuthContext();
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      const response = await fetch('/api/questions')
+      const response = await fetch('/api/questions', {
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      })
       const json = await response.json()
 
       if (response.ok) {
@@ -18,8 +24,10 @@ const Questions = () => {
       }
     }
 
-    fetchQuestions();
-  }, [dispatch]);
+    if (user) {
+      fetchQuestions();
+    }
+  }, [dispatch, user]);
 
   return (
     <div className='questions-container'>

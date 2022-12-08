@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import { useQuestionsContext } from '../hooks/useQuestionsContext';
 import { QuestionsContextProvider } from '../context/QuestionsContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 // import PredictionInput from './PredictionInput'
 
 
@@ -31,11 +32,24 @@ export default function PredictionsForm() {
   const {questions, dispatch} = useQuestionsContext();
   const prospectiveId = '638b2bb468447d08f7496271'
   const [predictions, setPredictions] = useState({});
+  const {user} = useAuthContext();
   // const questions = [{_id: '1', text: 'What are you going to do today?'}];
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.dir(predictions);
+    const response = await fetch(`/api/prospectives/${prospectiveId}/submit`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
+      },
+      body: JSON.stringify(predictions)
+    });
+
+    const json = await response.json();
+    console.log(response);
+    console.log(json);
   };
 
   const onPredictionChange = (event) => {
@@ -49,7 +63,11 @@ export default function PredictionsForm() {
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      const response = await fetch(`/api/questions?prospectiveId=${prospectiveId}`)
+      const response = await fetch(`/api/questions?prospectiveId=${prospectiveId}`, {
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      })
       const json = await response.json()
 
       if (response.ok) {
@@ -57,8 +75,10 @@ export default function PredictionsForm() {
       }
     }
 
-    fetchQuestions();
-  }, [dispatch]);
+    if (user) {
+      fetchQuestions();
+    }
+  }, [dispatch, user]);
 
   return (
     

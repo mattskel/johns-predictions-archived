@@ -6,8 +6,13 @@ const {
   deleteQuestion,
   updateQuestion
 } = require('../controllers/questionController');
+const requireAuth = require('../middleware/requireAuth');
 
 const router = express.Router();
+
+// We want to protect all these routes
+// A user must be authenticated to request these routes
+router.use(requireAuth);
 
 router.post('/', createQuestion);
 
