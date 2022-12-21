@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const routes = require('./routes');
 const questionRoutes = require('./routes/questions');
 const prospectiveRoutes = require('./routes/prospectives');
+const predictionRoutes = require('./routes/predictions')
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -18,6 +19,7 @@ app.use('/api/users', routes);
 app.use('/api/user', routes)
 app.use('/api/questions', questionRoutes);
 app.use('/api/prospectives', prospectiveRoutes);
+app.use('/api/predictions', predictionRoutes);
 
 // connect to the db
 const url = process.env.MONGO_URL;
