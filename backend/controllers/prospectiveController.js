@@ -40,11 +40,12 @@ const submitProspective = async (req, res) => {
   // Get the questions for this prospective
   const emptyFields = [];
   const questions = await Question.find({prospectiveId}, {_id: 1});
-  questions.forEach(({_id: questionId}) => {
-      if (typeof submission[questionId] === undefined) {
-        emptyFields.push(questionId)
-      }
-    });
+  questions.forEach(({_id}) => {
+    const questionId = _id.toString();
+    if (submission[questionId] === undefined) {
+      emptyFields.push(questionId)
+    }
+  });
 
   if (emptyFields.length > 0) {
     return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
@@ -63,7 +64,9 @@ const submitProspective = async (req, res) => {
   });
 
   try {
-    const predictions = await Prediction.insertMany(insertArray);
+    const predictions = await Promise.all(insertArray.map((insert) => Prediction.replaceOne({
+      userId: insert.userId, questionId: insert.questionId
+    }, {...insert}, {upsert: true})));
     res.status(200).json(predictions);
   } catch (error) {
     res.status(400).json({error: error.message});
