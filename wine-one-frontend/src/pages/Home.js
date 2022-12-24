@@ -1,16 +1,15 @@
 // Components
-import PredictionsForm from '../components/PredictionsForm';
-import { QuestionsContextProvider } from '../context/QuestionsContext';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
 
+  const prospectiveId = '638b2bb468447d08f7496271';
+
   return (
     <div className="home">
-      Welcome!
+      Welcome! Preamble...
       <div className="predictions">
-      <QuestionsContextProvider>
-        <PredictionsForm />
-      </QuestionsContextProvider>
+      <Link to={`/prospectives/${prospectiveId}/form`}>Submit your predictions</Link>
       </div>
     </div>
   )
