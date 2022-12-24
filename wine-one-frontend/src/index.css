@@ -33,11 +33,6 @@ header a {
   text-decoration: none;
 }
 
-.pages {
-  padding: 20px;
-  margin: 0 auto;
-}
-
 .questions-container {
   display: grid;
   grid-template-columns: 3fr 1fr;
@@ -109,7 +104,7 @@ div.error {
   margin: 20px 0;
 }
 
-input.error {
+input.error, select.error {
   border: 1px solid var(--error);
 }
 
@@ -139,4 +134,23 @@ form.signup, form.login {
   padding: 20px;
   background: #fff;
   border-radius: 4px  ;
+}
+
+@media (min-width:600px) {
+  .pages {
+      padding: 20px 25vw;
+  }
+}
+
+.prediction-container {
+  background: #fff;
+  border-radius: 4px;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0,05);
+}
+
+.prediction-container select {
+  font-size: 25px;
 }
