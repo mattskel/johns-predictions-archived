@@ -2,7 +2,7 @@ const Question = require('../models/questionModel');
 const mongoose = require('mongoose');
 
 const createQuestion = async (req, res) => {
-  const {text} = req.body;
+  const {text, prospectiveId, options} = req.body;
 
   const emptyFields = [];
 
@@ -15,7 +15,7 @@ const createQuestion = async (req, res) => {
   }
 
   try {
-    const question = await Question.create({text});
+    const question = await Question.create({text, prospectiveId, options});
     res.status(200).json(question);
   } catch (error) {
     res.status(400).json({error: error.message});
