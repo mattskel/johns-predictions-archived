@@ -1,11 +1,13 @@
 import {useState} from 'react';
 import { useQuestionsContext } from '../hooks/useQuestionsContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 const QuestionForm = () => {
   const {dispatch} = useQuestionsContext();
   const [text, setText] = useState('');
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
+  const {user} = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,6 +17,7 @@ const QuestionForm = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
       },
       body: JSON.stringify(question)
     });
