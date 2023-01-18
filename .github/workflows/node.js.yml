@@ -34,6 +34,7 @@ jobs:
         cache-dependency-path: wine-one-frontend/package-lock.json
     - name: run npm commands   
       working-directory: wine-one-frontend
-      run: npm i
-      run: npm run build --if-present
-      run: mv build/ ../backend/static/
+      run: |
+        npm i
+        npm run build --if-present
+        mv build/ ../backend/static/
