@@ -26,15 +26,26 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: pwd
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js ${{ matrix.node-version }} in frontend
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: wine-one-frontend/package-lock.json
-    - name: run npm commands   
+    - name: run npm commands in frontend 
       working-directory: wine-one-frontend
       run: |
         npm i
         npm run build --if-present
         mv build/ ../backend/static/
+    - name: Use Node.js ${{ matrix.node-version }} in backend
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+    - name: run npm commands in backend 
+      working-directory: backend
+      run: |
+        npm i
+        pm2 restart server.js 
