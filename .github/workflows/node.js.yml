@@ -26,7 +26,7 @@ jobs:
         pwd 
         cd wine-one-frontend
         pwd
-    - name: Use Node.js ${{ matrix.node-version }}
+    # - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
