@@ -48,4 +48,4 @@ jobs:
       working-directory: backend
       run: |
         npm i
-        pm2 restart server.js 
+        pm2 restart johns-predictions-backend 
