@@ -48,7 +48,7 @@ jobs:
       working-directory: backend
       run: |
         touch .env
-        echo MONGO_URL=mongodb+srv://matt:{{ secrets.MONGO_SECRET}}@wineone.6sajobm.mongodb.net/?retryWrites=true&w=majority
+        echo MONGO_URL=mongodb+srv://matt:{{ secrets.MONGO_SECRET}}@wineone.6sajobm.mongodb.net/?retryWrites=true&w=majority >> .env
         echo SECRET=${{ secrets.SECRET}} >> .env
         echo PORT=1337 >> .env    
     - name: run npm commands in backend 
