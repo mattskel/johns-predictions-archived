@@ -44,6 +44,13 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: backend/package-lock.json
+    - name: Create dotenvv file
+      working-directory: backend
+      run: |
+        touch .env
+        echo MONGO_URL=${{ secrets.MONGO_URL }} >> .env
+        echo SECRET=${{ secrets.SECRET}} >> .env
+        echo PORT=1337 >> .env    
     - name: run npm commands in backend 
       working-directory: backend
       run: |
