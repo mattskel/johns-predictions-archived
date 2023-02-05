@@ -1,7 +1,7 @@
-import { PredictionsContext } from '../context/PredictionsContext';
 import { useContext } from 'react';
+import { PredictionsContext } from '../context/PredictionsContext';
 
-export const usePredictionsContext = () => {
+const usePredictionsContext = () => {
   // This hook returns the value of the context
   // Which is the value being passed into the provider component
   const context = useContext(PredictionsContext);
@@ -12,4 +12,6 @@ export const usePredictionsContext = () => {
   }
 
   return context;
-}
+};
+
+export default usePredictionsContext;

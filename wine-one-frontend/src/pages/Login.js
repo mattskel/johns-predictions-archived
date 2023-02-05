@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useLogin from '../hooks/useLogin';
-import { useAuthContext } from '../hooks/useAuthContext';
+import useAuthContext from '../hooks/useAuthContext';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -11,7 +11,6 @@ function Login() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  // const from = location.state?.from || '/';
   const { state } = location || {};
   const { from = '/' } = state || {};
 
@@ -45,7 +44,7 @@ function Login() {
         value={password}
       />
 
-      <button type="button" disabled={isLoading}>Log in</button>
+      <button type="submit" disabled={isLoading}>Log in</button>
       {error && <div className="error">{error}</div>}
     </form>
 

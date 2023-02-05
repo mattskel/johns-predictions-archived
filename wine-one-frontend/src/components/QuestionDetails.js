@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import { useQuestionsContext } from '../hooks/useQuestionsContext';
+import useQuestionsContext from '../hooks/useQuestionsContext';
 
 function QuestionDetails({ question }) {
   const { dispatch } = useQuestionsContext();

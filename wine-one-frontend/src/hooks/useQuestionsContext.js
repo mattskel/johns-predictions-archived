@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { QuestionsContext } from '../context/QuestionsContext';
 
-export const useQuestionsContext = () => {
+const useQuestionsContext = () => {
   // This hook returns the value of the context
   // Which is the value being passed into the provider component
   const context = useContext(QuestionsContext);
@@ -13,3 +13,5 @@ export const useQuestionsContext = () => {
 
   return context;
 };
+
+export default useQuestionsContext;

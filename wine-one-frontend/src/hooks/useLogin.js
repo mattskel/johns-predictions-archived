@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuthContext } from './useAuthContext';
+import useAuthContext from './useAuthContext';
 
 const useLogin = () => {
   const [error, setError] = useState(null);
@@ -9,7 +9,6 @@ const useLogin = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  // const from = location.state?.from || '/';
   const { state } = location || {};
   const { from = '/' } = state || {};
 

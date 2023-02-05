@@ -29,7 +29,7 @@ function Signup() {
         value={password}
       />
 
-      <button type="button" disabled={isLoading}>Sign up</button>
+      <button type="submit" disabled={isLoading}>Sign up</button>
       {error && <div className="error">{error}</div>}
     </form>
 

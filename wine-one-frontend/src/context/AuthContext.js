@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React, { createContext, useReducer, useEffect } from 'react';
 
 export const AuthContext = createContext();
@@ -15,7 +14,6 @@ export const authReducer = (state, action) => {
   }
 };
 
-// eslint-disable-next-line react/prop-types
 export function AuthContextProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
@@ -28,8 +26,6 @@ export function AuthContextProvider({ children }) {
     }
   }, []);
 
-  console.log('AuthContext state: ', state);
-
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <AuthContext.Provider value={{ ...state, dispatch }}>
@@ -38,6 +34,6 @@ export function AuthContextProvider({ children }) {
   );
 }
 
-// AuthContextProvider.propTypes = {
-//   children: PropTypes.objectOf(PropTypes.object()).isRequired,
-// };
+AuthContextProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};

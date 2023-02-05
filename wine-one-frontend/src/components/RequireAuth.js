@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
-import { useAuthContext } from '../hooks/useAuthContext';
+import useAuthContext from '../hooks/useAuthContext';
 
 function RequireAuth({ isAdmin }) {
   const { user } = useAuthContext();

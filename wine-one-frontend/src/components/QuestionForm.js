@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react';
-import { useQuestionsContext } from '../hooks/useQuestionsContext';
-import { useAuthContext } from '../hooks/useAuthContext';
+import useQuestionsContext from '../hooks/useQuestionsContext';
+import useAuthContext from '../hooks/useAuthContext';
 
 function QuestionForm() {
   const { dispatch } = useQuestionsContext();
@@ -49,7 +49,7 @@ function QuestionForm() {
         />
       </label>
 
-      <button type="button">Add question</button>
+      <button type="submit">Add question</button>
       {error && <div className="error">{error}</div>}
     </form>
   );

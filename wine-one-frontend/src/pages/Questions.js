@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useQuestionsContext } from '../hooks/useQuestionsContext';
-import { useAuthContext } from '../hooks/useAuthContext';
+import useQuestionsContext from '../hooks/useQuestionsContext';
+import useAuthContext from '../hooks/useAuthContext';
 
 // Components
 import QuestionDetails from '../components/QuestionDetails';

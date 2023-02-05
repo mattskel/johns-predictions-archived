@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuthContext } from '../hooks/useAuthContext';
+import useAuthContext from '../hooks/useAuthContext';
 
 function PredictionInput({
   question, onChange, value, className,
@@ -122,7 +122,7 @@ export default function PredictionsForm() {
         />
       ))}
 
-      <button type="button">Submit form</button>
+      <button type="submit">Submit form</button>
       {error && <div className="error">{error}</div>}
     </form>
   );
