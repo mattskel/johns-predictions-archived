@@ -1,28 +1,28 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { useQuestionsContext } from '../hooks/useQuestionsContext';
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useAuthContext } from '../hooks/useAuthContext';
 
 // Components
 import QuestionDetails from '../components/QuestionDetails';
 import QuestionForm from '../components/QuestionForm';
 
-const Questions = () => {
-  const {questions, dispatch} = useQuestionsContext();
-  const {user} = useAuthContext();
+function Questions() {
+  const { questions, dispatch } = useQuestionsContext();
+  const { user } = useAuthContext();
 
   useEffect(() => {
     const fetchQuestions = async () => {
       const response = await fetch('/api/questions', {
         headers: {
-          'Authorization': `Bearer ${user.token}`
-        }
-      })
-      const json = await response.json()
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      const json = await response.json();
 
       if (response.ok) {
-        dispatch({type: 'SET_QUESTIONS', payload: json});
+        dispatch({ type: 'SET_QUESTIONS', payload: json });
       }
-    }
+    };
 
     if (user) {
       fetchQuestions();
@@ -30,7 +30,7 @@ const Questions = () => {
   }, [dispatch, user]);
 
   return (
-    <div className='questions-container'>
+    <div className="questions-container">
       <div className="questions">
         {questions && questions.map((question) => (
           <QuestionDetails key={question._id} question={question} />
@@ -38,7 +38,7 @@ const Questions = () => {
       </div>
       <QuestionForm />
     </div>
-  )
+  );
 }
 
 export default Questions;

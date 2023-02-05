@@ -6,29 +6,31 @@ export const usersReducer = (state, action) => {
   switch (action.type) {
     case 'SET_USERS':
       return {
-        users: action.payload
-      }
+        users: action.payload,
+      };
     case 'CREATE_USER':
       return {
-        users: [action.payload, ...state.users]
-      }
+        users: [action.payload, ...state.users],
+      };
     case 'DELETE_USER':
       return {
-        users: state.users.filter((user) => user._id !== action.payload._id)
-      }  
+        users: state.users.filter((user) => user._id !== action.payload._id),
+      };
     default:
-      return state;  
+      return state;
   }
-}
+};
 
-export const UsersContextProvider = ({children}) => {
+// eslint-disable-next-line react/prop-types
+export function UsersContextProvider({ children }) {
   const [state, dispatch] = useReducer(usersReducer, {
-    users: null
+    users: null,
   });
 
   return (
-    <UsersContext.Provider value={{...state, dispatch}}>
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
+    <UsersContext.Provider value={{ ...state, dispatch }}>
       {children}
     </UsersContext.Provider>
-  )
+  );
 }

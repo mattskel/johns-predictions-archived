@@ -1,25 +1,28 @@
 import { createContext, useReducer } from 'react';
+
 export const PredictionsContext = createContext();
 
 export const predictionsReducer = (state, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'SET_PREDICTIONS':
       return {
-        predictions: action.payload
-      }
+        predictions: action.payload,
+      };
     default:
-      return state;  
+      return state;
   }
 };
 
-export const PredictionsContextProvider = ({children}) => {
+// eslint-disable-next-line react/prop-types
+export function PredictionsContextProvider({ children }) {
   const [state, dispatch] = useReducer(predictionsReducer, {
-    predictions: null
+    predictions: null,
   });
 
   return (
-    <PredictionsContext.Provider value={{...state, dispatch}}>
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
+    <PredictionsContext.Provider value={{ ...state, dispatch }}>
       {children}
     </PredictionsContext.Provider>
-  )
+  );
 }

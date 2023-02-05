@@ -1,11 +1,11 @@
-import {useState} from 'react';
-import { useAuthContext } from './useAuthContext';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from './useAuthContext';
 
-export const useSignup = () => {
+const useSignup = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
-  const { dispatch } = useAuthContext()
+  const { dispatch } = useAuthContext();
 
   const navigate = useNavigate();
 
@@ -15,12 +15,12 @@ export const useSignup = () => {
 
     const response = await fetch('/api/user/signup', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email, password})
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
     });
 
     const json = await response.json();
-    
+
     if (!response.ok) {
       setIsLoading(false);
       setError(json.error);
@@ -31,13 +31,15 @@ export const useSignup = () => {
       localStorage.setItem('user', JSON.stringify(json));
 
       // Update the auth context
-      dispatch({type: 'LOGIN', payload: json});
+      dispatch({ type: 'LOGIN', payload: json });
 
-      navigate('/', {replace: true});
-      
+      navigate('/', { replace: true });
+
       setIsLoading(false);
     }
-  }
+  };
 
-  return {signup, isLoading, error}
-}
+  return { signup, isLoading, error };
+};
+
+export default useSignup;

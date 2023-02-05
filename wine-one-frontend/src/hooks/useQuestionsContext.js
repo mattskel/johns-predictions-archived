@@ -1,5 +1,5 @@
-import { QuestionsContext } from '../context/QuestionsContext';
 import { useContext } from 'react';
+import { QuestionsContext } from '../context/QuestionsContext';
 
 export const useQuestionsContext = () => {
   // This hook returns the value of the context
@@ -12,4 +12,4 @@ export const useQuestionsContext = () => {
   }
 
   return context;
-}
+};

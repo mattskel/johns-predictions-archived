@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QuestionsContextProvider } from './context/QuestionsContext';
 
 // Pages & components
@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Questions from './pages/Questions'
+import Questions from './pages/Questions';
 import RequireAuth from './components/RequireAuth';
 import Unauthorized from './pages/Unauthorized';
 import PredictionsForm from './components/PredictionsForm';
@@ -30,7 +30,7 @@ function App() {
             </Route>
 
             {/* Only Admin */}
-            <Route element={<RequireAuth isAdmin={true}/>}>
+            <Route element={<RequireAuth isAdmin />}>
               <Route path="/questions" element={<QuestionsContextProvider><Questions /></QuestionsContextProvider>} />
             </Route>
           </Routes>
