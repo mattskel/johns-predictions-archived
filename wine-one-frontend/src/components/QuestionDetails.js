@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import useQuestionsContext from '../hooks/useQuestionsContext';
 
@@ -26,5 +26,9 @@ function QuestionDetails({ question }) {
     </div>
   );
 }
+
+QuestionDetails.propTypes = {
+  question: PropTypes.shape.isRequired,
+};
 
 export default QuestionDetails;

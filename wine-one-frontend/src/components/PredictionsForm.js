@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useAuthContext from '../hooks/useAuthContext';
@@ -19,6 +19,13 @@ function PredictionInput({
     </div>
   );
 }
+
+PredictionInput.propTypes = {
+  question: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
+};
 
 export default function PredictionsForm() {
   // There is no need to use context for the questions

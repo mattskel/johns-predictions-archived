@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import useAuthContext from '../hooks/useAuthContext';
 
@@ -15,5 +15,13 @@ function RequireAuth({ isAdmin }) {
         : <Outlet />
   );
 }
+
+RequireAuth.propTypes = {
+  isAdmin: PropTypes.bool,
+};
+
+RequireAuth.defaultProps = {
+  isAdmin: false,
+};
 
 export default RequireAuth;
