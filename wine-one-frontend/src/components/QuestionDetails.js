@@ -3,13 +3,18 @@
 import PropTypes from 'prop-types';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import useQuestionsContext from '../hooks/useQuestionsContext';
+import useAuthContext from '../hooks/useAuthContext';
 
 function QuestionDetails({ question }) {
   const { dispatch } = useQuestionsContext();
+  const { user } = useAuthContext();
 
   const handleClick = async () => {
     const response = await fetch(`api/questions/${question._id}`, {
       method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     });
 
     const json = await response.json();
@@ -28,7 +33,11 @@ function QuestionDetails({ question }) {
 }
 
 QuestionDetails.propTypes = {
-  question: PropTypes.shape.isRequired,
+  question: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default QuestionDetails;
