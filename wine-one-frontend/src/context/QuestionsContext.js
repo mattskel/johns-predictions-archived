@@ -24,7 +24,7 @@ export const questionsReducer = (state, action) => {
 // eslint-disable-next-line react/prop-types
 export function QuestionsContextProvider({ children }) {
   const [state, dispatch] = useReducer(questionsReducer, {
-    questions: null,
+    questions: [],
   });
 
   return (
