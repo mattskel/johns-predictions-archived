@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import useLogout from '../hooks/useLogout';
 import useAuthContext from '../hooks/useAuthContext';
+import Button from './button';
 
 function Navbar() {
   const { logout } = useLogout();
@@ -20,7 +21,8 @@ function Navbar() {
           {user && (
             <div>
               <span>{user.email}</span>
-              <button type="button" onClick={handleClick}>Log out</button>
+              {/* <button type="button" onClick={handleClick}>Log out</button> */}
+              <Button type="button" handleClick={handleClick}><span>Log out</span></Button>
             </div>
           )}
           {!user && (

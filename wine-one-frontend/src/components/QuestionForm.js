@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import useQuestionsContext from '../hooks/useQuestionsContext';
 import useAuthContext from '../hooks/useAuthContext';
+import Button from './button';
 
 function QuestionForm() {
   const { dispatch } = useQuestionsContext();
@@ -49,7 +50,9 @@ function QuestionForm() {
         />
       </label>
 
-      <button type="submit">Add question</button>
+      <Button type="submit">
+        <span>Add question</span>
+      </Button>
       {error && <div className="error">{error}</div>}
     </form>
   );

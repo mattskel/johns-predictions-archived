@@ -1,14 +1,17 @@
 import PropTypes from 'prop-types';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import Button from './button';
 
 function Item({
-  text, createdAt, handleClick, id,
+  text, createdAt, deleteItem, id,
 }) {
   return (
     <div className="question-details">
       <h4>{text}</h4>
       <p>{formatDistanceToNow(new Date(createdAt), { addSuffix: true })}</p>
-      <span onClick={() => handleClick(id)} aria-hidden="true">delete</span>
+      <Button type="button" handleClick={() => { deleteItem(id); }}>
+        <span>delete</span>
+      </Button>
     </div>
   );
 }
@@ -16,7 +19,7 @@ function Item({
 Item.propTypes = {
   text: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
 };
 

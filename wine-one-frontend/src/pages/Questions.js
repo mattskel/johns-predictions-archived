@@ -4,7 +4,6 @@ import useAuthContext from '../hooks/useAuthContext';
 import List from '../components/List';
 
 // Components
-// import QuestionDetails from '../components/QuestionDetails';
 import QuestionForm from '../components/QuestionForm';
 
 function Questions() {
@@ -30,8 +29,7 @@ function Questions() {
     }
   }, [dispatch, user]);
 
-  const handleClick = async (questionId) => {
-    // console.log(questionId);
+  const deleteQuestion = async (questionId) => {
     const response = await fetch(`api/questions/${questionId}`, {
       method: 'DELETE',
       headers: {
@@ -48,14 +46,11 @@ function Questions() {
   return (
     <div className="questions-container">
       <div className="questions">
-        {/* {questions && questions.map((question) => (
-          <QuestionDetails key={question._id} question={question} />
-        ))} */}
         <List
           collection={questions}
           textKey="text"
           titleKey="text"
-          handleClick={handleClick}
+          deleteItem={(questionId) => deleteQuestion(questionId)}
         />
       </div>
       <QuestionForm />
