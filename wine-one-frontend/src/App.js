@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QuestionsContextProvider } from './context/QuestionsContext';
+import UsersContainer from './components/users-container';
 
 // Pages & components
 import Home from './pages/Home';
@@ -32,6 +33,7 @@ function App() {
             {/* Only Admin */}
             <Route element={<RequireAuth isAdmin />}>
               <Route path="/questions" element={<QuestionsContextProvider><Questions /></QuestionsContextProvider>} />
+              <Route path="/users" element={<UsersContainer />} />
             </Route>
           </Routes>
         </div>
