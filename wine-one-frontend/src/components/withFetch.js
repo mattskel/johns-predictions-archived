@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
-import PropTypes from 'prop-types';
 
 function withFetch(fetchArgs) {
   return (Component) => class WithFetch extends React.Component {

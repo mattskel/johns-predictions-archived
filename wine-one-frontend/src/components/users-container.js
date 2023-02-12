@@ -1,43 +1,32 @@
-import React from 'react';
+/* eslint-disable import/no-extraneous-dependencies */
+import { renameProp, compose } from 'recompose';
 import Users from './users';
+import withFetch from './withFetch';
 
-class UsersContainer extends React.Component {
-  constructor(props) {
-    super(props);
+const user = JSON.parse(localStorage.getItem('user'));
+const fetchUrl = '/api/users/';
+const fetchOptions = {
+  headers: {
+    Authorization: `Bearer ${user.token}`,
+  },
+};
 
-    this.state = {
-      users: [],
-    };
-
-    this.handleSuccess = this.handleSuccess.bind(this);
-  }
-
-  componentDidMount() {
-    // Might need to change this later
-    // Not sure if useAuthContext is correct
-    const user = JSON.parse(localStorage.getItem('user'));
-
-    // Call the users api
-    fetch('/api/users/', {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => this.handleSuccess({ users: data }));
-  }
-
-  handleSuccess({ users = [] }) {
-    this.setState({
-      users,
-    });
-  }
-
-  render() {
-    return (
-      <Users {...this.state} />
-    );
-  }
+// eslint-disable-next-line react/prop-types
+function UsersContainer({ users = [] }) {
+  return <Users users={users} />;
 }
 
-export default UsersContainer;
+const enhance = compose(
+  renameProp('data', 'users'),
+);
+
+const EnhancedUsersContainer = enhance(UsersContainer);
+const withUsers = withFetch((props) => (
+  { fetchUrl: props.fetchUrl, fetchOptions: props.fetchOptions }
+));
+
+const ContainerWithUsers = withUsers(EnhancedUsersContainer);
+// eslint-disable-next-line func-names
+export default function () {
+  return <ContainerWithUsers fetchUrl={fetchUrl} fetchOptions={fetchOptions} />;
+}
