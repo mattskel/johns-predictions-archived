@@ -5,6 +5,7 @@ import useQuestionsContext from '../hooks/useQuestionsContext';
 import useAuthContext from '../hooks/useAuthContext';
 import Button from './button';
 import FormInput from './FormInput';
+import Form from './Form';
 
 function QuestionForm() {
   const { dispatch } = useQuestionsContext();
@@ -52,7 +53,7 @@ function QuestionForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="create">
+    <Form handleSubmit={handleSubmit}>
       <h3>Add new question</h3>
 
       {inputs.map((input, index) => (
@@ -71,7 +72,7 @@ function QuestionForm() {
         <span>Add question</span>
       </Button>
       {error && <div className="error">{error}</div>}
-    </form>
+    </Form>
   );
 }
 
