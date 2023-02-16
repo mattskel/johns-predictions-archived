@@ -1,20 +1,28 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react';
 import useQuestionsContext from '../hooks/useQuestionsContext';
 import useAuthContext from '../hooks/useAuthContext';
 import Button from './button';
+import FormInput from './FormInput';
 
 function QuestionForm() {
   const { dispatch } = useQuestionsContext();
-  const [text, setText] = useState('');
   const [error, setError] = useState(null);
-  const [emptyFields, setEmptyFields] = useState([]);
   const { user } = useAuthContext();
+  const [inputs, setInputs] = useState([{
+    type: 'text',
+    label: 'Label',
+    name: 'label',
+    value: '',
+    className: '',
+  }]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const question = { text };
+    const [input] = inputs;
+    const question = { text: input.value };
     const response = await fetch('/api/questions', {
       method: 'POST',
       headers: {
@@ -27,28 +35,37 @@ function QuestionForm() {
     const json = await response.json();
     if (!response.ok) {
       setError(json.error);
-      setEmptyFields(json.emptyFields);
+      setInputs([{ ...input, className: 'error' }]);
       return;
     }
 
-    setText('');
     setError(null);
-    setEmptyFields([]);
+    setInputs([{ ...input, className: '', value: '' }]);
     dispatch({ type: 'CREATE_QUESTION', payload: json });
+  };
+
+  // This will trigger a re render
+  // But this is ok for small forms
+  const handleChange = ({ target }) => {
+    const { value, name } = target;
+    setInputs(inputs.map((input) => (name === input.name ? { ...input, value } : input)));
   };
 
   return (
     <form onSubmit={handleSubmit} className="create">
       <h3>Add new question</h3>
-      <label>
-        Text for question
-        <input
-          type="text"
-          onChange={(e) => setText(e.target.value)}
-          value={text}
-          className={emptyFields.includes('text') ? 'error' : ''}
+
+      {inputs.map((input, index) => (
+        <FormInput
+          label={input.label}
+          type={input.type}
+          key={index}
+          name={input.name}
+          onChange={handleChange}
+          value={input.value}
+          className={input.className}
         />
-      </label>
+      ))}
 
       <Button type="submit">
         <span>Add question</span>
