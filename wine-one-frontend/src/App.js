@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QuestionsContextProvider } from './context/QuestionsContext';
 import UsersContainer from './components/users-container';
@@ -33,6 +34,7 @@ function App() {
             {/* Only Admin */}
             <Route element={<RequireAuth isAdmin />}>
               <Route path="/questions" element={<QuestionsContextProvider><Questions /></QuestionsContextProvider>} />
+              <Route path="/questions" element={<Questions />} />
               <Route path="/users" element={<UsersContainer />} />
             </Route>
           </Routes>
