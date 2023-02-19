@@ -3,7 +3,7 @@ import { renameProp, compose } from 'recompose';
 import Users from './users';
 import withFetch from './withFetch';
 
-const user = JSON.parse(localStorage.getItem('user'));
+const user = JSON.parse(localStorage.getItem('user')) || {};
 const fetchUrl = '/api/users/';
 const fetchOptions = {
   headers: {

@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import React from 'react';
 import PropTypes from 'prop-types';
 /* eslint-disable react/destructuring-assignment */
@@ -28,5 +29,41 @@ Button.defaultProps = {
   type: 'button',
   handleClick: () => {},
 };
+
+// class Button extends React.Component {
+//   constructor(props) {
+//     super(props);
+
+//     this.handleEvent = this.handleEvent.bind(this);
+//   }
+
+//   handleEvent(event) {
+//     // console.log(syntheticEvent instanceof MouseEvent);
+//     // console.log(syntheticEvent.nativeEvent instanceof MouseEvent);
+//     switch (event.type) {
+//       case 'click':
+//         console.log('clicked');
+//         break;
+
+//       case 'dblclick':
+//         console.log('double clicked');
+//         break;
+
+//       default:
+//         console.log('unhandled', event.type);
+//     }
+//   }
+
+//   render() {
+//     return (
+//       <button
+//         onClick={this.handleEvent}
+//         onDoubleClick={this.handleEvent}
+//       >
+//         Click me!
+//       </button>
+//     );
+//   }
+// }
 
 export default Button;
