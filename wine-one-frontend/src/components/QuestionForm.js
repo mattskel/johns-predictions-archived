@@ -1,14 +1,14 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react';
-import useQuestionsContext from '../hooks/useQuestionsContext';
 import useAuthContext from '../hooks/useAuthContext';
 import Button from './button';
 import FormInput from './FormInput';
 import Form from './Form';
+import { useQuestionsDispatch } from '../hooks/useQuestionsContext';
 
 function QuestionForm() {
-  const { dispatch } = useQuestionsContext();
+  const dispatch = useQuestionsDispatch();
   const [error, setError] = useState(null);
   const { user } = useAuthContext();
   const [inputs, setInputs] = useState([{

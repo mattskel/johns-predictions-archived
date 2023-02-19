@@ -1,6 +1,7 @@
 import { createContext, useReducer } from 'react';
 
-export const QuestionsContext = createContext();
+export const QuestionsContext = createContext(null);
+export const QuestionsDispatchContext = createContext(null);
 
 export const questionsReducer = (state, action) => {
   switch (action.type) {
@@ -29,8 +30,10 @@ export function QuestionsContextProvider({ children }) {
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <QuestionsContext.Provider value={{ ...state, dispatch }}>
-      {children}
+    <QuestionsContext.Provider value={{ ...state }}>
+      <QuestionsDispatchContext.Provider value={dispatch}>
+        {children}
+      </QuestionsDispatchContext.Provider>
     </QuestionsContext.Provider>
   );
 }

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { QuestionsContext } from '../context/QuestionsContext';
+import { QuestionsContext, QuestionsDispatchContext } from '../context/QuestionsContext';
 
-const useQuestionsContext = () => {
+export const useQuestions = () => {
   // This hook returns the value of the context
   // Which is the value being passed into the provider component
   const context = useContext(QuestionsContext);
@@ -14,4 +14,11 @@ const useQuestionsContext = () => {
   return context;
 };
 
-export default useQuestionsContext;
+export const useQuestionsDispatch = () => {
+  const context = useContext(QuestionsDispatchContext);
+  if (!context) {
+    throw Error('useQuestionsDispatch must be used inside a QuestionsContextProvider');
+  }
+
+  return context;
+};
