@@ -23,7 +23,7 @@ const createQuestion = async (req, res) => {
 }
 
 const getQuestions = async (req, res) => {
-  const {prospectiveId} = req.query;
+  const {prospectiveId} = req.params;
 
   let query = {}
   if (prospectiveId) {

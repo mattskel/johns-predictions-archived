@@ -25,7 +25,7 @@ const createOption = async (req, res) => {
 }
 
 const getOptions = async (req, res) => {
-  const {questionId} = req.query;
+  const {questionId} = req.params;
 
   let query = {}
   if (questionId) {
