@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import Item from './Item';
 
-function List({ collection, textKey, ...props }) {
+function List({
+  collection, textKey, childRoute, ...props
+}) {
   return (
     <ul>
       {collection.map((item) => (
@@ -11,6 +13,7 @@ function List({ collection, textKey, ...props }) {
           createdAt={item.createdAt}
           deleteItem={(itemId) => props.deleteItem(itemId)}
           id={item._id}
+          route={childRoute}
         />
       ))}
     </ul>
@@ -21,6 +24,7 @@ List.propTypes = {
   collection: PropTypes.arrayOf(PropTypes.shape).isRequired,
   textKey: PropTypes.string.isRequired,
   deleteItem: PropTypes.func,
+  childRoute: PropTypes.string.isRequired,
 };
 
 List.defaultProps = {
