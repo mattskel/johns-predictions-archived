@@ -8,6 +8,7 @@ const routes = require('./routes');
 const questionRoutes = require('./routes/questions');
 const prospectiveRoutes = require('./routes/prospectives');
 const predictionRoutes = require('./routes/predictions')
+const optionRoutes = require('./routes/options');
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -22,6 +23,7 @@ app.use('/api/user', routes)
 app.use('/api/questions', questionRoutes);
 app.use('/api/prospectives', prospectiveRoutes);
 app.use('/api/predictions', predictionRoutes);
+app.use('/api/options', optionRoutes);
 
 // connect to the db
 const url = process.env.MONGO_URL;
