@@ -24,11 +24,12 @@ List.propTypes = {
   collection: PropTypes.arrayOf(PropTypes.shape).isRequired,
   textKey: PropTypes.string.isRequired,
   deleteItem: PropTypes.func,
-  childRoute: PropTypes.string.isRequired,
+  childRoute: PropTypes.string,
 };
 
 List.defaultProps = {
   deleteItem: () => {},
+  childRoute: undefined,
 };
 
 export default List;
