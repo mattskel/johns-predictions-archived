@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import { QuestionsContextProvider } from './context/QuestionsContext';
 import { CollectionContextProvider } from './context/CollectionContext';
 import UsersContainer from './components/users-container';
 
@@ -9,13 +8,9 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-// import Questions from './pages/Questions';
 import RequireAuth from './components/RequireAuth';
 import Unauthorized from './pages/Unauthorized';
 import PredictionsForm from './components/PredictionsForm';
-// import { ProspectivesList, ProspectiveForm } from './pages/Prospectives';
-// import Prospectives from './pages/Prospectives';
-// import Form from './components/Form';
 import Generic from './pages/Generic';
 
 function App() {
