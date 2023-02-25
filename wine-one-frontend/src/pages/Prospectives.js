@@ -13,9 +13,12 @@ import useAuthContext from '../hooks/useAuthContext';
 import { useCollectionContext, useCollectionDispatch } from '../hooks/useCollectionContext';
 
 export function ProspectivesList() {
+  const useProspectivesContext = useCollectionContext;
+  const useProspectivesDispatch = useCollectionDispatch;
+
   const { user } = useAuthContext();
-  const { collection } = useCollectionContext();
-  const dispatch = useCollectionDispatch();
+  const { collection } = useProspectivesContext();
+  const dispatch = useProspectivesDispatch();
   const headers = { Authorization: `Bearer ${user.token}` };
   const textKey = 'title';
 
