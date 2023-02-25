@@ -1,14 +1,18 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useAuthContext from '../hooks/useAuthContext';
-import Button from './button';
+// import Button from './button';
 import FormInput from './FormInput';
 import Form from './Form';
 import { useQuestionsDispatch } from '../hooks/useQuestionsContext';
 
-function QuestionForm() {
+function QuestionForm(props) {
   const dispatch = useQuestionsDispatch();
+  const navigate = useNavigate();
+  // eslint-disable-next-line react/prop-types
+  const { prospectiveId } = props;
   const [error, setError] = useState(null);
   const { user } = useAuthContext();
   const [inputs, setInputs] = useState([{
@@ -23,7 +27,7 @@ function QuestionForm() {
     e.preventDefault();
 
     const [input] = inputs;
-    const question = { text: input.value };
+    const question = { text: input.value, prospectiveId };
     const response = await fetch('/api/questions', {
       method: 'POST',
       headers: {
@@ -43,6 +47,7 @@ function QuestionForm() {
     setError(null);
     setInputs([{ ...input, className: '', value: '' }]);
     dispatch({ type: 'CREATE_QUESTION', payload: json });
+    navigate(-1);
   };
 
   // This will trigger a re render
@@ -53,7 +58,7 @@ function QuestionForm() {
   };
 
   return (
-    <Form handleSubmit={handleSubmit}>
+    <Form handleSubmit={handleSubmit} error={error}>
       <h3>Add new question</h3>
 
       {inputs.map((input, index) => (
@@ -68,10 +73,10 @@ function QuestionForm() {
         />
       ))}
 
-      <Button type="submit">
+      {/* <Button type="submit">
         <span>Add question</span>
       </Button>
-      {error && <div className="error">{error}</div>}
+      {error && <div className="error">{error}</div>} */}
     </Form>
   );
 }
