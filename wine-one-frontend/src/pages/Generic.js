@@ -11,8 +11,9 @@ import Button from '../components/button';
 import useAuthContext from '../hooks/useAuthContext';
 import { useCollectionContext, useCollectionDispatch } from '../hooks/useCollectionContext';
 
-// eslint-disable-next-line react/prop-types
-export function GenericList({ parentId, textKey }) {
+export function GenericList({
+  parentId, textKey, collectionName, childRoute,
+}) {
   const useInstanceContext = useCollectionContext;
   const useInstanceDispatch = useCollectionDispatch;
 
@@ -23,7 +24,7 @@ export function GenericList({ parentId, textKey }) {
 
   useEffect(() => {
     const fetchDocs = async () => {
-      const url = parentId ? `/api/options/${parentId}` : '/api/options';
+      const url = parentId ? `/api/${collectionName}/${parentId}` : `/api/${collectionName}`;
       const response = await fetch(url, { headers });
       const json = await response.json();
 
@@ -38,7 +39,7 @@ export function GenericList({ parentId, textKey }) {
   }, []);
 
   const deleteItem = async (id) => {
-    const response = await fetch(`/api/options/${id}`, {
+    const response = await fetch(`/api/${collectionName}/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -53,31 +54,42 @@ export function GenericList({ parentId, textKey }) {
 
   return (
     <div>
-      <h2>Options</h2>
+      <h2>{collectionName}</h2>
       <Link to="new">
-        <Button><span>New Option</span></Button>
+        <Button><span>Create new</span></Button>
       </Link>
-      <List collection={collection} textKey={textKey} childRoute="options" deleteItem={(id) => deleteItem(id)} />
+      <List
+        collection={collection}
+        textKey={textKey}
+        childRoute={childRoute}
+        deleteItem={(id) => deleteItem(id)}
+      />
     </div>
   );
 }
 
 GenericList.propTypes = {
   parentId: PropTypes.string,
+  textKey: PropTypes.string.isRequired,
+  collectionName: PropTypes.string.isRequired,
+  childRoute: PropTypes.string,
 };
 
 GenericList.defaultProps = {
   parentId: undefined,
+  childRoute: undefined,
 };
 
-// eslint-disable-next-line react/prop-types
-export function GenericForm({ parentId }) {
+export function GenericForm({
+  // eslint-disable-next-line react/prop-types
+  parentId, collectionName, parent, formFields,
+}) {
   const [text, setText] = useState('');
   const [error, setError] = useState(null);
   const [className, setClassName] = useState('');
   const { user } = useAuthContext();
   const navigate = useNavigate();
-  const parent = 'question';
+  const [formField] = formFields;
 
   const props = {
     type: 'text',
@@ -93,13 +105,18 @@ export function GenericForm({ parentId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch('/api/options', {
+    const body = {
+      [formField]: text,
+      ...((parent) ? { [`${parent}Id`]: parentId } : {}),
+    };
+
+    const response = await fetch(`/api/${collectionName}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify({ text, [`${parent}Id`]: parentId }),
+      body: JSON.stringify(body),
     });
 
     const json = await response.json();
@@ -122,7 +139,9 @@ export function GenericForm({ parentId }) {
   );
 }
 
-export default function Generic({ parent, textKey }) {
+export default function Generic({
+  parent, textKey, collectionName, childRoute, formFields,
+}) {
   const params = useParams();
   let parentId;
   if (parent) {
@@ -132,8 +151,28 @@ export default function Generic({ parent, textKey }) {
   return (
     <div className="container">
       <Routes>
-        <Route index element={<GenericList parentId={parentId} textKey={textKey} />} />
-        <Route path="new" element={<GenericForm parentId={parentId} />} />
+        <Route
+          index
+          element={(
+            <GenericList
+              parentId={parentId}
+              textKey={textKey}
+              collectionName={collectionName}
+              childRoute={childRoute}
+            />
+          )}
+        />
+        <Route
+          path="new"
+          element={(
+            <GenericForm
+              parentId={parentId}
+              parent={parent}
+              collectionName={collectionName}
+              formFields={formFields}
+            />
+          )}
+        />
       </Routes>
       <Outlet />
     </div>
@@ -143,8 +182,12 @@ export default function Generic({ parent, textKey }) {
 Generic.propTypes = {
   parent: PropTypes.string,
   textKey: PropTypes.string.isRequired,
+  collectionName: PropTypes.string.isRequired,
+  childRoute: PropTypes.string,
+  formFields: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 Generic.defaultProps = {
   parent: undefined,
+  childRoute: undefined,
 };
