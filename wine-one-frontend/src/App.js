@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { QuestionsContextProvider } from './context/QuestionsContext';
+// import { QuestionsContextProvider } from './context/QuestionsContext';
+import { CollectionContextProvider } from './context/CollectionContext';
 import UsersContainer from './components/users-container';
 
 // Pages & components
@@ -8,10 +9,14 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Questions from './pages/Questions';
+// import Questions from './pages/Questions';
 import RequireAuth from './components/RequireAuth';
 import Unauthorized from './pages/Unauthorized';
 import PredictionsForm from './components/PredictionsForm';
+// import { ProspectivesList, ProspectiveForm } from './pages/Prospectives';
+// import Prospectives from './pages/Prospectives';
+// import Form from './components/Form';
+import Generic from './pages/Generic';
 
 function App() {
   return (
@@ -32,10 +37,50 @@ function App() {
             </Route>
 
             {/* Only Admin */}
-            <Route element={<RequireAuth isAdmin />}>
-              <Route path="/questions" element={<QuestionsContextProvider><Questions /></QuestionsContextProvider>} />
-              <Route path="/questions" element={<Questions />} />
-              <Route path="/users" element={<UsersContainer />} />
+            <Route path="/" element={<RequireAuth isAdmin />}>
+              <Route path="users" element={<UsersContainer />} />
+              <Route
+                path="prospectives/*"
+                element={(
+                  <CollectionContextProvider>
+                    <Generic
+                      textKey="title"
+                      collectionName="prospectives"
+                      childRoute="questions"
+                      formFields={['title']}
+                    />
+                  </CollectionContextProvider>
+                )}
+              >
+                <Route
+                  path="questions/:prospectiveId/*"
+                  element={(
+                    <CollectionContextProvider>
+                      <Generic
+                        parent="prospective"
+                        textKey="text"
+                        collectionName="questions"
+                        childRoute="options"
+                        formFields={['text']}
+                      />
+                    </CollectionContextProvider>
+                  )}
+                >
+                  <Route
+                    path="options/:questionId/*"
+                    element={(
+                      <CollectionContextProvider>
+                        <Generic
+                          parent="question"
+                          textKey="text"
+                          collectionName="options"
+                          formFields={['text']}
+                        />
+                      </CollectionContextProvider>
+                    )}
+                  />
+                </Route>
+              </Route>
             </Route>
           </Routes>
         </div>
