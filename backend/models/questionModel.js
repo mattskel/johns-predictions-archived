@@ -8,10 +8,6 @@ const questionSchema = new mongoose.Schema({
   prospectiveId: {
     type: String
   },
-  options: {
-    type: [String],
-    default: undefined
-  }
 }, {timestamps: true})
 
 const Question = mongoose.model('Question', questionSchema);
