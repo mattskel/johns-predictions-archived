@@ -9,6 +9,8 @@ function Home() {
       Welcome! Preamble...
       <div className="predictions">
         <Link to={`/prospectives/${prospectiveId}/form`}>Submit your predictions</Link>
+        <br />
+        <Link to="prospectives">Prospectives</Link>
       </div>
     </div>
   );
