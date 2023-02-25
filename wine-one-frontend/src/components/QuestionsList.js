@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useQuestions, useQuestionsDispatch } from '../hooks/useQuestionsContext';
 import useAuthContext from '../hooks/useAuthContext';
 import List from './List';
+import Button from './button';
 
 function QuestionsList() {
   const { user } = useAuthContext();
@@ -29,7 +31,7 @@ function QuestionsList() {
   }, [dispatch, user]);
 
   const deleteQuestion = async (questionId) => {
-    const response = await fetch(`api/questions/${questionId}`, {
+    const response = await fetch(`/api/questions/${questionId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -44,11 +46,15 @@ function QuestionsList() {
 
   return (
     <div className="questions">
+      <Link to="new" relative="path">
+        <Button><span>Add questions</span></Button>
+      </Link>
       <List
         collection={questions}
         textKey="text"
         titleKey="text"
         deleteItem={(questionId) => deleteQuestion(questionId)}
+        childRoute="options"
       />
     </div>
   );
