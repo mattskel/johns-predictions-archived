@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 function FormInput({
   label, type, onChange, value, name, className,
 }) {
-  console.log('rendering', name);
   return (
     <label>
       {label}
