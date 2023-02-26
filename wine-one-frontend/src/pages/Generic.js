@@ -3,6 +3,7 @@ import {
 } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'recompose';
 
 import List from '../components/List';
 import Form from '../components/Form';
@@ -11,47 +12,95 @@ import Button from '../components/button';
 import useAuthContext from '../hooks/useAuthContext';
 import { useCollectionContext, useCollectionDispatch } from '../hooks/useCollectionContext';
 
-export function GenericList({
-  parentId, textKey, collectionName, childRoute,
-}) {
-  const useInstanceContext = useCollectionContext;
-  const useInstanceDispatch = useCollectionDispatch;
+function WithContext(Component) {
+  // console.log('WithContext');
+  return (props) => {
+    // const { collectionName } = useParams();
+    const useInstanceContext = useCollectionContext;
+    const useInstanceDispatch = useCollectionDispatch;
 
-  const { user } = useAuthContext();
-  const { collection } = useInstanceContext();
-  const dispatch = useInstanceDispatch();
-  const headers = { Authorization: `Bearer ${user.token}` };
+    return (
+      <Component
+        {...props}
+        // collectionName={collectionName}
+        useInstanceContext={useInstanceContext}
+        useInstanceDispatch={useInstanceDispatch}
+      />
+    );
+  };
+}
 
-  useEffect(() => {
-    const fetchDocs = async () => {
-      const url = parentId ? `/api/${collectionName}/${parentId}` : `/api/${collectionName}`;
-      const response = await fetch(url, { headers });
+function WithCollection(Component) {
+  // console.log('WithCollection');
+  return (props) => {
+    const {
+      // eslint-disable-next-line react/prop-types
+      useInstanceContext, useInstanceDispatch, collectionName, parentId,
+    } = props;
+    const { user } = useAuthContext();
+    const { collection } = useInstanceContext();
+    const dispatch = useInstanceDispatch();
+    const headers = { Authorization: `Bearer ${user.token}` };
+
+    useEffect(() => {
+      const fetchDocs = async () => {
+        const url = parentId ? `/api/${collectionName}/${parentId}` : `/api/${collectionName}`;
+        const response = await fetch(url, { headers });
+        const json = await response.json();
+
+        if (response.ok) {
+          dispatch({ type: 'SET', payload: json });
+        }
+      };
+
+      if (user) {
+        fetchDocs();
+      }
+    }, []);
+
+    return (
+      <Component
+        {...props}
+        collection={collection}
+      />
+    );
+  };
+}
+
+function WithDeleteItem(Component) {
+  // console.log('WithDeleteItem');
+  return (props) => {
+    const { user } = useAuthContext();
+    // eslint-disable-next-line react/prop-types
+    const { collectionName, useInstanceDispatch } = props;
+    const dispatch = useInstanceDispatch();
+
+    const deleteItem = async (id) => {
+      const response = await fetch(`/api/${collectionName}/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+
       const json = await response.json();
-
       if (response.ok) {
-        dispatch({ type: 'SET', payload: json });
+        dispatch({ type: 'DELETE', payload: json });
       }
     };
 
-    if (user) {
-      fetchDocs();
-    }
-  }, []);
-
-  const deleteItem = async (id) => {
-    const response = await fetch(`/api/${collectionName}/${id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-
-    const json = await response.json();
-    if (response.ok) {
-      dispatch({ type: 'DELETE', payload: json });
-    }
+    return (
+      <Component
+        {...props}
+        deleteItem={(id) => deleteItem(id)}
+      />
+    );
   };
+}
 
+export function GenericList({
+  textKey, collectionName, childRoute, ...props
+}) {
   return (
     <div>
       <h2>{collectionName}</h2>
@@ -59,10 +108,9 @@ export function GenericList({
         <Button><span>Create new</span></Button>
       </Link>
       <List
-        collection={collection}
+        {...props}
         textKey={textKey}
         childRoute={childRoute}
-        deleteItem={(id) => deleteItem(id)}
       />
     </div>
   );
@@ -148,13 +196,20 @@ export default function Generic({
     parentId = params[`${parent}Id`];
   }
 
+  // const EnhancedList = WithContext(WithCollection(WithDeleteItem(GenericList)));
+  const EnhancedList = compose(
+    WithContext,
+    WithCollection,
+    WithDeleteItem,
+  )(GenericList);
+
   return (
     <div className="container">
       <Routes>
         <Route
           index
           element={(
-            <GenericList
+            <EnhancedList
               parentId={parentId}
               textKey={textKey}
               collectionName={collectionName}

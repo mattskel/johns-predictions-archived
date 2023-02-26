@@ -18,7 +18,8 @@
       "custom": "ignore"
     }],
     "react/jsx-one-expression-per-line": [1, { "allow": "single-child" }],
-    "react/static-property-placement": [2, "static public field"]
+    "react/static-property-placement": [2, "static public field"],
+    "react/function-component-definition": [2, { "unnamedComponents": "arrow-function" }]
   },
   "parser": "@babel/eslint-parser"
   // "parserOptions": {
