@@ -16,7 +16,7 @@ router.use(requireAuth);
 
 router.post('/', createQuestion);
 
-router.get('/:prospectiveId', getQuestions);
+router.get('/', getQuestions);
 
 router.delete('/:id', deleteQuestion);
 
