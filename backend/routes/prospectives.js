@@ -4,7 +4,8 @@ const {
   getPropsectives,
   submitProspective,
   getPropsective,
-  deleteProspective
+  deleteProspective,
+  getProspectiveQuestionsAndPredictions
 } = require('../controllers/prospectiveController')
 const requireAuth = require('../middleware/requireAuth');
 
@@ -17,5 +18,6 @@ router.get('/', getPropsectives);
 router.get('/:id', getPropsective);
 router.delete('/:id', deleteProspective);
 router.post('/:id/submit', submitProspective);
+router.get('/:id/questions-and-predictions', getProspectiveQuestionsAndPredictions);
 
 module.exports = router;
