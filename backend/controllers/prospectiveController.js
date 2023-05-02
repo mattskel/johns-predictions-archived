@@ -100,10 +100,49 @@ const deleteProspective = async (req, res) => {
   res.status(200).json(prospective);
 }
 
+const getProspectiveQuestionsAndPredictions = async (req, res) => {
+  const {id: prospectiveId} = req.params;
+  const {_id: userId} = req.user;
+  const questions = await Question.find({
+    prospectiveId
+  }, {
+    _id: 1,
+    prospectiveId: 1,
+    answer: 1, 
+    text: 1
+  });
+
+  const questionIds = questions.map(({_id}) => _id);
+  const predictions = await Prediction.find({
+    userId, 
+    questionId: {$in: questionIds}
+  }, {
+    _id: 1,
+    prediction: 1,
+    questionId: 1,
+    userId: 1
+  });
+
+  const questionsAndPredictions = questions.map((question) => {
+    const {answer, _id: questionId, text} = question;
+    const {prediction} = predictions
+      .find(({questionId: predictionQuestionId}) => predictionQuestionId.toString() === questionId.toString()) || {};
+    return {
+      answer,
+      questionId,
+      text,
+      prediction
+    }
+  });
+
+  res.status(200).json(questionsAndPredictions);
+}
+
 module.exports = {
   createProspective,
   getPropsectives,
   submitProspective,
   getPropsective,
-  deleteProspective
+  deleteProspective,
+  getProspectiveQuestionsAndPredictions,
 }
