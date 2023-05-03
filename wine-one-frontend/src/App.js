@@ -12,6 +12,9 @@ import RequireAuth from './components/RequireAuth';
 import Unauthorized from './pages/Unauthorized';
 import PredictionsForm from './components/PredictionsForm';
 import Generic from './pages/Generic';
+import Prospectives from './pages/Prospectives';
+import QuestionsAndPredictions from './pages/QuestionsAndPredictions';
+import ProspectiveMenu from './pages/ProspectiveMenu';
 
 function App() {
   return (
@@ -28,37 +31,33 @@ function App() {
             <Route element={<RequireAuth />}>
               <Route path="/" element={<Home />} />
               <Route path="/unauthorized" element={<Unauthorized />} />
+              <Route path="/prospectives/:prospectiveId" element={<ProspectiveMenu />} />
               <Route path="/prospectives/:prospectiveId/form" element={<PredictionsForm />} />
+              <Route path="/prospectives/:prospectiveId/questions-and-predictions" element={<QuestionsAndPredictions />} />
             </Route>
 
             {/* Only Admin */}
             <Route path="/" element={<RequireAuth isAdmin />}>
               <Route path="users" element={<UsersContainer />} />
               <Route
-                path="prospectives/*"
+                path="prospectives/"
                 element={(
-                  <CollectionContextProvider>
-                    <Generic
-                      textKey="title"
-                      collectionName="prospectives"
-                      childRoute="questions"
-                      formFields={['title']}
-                    />
-                  </CollectionContextProvider>
+                  <Prospectives />
                 )}
               >
                 <Route
-                  path="questions/:prospectiveId/*"
+                  path=":prospectiveId/questions-and-predictions"
                   element={(
-                    <CollectionContextProvider>
-                      <Generic
-                        parent="prospective"
-                        textKey="text"
-                        collectionName="questions"
-                        childRoute="options"
-                        formFields={['text']}
-                      />
-                    </CollectionContextProvider>
+                    // <CollectionContextProvider>
+                    //   <Generic
+                    //     parent="prospective"
+                    //     textKey="text"
+                    //     collectionName="questions"
+                    //     childRoute="options"
+                    //     formFields={['text']}
+                    //   />
+                    // </CollectionContextProvider>
+                    <QuestionsAndPredictions />
                   )}
                 >
                   <Route
