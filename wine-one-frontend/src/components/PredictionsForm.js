@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import useAuthContext from '../hooks/useAuthContext';
+import { Link, useParams } from 'react-router-dom';
+// import useAuthContext from '../hooks/useAuthContext';
 
 function PredictionInput({
   question, onChange, value, className,
@@ -21,28 +21,40 @@ function PredictionInput({
 }
 
 PredictionInput.propTypes = {
-  question: PropTypes.string.isRequired,
+  question: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
+    options: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   className: PropTypes.string.isRequired,
 };
 
+PredictionInput.defaultProps = {
+  value: undefined,
+};
+
 export default function PredictionsForm() {
+  // console.log('PredictionsForm');
   // There is no need to use context for the questions
   // The questions don't change so the page doesn't need to reload
   const [questions, setQuestions] = useState([]);
-  const prospectiveId = '638b2bb468447d08f7496271';
+  // const prospectiveId = '638b2bb468447d08f7496271';
+  const { prospectiveId } = useParams();
   // Can prepopulate the predictions
   // Look up the user and prospective and return all predictions (if they exist)
   const [predictions, setPredictions] = useState({});
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
-  const { user } = useAuthContext();
+  // const { user } = useAuthContext();
+  // const user = JSON.parse(localStorage.getItem('user')) || {};
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const user = JSON.parse(localStorage.getItem('user')) || {};
     const response = await fetch(`/api/prospectives/${prospectiveId}/submit`, {
       method: 'POST',
       headers: {
@@ -76,6 +88,8 @@ export default function PredictionsForm() {
   };
 
   useEffect(() => {
+    // console.log('useEffect');
+    const user = JSON.parse(localStorage.getItem('user')) || {};
     const fetchData = async () => {
       const headers = {
         Authorization: `Bearer ${user.token}`,
@@ -85,6 +99,8 @@ export default function PredictionsForm() {
       if (!questionsResponse.ok) {
         return;
       }
+
+      // console.log(questionsJson);
 
       setQuestions(questionsJson);
 
@@ -105,7 +121,7 @@ export default function PredictionsForm() {
     if (user) {
       fetchData();
     }
-  }, [user]);
+  }, []);
 
   if (submitted) {
     return (

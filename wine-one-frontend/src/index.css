@@ -174,3 +174,11 @@ form.signup, form.login {
   color: #333;
   border: 0;
 }
+
+table.fill-available {
+  width: -webkit-fill-available;
+}
+
+tbody.alternating-background-color tr:nth-child(odd) {
+  background-color: white;
+}
