@@ -1,16 +1,17 @@
-import { useAuthContext } from './useAuthContext';
+import useAuthContext from './useAuthContext';
 
-export const useLogout = () => {
-  const { dispatch } = useAuthContext()
+const useLogout = () => {
+  const { dispatch } = useAuthContext();
 
   const logout = async () => {
-
     // remove user from storat
     localStorage.removeItem('user');
 
     // dispatch logout action
-    dispatch({type: 'LOGIN'})
-  }
+    dispatch({ type: 'LOGIN' });
+  };
 
-  return {logout}
-}
+  return { logout };
+};
+
+export default useLogout;

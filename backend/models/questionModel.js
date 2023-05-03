@@ -8,9 +8,11 @@ const questionSchema = new mongoose.Schema({
   prospectiveId: {
     type: String
   },
+  answer: {
+    type: String
+  },
   options: {
-    type: [String],
-    default: undefined
+    type: [String]
   }
 }, {timestamps: true})
 

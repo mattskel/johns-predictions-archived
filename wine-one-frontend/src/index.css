@@ -60,8 +60,7 @@ header a {
   font-size: 0.9em;
 }
 
-/* For later - delete button */
-.user-details, .question-details span {
+.user-details {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -153,4 +152,33 @@ form.signup, form.login {
 
 .prediction-container select {
   font-size: 25px;
+}
+
+.item-details {
+  background: #fff;
+  border-radius: 4px;
+  margin: 20px auto;
+  padding: 20px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0,05);
+}
+
+.question-details button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: #f1f1f1;
+  padding: 6px;
+  border-radius: 4px;
+  color: #333;
+  border: 0;
+}
+
+table.fill-available {
+  width: -webkit-fill-available;
+}
+
+tbody.alternating-background-color tr:nth-child(odd) {
+  background-color: white;
 }

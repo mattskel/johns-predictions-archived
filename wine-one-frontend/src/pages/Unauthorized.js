@@ -1,8 +1,7 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Unauthorized = () => {
-
+function Unauthorized() {
   useEffect(() => {
   }, []);
 
@@ -11,7 +10,7 @@ const Unauthorized = () => {
       <h3>Error 401 - Unauthorized</h3>
       <Link to="/">Return home</Link>
     </div>
-  )
+  );
 }
 
 export default Unauthorized;

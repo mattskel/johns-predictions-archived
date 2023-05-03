@@ -1,18 +1,19 @@
 // Components
 import { Link } from 'react-router-dom';
 
-const Home = () => {
-
+function Home() {
   const prospectiveId = '638b2bb468447d08f7496271';
 
   return (
     <div className="home">
       Welcome! Preamble...
       <div className="predictions">
-      <Link to={`/prospectives/${prospectiveId}/form`}>Submit your predictions</Link>
+        <Link to={`/prospectives/${prospectiveId}/form`}>Submit your predictions</Link>
+        <br />
+        <Link to="prospectives">Prospectives</Link>
       </div>
     </div>
-  )
+  );
 }
 
 export default Home;

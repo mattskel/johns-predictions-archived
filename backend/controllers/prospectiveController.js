@@ -1,6 +1,7 @@
 const Prospective = require('../models/prospectiveModel.js');
 const Question = require('../models/questionModel.js');
 const Prediction = require('../models/predictionModel');
+const mongoose = require('mongoose');
 
 const createProspective = async (req, res) => {
   const {title} = req.body;
@@ -73,8 +74,75 @@ const submitProspective = async (req, res) => {
   }
 }
 
+const getPropsective = async (req, res) => {
+  const {id: prospectiveId} = req.params;
+  if (!prospectiveId) {
+    return res.status(400).json({error: 'prospectiveId is null or undefined.'});
+  }
+
+  let query = {_id: prospectiveId}
+  const prospective = await Prospective.findOne(query);
+
+  res.status(200).json(prospective);
+}
+
+const deleteProspective = async (req, res) => {
+  const {id} = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: 'Id is not valid'});
+  }
+
+  const prospective = await Prospective.findOneAndDelete({_id: id});
+  if (!prospective) {
+    return res.status(400).json({error: 'Prospective not found'});
+  }
+
+  res.status(200).json(prospective);
+}
+
+const getProspectiveQuestionsAndPredictions = async (req, res) => {
+  const {id: prospectiveId} = req.params;
+  const {_id: userId} = req.user;
+  const questions = await Question.find({
+    prospectiveId
+  }, {
+    _id: 1,
+    prospectiveId: 1,
+    answer: 1, 
+    text: 1
+  });
+
+  const questionIds = questions.map(({_id}) => _id);
+  const predictions = await Prediction.find({
+    userId, 
+    questionId: {$in: questionIds}
+  }, {
+    _id: 1,
+    prediction: 1,
+    questionId: 1,
+    userId: 1
+  });
+
+  const questionsAndPredictions = questions.map((question) => {
+    const {answer, _id: questionId, text} = question;
+    const {prediction} = predictions
+      .find(({questionId: predictionQuestionId}) => predictionQuestionId.toString() === questionId.toString()) || {};
+    return {
+      answer,
+      questionId,
+      text,
+      prediction
+    }
+  });
+
+  res.status(200).json(questionsAndPredictions);
+}
+
 module.exports = {
   createProspective,
   getPropsectives,
-  submitProspective
+  submitProspective,
+  getPropsective,
+  deleteProspective,
+  getProspectiveQuestionsAndPredictions,
 }

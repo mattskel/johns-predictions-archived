@@ -1,7 +1,7 @@
-import { UsersContext } from '../context/UserContext';
 import { useContext } from 'react';
+import { UsersContext } from '../context/UserContext';
 
-export const useUsersContext = () => {
+const useUsersContext = () => {
   const context = useContext(UsersContext);
 
   if (!context) {
@@ -9,4 +9,6 @@ export const useUsersContext = () => {
   }
 
   return context;
-}
+};
+
+export default useUsersContext;
