@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 class Prospectives extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Prospectives extends React.Component {
     return (
       <div>
         <h1>Prospectives</h1>
+        <Breadcrumbs />
         <ul>
           {prospectives.map((prospective) => (
             <li key={prospective._id}>
