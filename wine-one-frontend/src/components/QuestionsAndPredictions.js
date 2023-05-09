@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Breadcrumbs from '../components/Breadcrumbs';
+import Breadcrumbs from './Breadcrumbs';
 
 function QuestionsAndPredictions() {
   const [questionsAndPredictions, setQuestionsAndPredictions] = useState([]);
