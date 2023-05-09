@@ -6,9 +6,7 @@ import {
   createRoutesFromElements,
   RouterProvider,
   Link,
-  useParams,
 } from 'react-router-dom';
-// import { CollectionContextProvider } from './context/CollectionContext';
 import UsersContainer from './components/users-container';
 
 // Pages & components
@@ -35,6 +33,15 @@ function Root() {
   );
 }
 
+function Prospective() {
+  return (
+    <div className="prospective">
+      <Outlet />
+    </div>
+
+  );
+}
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
@@ -43,32 +50,38 @@ const router = createBrowserRouter(
       <Route path="/signup" element={<Signup />} />
       {/* Protect these routes */}
       <Route element={<RequireAuth />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route
           path="/prospectives"
           element={<Prospectives />}
-          handle={{ crumb: () => <Link to="/">Prospectives</Link> }}
+          handle={{ crumb: () => <Link to="/home">Home</Link> }}
         />
         <Route
           path="/prospectives/:prospectiveId"
-          element={<ProspectiveMenu />}
-          handle={{ crumb: (data) => {
-            return <Link to={"/prospectives/"}>Test</Link>
-          } }}
-        />
-        <Route
-          path="/prospectives/:prospectiveId/form"
-          element={<PredictionsForm />}
-          handle={{ crumb: () => {
-            const { prospectiveId } = useParams();
-            return <Link to={'/prospectives/' + prospectiveId}>Form</Link>
-          } }}
-        />
-        <Route path="/prospectives/:prospectiveId/questions-and-predictions" element={<QuestionsAndPredictions />} />
+          element={<Prospective />}
+          handle={{ crumb: () => <Link to="/prospectives">Prospectives</Link> }}
+        >
+          <Route index element={<ProspectiveMenu />} />
+          <Route
+            path="form"
+            element={<PredictionsForm />}
+          />
+          <Route
+            path="questions-and-predictions"
+            element={<QuestionsAndPredictions />}
+            loader={({params}) => params}
+            handle={{ crumb: (data) => {
+              const { prospectiveId } = data;
+              return (
+                <Link to={`/prospectives/${prospectiveId}`}>Prospective</Link>
+              );
+            } }}
+          />
+        </Route>
       </Route>
       {/* Only Admin */}
-      <Route path="/" element={<RequireAuth isAdmin />}>
+      <Route element={<RequireAuth isAdmin />}>
         <Route path="users" element={<UsersContainer />} />
       </Route>
     </Route>,

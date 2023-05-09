@@ -8,9 +8,9 @@ function Home() {
     <div className="home">
       Welcome! Preamble...
       <div className="predictions">
-        <Link to={`/prospectives/${prospectiveId}/form`}>Submit your predictions</Link>
+        <Link to={`../prospectives/${prospectiveId}/form`}>Submit your predictions</Link>
         <br />
-        <Link to="prospectives">Prospectives</Link>
+        <Link to="../prospectives">Prospectives</Link>
       </div>
     </div>
   );
