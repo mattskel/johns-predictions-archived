@@ -14,8 +14,8 @@ function QuestionsAndPredictions() {
   }, []);
   return (
     <div>
-      <h1>Questions & Predictions (& Answers)</h1>
-      <Breadcrumbs />
+      {/* <h1>Questions & Predictions (& Answers)</h1> */}
+      <Breadcrumbs currentPage="Questions & predictions" />
       <table className="fill-available">
         <tbody className="alternating-background-color">
           {questionsAndPredictions.map((questionAndPrediction) => {

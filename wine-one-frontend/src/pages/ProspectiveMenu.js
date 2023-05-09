@@ -4,8 +4,8 @@ import Breadcrumbs from '../components/Breadcrumbs';
 function ProspectiveMenu() {
   return (
     <div>
-      <h2>Prospective menu</h2>
-      <Breadcrumbs />
+      {/* <h2>Prospective menu</h2> */}
+      <Breadcrumbs currentPage="Prospective menu"/>
       <Link to="form" relative="path">Submit predictions</Link><br />
       <Link to="questions-and-predictions" relative="path">Questions & predictions</Link>
     </div>

@@ -20,8 +20,8 @@ class Prospectives extends React.Component {
     const { prospectives } = this.state;
     return (
       <div>
-        <h1>Prospectives</h1>
-        <Breadcrumbs />
+        {/* <h1>Prospectives</h1> */}
+        <Breadcrumbs currentPage="Prospectives"/>
         <ul>
           {prospectives.map((prospective) => (
             <li key={prospective._id}>

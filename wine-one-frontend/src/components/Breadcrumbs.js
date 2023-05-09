@@ -1,8 +1,8 @@
 import { useMatches } from 'react-router-dom';
 
-function Breadcrumbs() {
+function Breadcrumbs(props) {
   const matches = useMatches();
-  console.log('matches', matches);
+
   const crumbs = matches
     .filter((match) => Boolean(match.handle?.crumb))
     .map((match) => ({crumb: match.handle.crumb(match.data), id: match.id}));
@@ -12,7 +12,7 @@ function Breadcrumbs() {
       {crumbs.map((crumb) => (
         <span key={crumb.id}>{crumb.crumb} &gt; </span>
       ))}
-      <span>Current page</span>
+      <span>{props.currentPage}</span>
     </div>
   );
 }
