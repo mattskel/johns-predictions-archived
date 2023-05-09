@@ -20,7 +20,7 @@ import PredictionsForm from './components/PredictionsForm';
 // import Generic from './pages/Generic';
 import Prospectives from './pages/Prospectives';
 import QuestionsAndPredictions from './pages/QuestionsAndPredictions';
-import ProspectiveMenu from './pages/ProspectiveMenu';
+import ProspectiveMenu from './components/ProspectiveMenu';
 
 function Root() {
   return (
