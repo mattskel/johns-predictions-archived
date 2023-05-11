@@ -19,6 +19,7 @@ import Unauthorized from './pages/Unauthorized';
 import PredictionsForm from './components/PredictionsForm';
 // import Generic from './pages/Generic';
 import Prospectives from './pages/Prospectives';
+import Prospective from './pages/Prospective';
 import QuestionsAndPredictions from './components/QuestionsAndPredictions';
 import ProspectiveMenu from './components/ProspectiveMenu';
 
@@ -33,14 +34,15 @@ function Root() {
   );
 }
 
-function Prospective() {
-  return (
-    <div className="prospective">
-      <Outlet />
-    </div>
+// function Prospective() {
+//   return (
+//     <div className="prospective">
+//       <h1>Prospective</h1>
+//       <Outlet />
+//     </div>
 
-  );
-}
+//   );
+// }
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -59,17 +61,17 @@ const router = createBrowserRouter(
         />
         <Route
           path="/prospectives/:prospectiveId"
-          element={<Prospective />}
+          element={<Prospective prospectiveTitle="Prospective"/>}
           handle={{ crumb: () => <Link to="/prospectives">Prospectives</Link> }}
         >
-          <Route index element={<ProspectiveMenu />} />
+          <Route index element={<ProspectiveMenu currentPage="Prospective menu"/>} />
           <Route
             path="form"
             element={<PredictionsForm />}
           />
           <Route
             path="questions-and-predictions"
-            element={<QuestionsAndPredictions />}
+            element={<QuestionsAndPredictions currentPage="Questions & predictions"/>}
             loader={({params}) => params}
             handle={{ crumb: (data) => {
               const { prospectiveId } = data;
