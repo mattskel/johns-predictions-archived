@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Breadcrumbs from './Breadcrumbs';
+import withBreadcrumbs from './withBreadcrumbs';
 
 function QuestionsAndPredictions() {
   const [questionsAndPredictions, setQuestionsAndPredictions] = useState([]);
@@ -14,8 +14,6 @@ function QuestionsAndPredictions() {
   }, []);
   return (
     <div>
-      {/* <h1>Questions & Predictions (& Answers)</h1> */}
-      <Breadcrumbs currentPage="Questions & predictions" />
       <table className="fill-available">
         <tbody className="alternating-background-color">
           {questionsAndPredictions.map((questionAndPrediction) => {
@@ -42,4 +40,5 @@ function QuestionsAndPredictions() {
   );
 }
 
-export default QuestionsAndPredictions;
+const QuestionsAndPredictionsWithBreadcrumbs = withBreadcrumbs(QuestionsAndPredictions);
+export default QuestionsAndPredictionsWithBreadcrumbs;

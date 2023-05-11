@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
-import Breadcrumbs from './Breadcrumbs';
+import withBreadcrumbs from './withBreadcrumbs';
 
 function ProspectiveMenu() {
   return (
     <div>
-      {/* <h2>Prospective menu</h2> */}
-      <Breadcrumbs currentPage="Prospective menu"/>
       <Link to="form" relative="path">Submit predictions</Link><br />
       <Link to="questions-and-predictions" relative="path">Questions & predictions</Link>
     </div>
   );
 }
 
-export default ProspectiveMenu;
+const ProspectiveMenuWithBreadcrumbs = withBreadcrumbs(ProspectiveMenu);
+
+export default ProspectiveMenuWithBreadcrumbs;
