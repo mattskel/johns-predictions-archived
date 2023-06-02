@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import withBreadcrumbs from './withBreadcrumbs';
 
 function QuestionsAndPredictions() {
   const [questionsAndPredictions, setQuestionsAndPredictions] = useState([]);
@@ -40,5 +39,4 @@ function QuestionsAndPredictions() {
   );
 }
 
-const QuestionsAndPredictionsWithBreadcrumbs = withBreadcrumbs(QuestionsAndPredictions);
-export default QuestionsAndPredictionsWithBreadcrumbs;
+export default QuestionsAndPredictions;

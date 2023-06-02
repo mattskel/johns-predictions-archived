@@ -1,10 +1,8 @@
 import { Outlet } from 'react-router-dom';
 
-function Prospective(props) {
-  const {prospectiveTitle} = props;
+function Prospective() {
   return (
     <div className="prospective">
-      <h1>{prospectiveTitle}</h1>
       <Outlet />
     </div>
 
