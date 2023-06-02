@@ -17,11 +17,10 @@ import Signup from './pages/Signup';
 import RequireAuth from './components/RequireAuth';
 import Unauthorized from './pages/Unauthorized';
 import PredictionsForm from './components/PredictionsForm';
-// import Generic from './pages/Generic';
 import Prospectives from './pages/Prospectives';
-import Prospective from './pages/Prospective';
 import QuestionsAndPredictions from './components/QuestionsAndPredictions';
 import ProspectiveMenu from './components/ProspectiveMenu';
+import ProspectivesList from './components/ProspectivesList';
 
 function Root() {
   return (
@@ -33,16 +32,6 @@ function Root() {
     </div>
   );
 }
-
-// function Prospective() {
-//   return (
-//     <div className="prospective">
-//       <h1>Prospective</h1>
-//       <Outlet />
-//     </div>
-
-//   );
-// }
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -56,30 +45,33 @@ const router = createBrowserRouter(
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route
           path="/prospectives"
-          element={<Prospectives />}
+          element={<Prospectives currentPage="Prospectives" />}
           handle={{ crumb: () => <Link to="/home">Home</Link> }}
-        />
-        <Route
-          path="/prospectives/:prospectiveId"
-          element={<Prospective prospectiveTitle="Prospective"/>}
-          handle={{ crumb: () => <Link to="/prospectives">Prospectives</Link> }}
         >
-          <Route index element={<ProspectiveMenu currentPage="Prospective menu"/>} />
+          <Route index element={<ProspectivesList />} />
           <Route
-            path="form"
-            element={<PredictionsForm />}
-          />
-          <Route
-            path="questions-and-predictions"
-            element={<QuestionsAndPredictions currentPage="Questions & predictions"/>}
-            loader={({params}) => params}
-            handle={{ crumb: (data) => {
-              const { prospectiveId } = data;
-              return (
-                <Link to={`/prospectives/${prospectiveId}`}>Prospective</Link>
-              );
-            } }}
-          />
+            path=":prospectiveId"
+            handle={{ crumb: () => <Link to="/prospectives">Prospectives</Link> }}
+          >
+            <Route index element={<ProspectiveMenu currentPage="Prospective menu" />} />
+            <Route
+              path="form"
+              element={<PredictionsForm />}
+            />
+            <Route
+              path="questions-and-predictions"
+              element={<QuestionsAndPredictions currentPage="Questions & predictions" />}
+              loader={({ params }) => params}
+              handle={{
+                crumb: (data) => {
+                  const { prospectiveId } = data;
+                  return (
+                    <Link to={`/prospectives/${prospectiveId}`}>Prospective</Link>
+                  );
+                },
+              }}
+            />
+          </Route>
         </Route>
       </Route>
       {/* Only Admin */}
