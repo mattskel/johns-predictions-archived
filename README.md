@@ -1,6 +1,7 @@
 # johns-predictions
 
 This is the readme. Read.
+More than anything this is to remind me how to start the server.
 
 # Accessing my droplet and starting the app
 Can log into the droplet using ssh and the droplet IP address
