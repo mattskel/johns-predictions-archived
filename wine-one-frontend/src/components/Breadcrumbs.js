@@ -12,7 +12,6 @@ function Breadcrumbs(props) {
       {crumbs.map((crumb) => (
         <span key={crumb.id}>{crumb.crumb} &gt; </span>
       ))}
-      <span>{props.currentPage}</span>
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import withBreadcrumbs from './withBreadcrumbs';
 
 function ProspectiveMenu() {
   return (
@@ -10,6 +9,4 @@ function ProspectiveMenu() {
   );
 }
 
-const ProspectiveMenuWithBreadcrumbs = withBreadcrumbs(ProspectiveMenu);
-
-export default ProspectiveMenuWithBreadcrumbs;
+export default ProspectiveMenu;
