@@ -10,7 +10,7 @@ const useLogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location || {};
-  const { from = '/' } = state || {};
+  const { from = '/home' } = state || {};
 
   const login = async (email, password) => {
     setIsLoading(true);
