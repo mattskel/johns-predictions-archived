@@ -1,6 +1,12 @@
 /* eslint-disable max-len */
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { CollectionContextProvider } from './context/CollectionContext';
+import {
+  Route,
+  Outlet,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  Link,
+} from 'react-router-dom';
 import UsersContainer from './components/users-container';
 
 // Pages & components
@@ -11,75 +17,74 @@ import Signup from './pages/Signup';
 import RequireAuth from './components/RequireAuth';
 import Unauthorized from './pages/Unauthorized';
 import PredictionsForm from './components/PredictionsForm';
-import Generic from './pages/Generic';
 import Prospectives from './pages/Prospectives';
-import QuestionsAndPredictions from './pages/QuestionsAndPredictions';
-import ProspectiveMenu from './pages/ProspectiveMenu';
+import QuestionsAndPredictions from './components/QuestionsAndPredictions';
+import ProspectiveMenu from './components/ProspectiveMenu';
+import ProspectivesList from './components/ProspectivesList';
+
+function Root() {
+  return (
+    <div className="App">
+      <Navbar />
+      <div className="pages">
+        <Outlet />
+      </div>
+    </div>
+  );
+}
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Root />}>
+      {/* public routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      {/* Protect these routes */}
+      <Route element={<RequireAuth />}>
+        <Route path="/home" element={<Home />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route
+          path="/prospectives"
+          element={<Prospectives currentPage="Prospectives" />}
+          handle={{ crumb: () => <Link to="/home">Home</Link> }}
+        >
+          <Route index element={<ProspectivesList />} />
+          <Route
+            path=":prospectiveId"
+            handle={{ crumb: () => <Link to="/prospectives">Prospectives</Link> }}
+          >
+            <Route index element={<ProspectiveMenu currentPage="Prospective menu" />} />
+            <Route
+              path="form"
+              element={<PredictionsForm />}
+            />
+            <Route
+              path="questions-and-predictions"
+              element={<QuestionsAndPredictions currentPage="Questions & predictions" />}
+              loader={({ params }) => params}
+              handle={{
+                crumb: (data) => {
+                  const { prospectiveId } = data;
+                  return (
+                    <Link to={`/prospectives/${prospectiveId}`}>Prospective</Link>
+                  );
+                },
+              }}
+            />
+          </Route>
+        </Route>
+      </Route>
+      {/* Only Admin */}
+      <Route element={<RequireAuth isAdmin />}>
+        <Route path="users" element={<UsersContainer />} />
+      </Route>
+    </Route>,
+  ),
+);
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Navbar />
-        <div className="pages">
-          <Routes>
-            {/* public routes */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-
-            {/* Protect these routes */}
-            <Route element={<RequireAuth />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/unauthorized" element={<Unauthorized />} />
-              <Route path="/prospectives/:prospectiveId" element={<ProspectiveMenu />} />
-              <Route path="/prospectives/:prospectiveId/form" element={<PredictionsForm />} />
-              <Route path="/prospectives/:prospectiveId/questions-and-predictions" element={<QuestionsAndPredictions />} />
-            </Route>
-
-            {/* Only Admin */}
-            <Route path="/" element={<RequireAuth isAdmin />}>
-              <Route path="users" element={<UsersContainer />} />
-              <Route
-                path="prospectives/"
-                element={(
-                  <Prospectives />
-                )}
-              >
-                <Route
-                  path=":prospectiveId/questions-and-predictions"
-                  element={(
-                    // <CollectionContextProvider>
-                    //   <Generic
-                    //     parent="prospective"
-                    //     textKey="text"
-                    //     collectionName="questions"
-                    //     childRoute="options"
-                    //     formFields={['text']}
-                    //   />
-                    // </CollectionContextProvider>
-                    <QuestionsAndPredictions />
-                  )}
-                >
-                  <Route
-                    path="options/:questionId/*"
-                    element={(
-                      <CollectionContextProvider>
-                        <Generic
-                          parent="question"
-                          textKey="text"
-                          collectionName="options"
-                          formFields={['text']}
-                        />
-                      </CollectionContextProvider>
-                    )}
-                  />
-                </Route>
-              </Route>
-            </Route>
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </div>
+    <RouterProvider router={router} />
   );
 }
 

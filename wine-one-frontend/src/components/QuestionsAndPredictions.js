@@ -13,7 +13,6 @@ function QuestionsAndPredictions() {
   }, []);
   return (
     <div>
-      <h1>Questions & Predictions (& Answers)</h1>
       <table className="fill-available">
         <tbody className="alternating-background-color">
           {questionsAndPredictions.map((questionAndPrediction) => {
