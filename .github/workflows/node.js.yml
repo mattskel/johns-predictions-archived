@@ -12,7 +12,7 @@ on:
 jobs:
   build-frontend-static-files:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
