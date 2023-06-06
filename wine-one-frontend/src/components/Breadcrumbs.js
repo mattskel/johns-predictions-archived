@@ -10,7 +10,10 @@ function Breadcrumbs() {
   return (
     <div>
       {crumbs.map((crumb) => (
-        <span key={crumb.id}>{crumb.crumb} &gt; </span>
+        <span key={crumb.id}>
+          {crumb.crumb} 
+          &gt; 
+        </span>
       ))}
     </div>
   );
