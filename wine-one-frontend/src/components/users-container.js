@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { renameProp, compose } from 'recompose';
+// import { renameProp, compose } from 'recompose';
 import Users from './users';
 import withFetch from './withFetch';
 
@@ -16,16 +16,16 @@ function UsersContainer({ users = [] }) {
   return <Users users={users} />;
 }
 
-const enhance = compose(
-  renameProp('data', 'users'),
-);
+// const enhance = compose(
+//   renameProp('data', 'users'),
+// );
 
-const EnhancedUsersContainer = enhance(UsersContainer);
+// const EnhancedUsersContainer = enhance(UsersContainer);
 const withUsers = withFetch((props) => (
   { fetchUrl: props.fetchUrl, fetchOptions: props.fetchOptions }
 ));
 
-const ContainerWithUsers = withUsers(EnhancedUsersContainer);
+const ContainerWithUsers = withUsers(UsersContainer);
 // eslint-disable-next-line func-names
 export default function () {
   return <ContainerWithUsers fetchUrl={fetchUrl} fetchOptions={fetchOptions} />;

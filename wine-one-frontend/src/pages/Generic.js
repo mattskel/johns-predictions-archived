@@ -3,7 +3,7 @@ import {
 } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'recompose';
+// import { compose } from 'recompose';
 
 import List from '../components/List';
 import Form from '../components/Form';
@@ -196,12 +196,12 @@ export default function Generic({
     parentId = params[`${parent}Id`];
   }
 
-  // const EnhancedList = WithContext(WithCollection(WithDeleteItem(GenericList)));
-  const EnhancedList = compose(
-    WithContext,
-    WithCollection,
-    WithDeleteItem,
-  )(GenericList);
+  const EnhancedList = WithContext(WithCollection(WithDeleteItem(GenericList)));
+  // const EnhancedList = compose(
+  //   WithContext,
+  //   WithCollection,
+  //   WithDeleteItem,
+  // )(GenericList);
 
   return (
     <div className="container">
