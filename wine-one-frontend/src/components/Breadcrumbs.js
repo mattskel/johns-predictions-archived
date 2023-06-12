@@ -11,8 +11,8 @@ function Breadcrumbs() {
     <div>
       {crumbs.map((crumb) => (
         <span key={crumb.id}>
-          {crumb.crumb} 
-          &gt; 
+          {crumb.crumb}
+          &gt;
         </span>
       ))}
     </div>
