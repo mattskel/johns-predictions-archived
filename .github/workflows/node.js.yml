@@ -30,8 +30,6 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: wine-one-frontend/package-lock.json
     - name: run npm commands in frontend 
       working-directory: wine-one-frontend
       run: |
@@ -42,8 +40,6 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: backend/package-lock.json
     - name: Create dotenv file
       working-directory: backend
       run: |
