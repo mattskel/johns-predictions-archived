@@ -38,6 +38,6 @@ app.get('*', (req, res) => {
 })
 
 app.listen(port, () => {
-	// Trigger workflow action
+	// Trigger workflow action more
 	console.log(`Server is running on port: ${port}`);
 });
