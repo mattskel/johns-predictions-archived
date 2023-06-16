@@ -18,6 +18,10 @@ jobs:
       matrix:
         node-version: [18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        
+    defaults:
+      run:
+        working-directory: wine-one-frontend
 
     steps:
     - uses: actions/checkout@v3
