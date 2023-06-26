@@ -35,4 +35,22 @@ jobs:
       run: |
         npm ci
         npm run build --if-present
-      
+        mv build ../backend/static/
+    - name: Use Node.js ${{ matrix.node-version }} in backend
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+    - name: Create dotenv file
+      working-directory: backend
+      run : |
+        touch .env
+        echo MONGO_URL="mongodb+srv://matt:${{ secrets.MONGO_SECRET }}@wineone.6sajobm.mongodb.net/?retryWrites=true&w=majority" >> .env
+        echo SECRET=${{ secrets.SECRET }} >> .env
+        echo PORT=1337 >> .env
+    - name: run npm commands in backend
+      working-directory: backend
+      run: |
+        npm i
+        pm2 restart server
