@@ -5,7 +5,8 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const routes = require('./routes');
+// const routes = require('./routes');
+const userRoutes = require('./routes/user.routes');
 const questionRoutes = require('./routes/questions');
 const prospectiveRoutes = require('./routes/prospectives');
 const predictionRoutes = require('./routes/predictions')
@@ -18,8 +19,8 @@ app.use(express.json());
 app.use(express.static('static'));
 
 // routes
-app.use('/api/users', routes);
-app.use('/api/user', routes)
+app.use('/api/users', userRoutes);
+app.use('/api/user', userRoutes)
 app.use('/api/questions', questionRoutes);
 app.use('/api/prospectives', prospectiveRoutes);
 app.use('/api/predictions', predictionRoutes);

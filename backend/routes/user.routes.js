@@ -8,8 +8,8 @@ const {
   getUsers,
   loginUser,
   signupUser
-} = require('./controllers');
-const requireAuth = require('./middleware/requireAuth');
+} = require('../controllers/user.controller');
+const requireAuth = require('../middleware/requireAuth');
 
 
 const router = express.Router();
