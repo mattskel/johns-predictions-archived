@@ -1,6 +1,7 @@
-const Prediction = require('../models/predictionModel');
+// const Prediction = require('../models/predictionModel');
+import Prediction from '../models/predictionModel';
 
-const getPredictions = async (req, res) => {
+export const getPredictions = async (req, res) => {
 
   const {prospectiveId} = req.query;
   const {_id: userId} = req.user;
@@ -15,6 +16,7 @@ const getPredictions = async (req, res) => {
   res.status(200).json(predictions);
 }
 
-module.exports = {
-  getPredictions
-}
+// module.exports = {
+//   getPredictions
+// }
+// export default { getPredictions }

@@ -1,7 +1,12 @@
+/**
+ * 
 const Question = require('../models/questionModel');
 const mongoose = require('mongoose');
+*/
+import Question from '../models/questionModel';
+import mongoose from 'mongoose';
 
-const createQuestion = async (req, res) => {
+export const createQuestion = async (req, res) => {
   const {text, prospectiveId, options} = req.body;
 
   const emptyFields = [];
@@ -22,7 +27,7 @@ const createQuestion = async (req, res) => {
   }
 }
 
-const getQuestions = async (req, res) => {
+export const getQuestions = async (req, res) => {
   const {prospectiveId} = req.query;
 
   let query = {}
@@ -35,7 +40,7 @@ const getQuestions = async (req, res) => {
   res.status(200).json(questions);
 }
 
-const deleteQuestion = async (req, res) => {
+export const deleteQuestion = async (req, res) => {
   const {id} = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: 'Id is not valid'});
@@ -49,7 +54,7 @@ const deleteQuestion = async (req, res) => {
   res.status(200).json(question);
 }
 
-const updateQuestion = async (req, res) => {
+export const updateQuestion = async (req, res) => {
   const {id} = req.params;
   const update = req.body || {};
 
@@ -61,9 +66,16 @@ const updateQuestion = async (req, res) => {
   res.status(200).json(question)
 }
 
-module.exports = {
-  createQuestion,
-  getQuestions,
-  deleteQuestion,
-  updateQuestion
-}
+// module.exports = {
+//   createQuestion,
+//   getQuestions,
+//   deleteQuestion,
+//   updateQuestion
+// }
+
+// export default {
+//   createQuestion,
+//   getQuestions,
+//   deleteQuestion,
+//   updateQuestion
+// }

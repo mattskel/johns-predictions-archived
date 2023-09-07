@@ -1,9 +1,16 @@
+/**
+ * 
 const Prospective = require('../models/prospectiveModel.js');
 const Question = require('../models/questionModel.js');
 const Prediction = require('../models/predictionModel');
 const mongoose = require('mongoose');
+*/
+import Prospective from '../models/prospectiveModel.js';
+import Question from '../models/questionModel.js';
+import Prediction from '../models/predictionModel.js';
+import mongoose from 'mongoose';
 
-const createProspective = async (req, res) => {
+export const createProspective = async (req, res) => {
   const {title} = req.body;
 
   const emptyFields = [];
@@ -24,7 +31,7 @@ const createProspective = async (req, res) => {
   }
 }
 
-const getPropsectives = async (req, res) => {
+export const getPropsectives = async (req, res) => {
 
   let query = {}
   const prospectives = await Prospective.find(query).sort({createdAt: -1});
@@ -33,7 +40,7 @@ const getPropsectives = async (req, res) => {
 }
 
 // The submission from the prospective
-const submitProspective = async (req, res) => {
+export const submitProspective = async (req, res) => {
   const {id: prospectiveId} = req.params;
   const submission = req.body
 
@@ -74,7 +81,7 @@ const submitProspective = async (req, res) => {
   }
 }
 
-const getPropsective = async (req, res) => {
+export const getPropsective = async (req, res) => {
   const {id: prospectiveId} = req.params;
   if (!prospectiveId) {
     return res.status(400).json({error: 'prospectiveId is null or undefined.'});
@@ -86,7 +93,7 @@ const getPropsective = async (req, res) => {
   res.status(200).json(prospective);
 }
 
-const deleteProspective = async (req, res) => {
+export const deleteProspective = async (req, res) => {
   const {id} = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: 'Id is not valid'});
@@ -100,7 +107,7 @@ const deleteProspective = async (req, res) => {
   res.status(200).json(prospective);
 }
 
-const getProspectiveQuestionsAndPredictions = async (req, res) => {
+export const getProspectiveQuestionsAndPredictions = async (req, res) => {
   const {id: prospectiveId} = req.params;
   const {_id: userId} = req.user;
   const questions = await Question.find({
@@ -138,11 +145,20 @@ const getProspectiveQuestionsAndPredictions = async (req, res) => {
   res.status(200).json(questionsAndPredictions);
 }
 
-module.exports = {
-  createProspective,
-  getPropsectives,
-  submitProspective,
-  getPropsective,
-  deleteProspective,
-  getProspectiveQuestionsAndPredictions,
-}
+// module.exports = {
+//   createProspective,
+//   getPropsectives,
+//   submitProspective,
+//   getPropsective,
+//   deleteProspective,
+//   getProspectiveQuestionsAndPredictions,
+// }
+
+// export default {
+//   createProspective,
+//   getPropsectives,
+//   submitProspective,
+//   getPropsective,
+//   deleteProspective,
+//   getProspectiveQuestionsAndPredictions,
+// }

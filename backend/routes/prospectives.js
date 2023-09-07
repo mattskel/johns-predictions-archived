@@ -1,3 +1,5 @@
+/**
+ * 
 const express = require('express');
 const {
   createProspective,
@@ -8,6 +10,10 @@ const {
   getProspectiveQuestionsAndPredictions
 } = require('../controllers/prospectiveController')
 const requireAuth = require('../middleware/requireAuth');
+*/
+import express from 'express';
+import {createProspective, getPropsectives, submitProspective, getPropsective, deleteProspective, getProspectiveQuestionsAndPredictions} from '../controllers/prospectiveController';
+import requireAuth from '../middleware/requireAuth';
 
 const router = express.Router();
 
@@ -20,4 +26,5 @@ router.delete('/:id', deleteProspective);
 router.post('/:id/submit', submitProspective);
 router.get('/:id/questions-and-predictions', getProspectiveQuestionsAndPredictions);
 
-module.exports = router;
+// module.exports = router;
+export default router;

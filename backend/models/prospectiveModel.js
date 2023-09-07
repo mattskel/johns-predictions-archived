@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const prospectiveSchema = new mongoose.Schema({
   title: {
@@ -8,4 +9,5 @@ const prospectiveSchema = new mongoose.Schema({
 }, {timestamps: true});
 
 const Prospective = new mongoose.model('Prospective', prospectiveSchema);
-module.exports = Prospective;
+// module.exports = Prospective;
+export default Prospective;

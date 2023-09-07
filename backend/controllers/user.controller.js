@@ -1,9 +1,15 @@
+/**
+ * 
 const User = require('../models/user.model');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+*/
+import User from '../models/user.model';
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 
 // get a single user
-const getUser = async (req, res) => {
+export const getUser = async (req, res) => {
   const {id} = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: 'Id is not valid'});
@@ -18,7 +24,7 @@ const getUser = async (req, res) => {
 }
 
 // create a new user
-const createUser = async (req, res) => {
+export const createUser = async (req, res) => {
   const {username, password, email} = req.body;
 
   const emptyFields = [];
@@ -47,7 +53,7 @@ const createUser = async (req, res) => {
 }
 
 // delete a user
-const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res) => {
   const {id} = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: 'Id is not valid'});
@@ -62,7 +68,7 @@ const deleteUser = async (req, res) => {
 }
 
 // update a user
-const updateUser = async(req, res) => {
+export const updateUser = async(req, res) => {
   const {id} = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: 'Id is not valid'});
@@ -79,7 +85,7 @@ const updateUser = async(req, res) => {
 }
 
 // get all the users
-const getUsers = async (req, res) => {
+export const getUsers = async (req, res) => {
   const users = await User.find({}).sort({createdAt: -1});
 
   res.status(200).json(users);
@@ -90,7 +96,7 @@ const createToken = (_id) => {
 }
 
 // login user
-const loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
   const {email, password} = req.body;
   try {
     const user = await User.login(email, password);
@@ -105,7 +111,7 @@ const loginUser = async (req, res) => {
 }
 
 // signup user
-const signupUser = async (req, res) => {
+export const signupUser = async (req, res) => {
   const {email, password} = req.body;
   try {
     const user = await User.signup(email, password);
@@ -118,12 +124,22 @@ const signupUser = async (req, res) => {
   }
 }
 
-module.exports = {
-  getUser,
-  createUser,
-  deleteUser,
-  updateUser,
-  getUsers,
-  loginUser,
-  signupUser
-}
+// module.exports = {
+//   getUser,
+//   createUser,
+//   deleteUser,
+//   updateUser,
+//   getUsers,
+//   loginUser,
+//   signupUser
+// }
+
+// export default {
+//   getUser,
+//   createUser,
+//   deleteUser,
+//   updateUser,
+//   getUsers,
+//   loginUser,
+//   signupUser
+// }

@@ -1,5 +1,6 @@
+/**
+ * 
 const express = require('express');
-// const User = require('./models')
 const {
   createUser,
   getUser,
@@ -10,6 +11,10 @@ const {
   signupUser
 } = require('../controllers/user.controller');
 const requireAuth = require('../middleware/requireAuth');
+*/
+import express from 'express';
+import {createUser, getUser, deleteUser, updateUser, getUsers, loginUser, signupUser} from '../controllers/user.controller';
+import requireAuth from '../middleware/requireAuth';
 
 
 const router = express.Router();
@@ -44,4 +49,5 @@ router.delete('/:id', deleteUser);
 // PATCH a user
 router.patch('/:id', updateUser)
 
-module.exports = router
+// module.exports = router
+export default router;

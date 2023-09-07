@@ -1,15 +1,25 @@
-require('dotenv').config();
-// import 'dotenv/config'
+// require('dotenv').config();
+import 'dotenv/config'
 
+/**
+ * Try using import instead
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-// const routes = require('./routes');
 const userRoutes = require('./routes/user.routes');
 const questionRoutes = require('./routes/questions');
 const prospectiveRoutes = require('./routes/prospectives');
 const predictionRoutes = require('./routes/predictions')
+ */
+import path from 'path';
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import userRoutes from './routes/user.routes';
+import questionRoutes from './routes/questions';
+import prospectiveRoutes from './routes/prospectives';
+import predictionRoutes from './routes/predictions'
 
 const app = express();
 const port = process.env.PORT || 8000;
