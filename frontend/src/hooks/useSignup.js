@@ -1,3 +1,6 @@
+/*
+ * This hook has been replaced by the create method in the user API helper
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuthContext from './useAuthContext';
@@ -43,3 +46,4 @@ const useSignup = () => {
 };
 
 export default useSignup;
+*/

@@ -34,14 +34,17 @@ router.post('/signup', signupUser);
 // require auth for all routes
 // router.use(requireAuth);
 
-// POST a new user
-router.post('/', createUser);
+router.route('/')
+  .get(getUsers)
+  .post(createUser);
+
+// router.post('/', createUser);
 
 // GET an existing user
 router.get('/:id', getUser)
 
 // GET all users
-router.get('/', getUsers);
+// router.get('/', getUsers);
 
 // DELETE a user
 router.delete('/:id', deleteUser);

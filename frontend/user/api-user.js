@@ -1,3 +1,20 @@
+const create = async (user) => {
+  console.log('user', user)
+  try {
+    let response = await fetch('/api/users/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+    return await response.json()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const list = async (signal) => {
   try {
     let response = await fetch('/api/users/', {
@@ -11,4 +28,4 @@ const list = async (signal) => {
   }
 }
 
-export { list }
+export { create, list }

@@ -39,7 +39,9 @@ export const createUser = async (req, res) => {
     emptyFields.push('email');
   }
 
+  
   if (emptyFields.length > 0) {
+    console.log('emptyFields', emptyFields)
     return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
   }
 
