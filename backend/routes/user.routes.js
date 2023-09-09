@@ -32,7 +32,7 @@ router.post('/signup', signupUser);
  */
 
 // require auth for all routes
-router.use(requireAuth);
+// router.use(requireAuth);
 
 // POST a new user
 router.post('/', createUser);
