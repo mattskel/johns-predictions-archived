@@ -8,9 +8,8 @@ const config = {
   mode: "development",
   devtool: 'eval-source-map',
   entry: [
-    'react-hot-loader/patch',
     'webpack-hot-middleware/client?reload=true',
-    path.join(CURRENT_WORKING_DIR, 'client/main.js')
+    path.join(CURRENT_WORKING_DIR, 'frontend/main.js')
   ],
   output: {
     path: path.join(CURRENT_WORKING_DIR , '/dist'),
@@ -25,6 +24,10 @@ const config = {
         use: [
             'babel-loader'
         ]
+      },
+      {
+        test: /\.(ttf|eot|svg|gif|jpg|png)(\?[\s\S]+)?$/,
+        use: 'file-loader'
       }
     ]
   },  

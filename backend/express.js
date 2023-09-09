@@ -6,12 +6,12 @@ import compress from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
 
+import Template from './../template'
 import userRoutes from './routes/user.routes'
 import questionRoutes from './routes/questions'
 import prospectiveRoutes from './routes/prospectives'
 import predictionRoutes from './routes/predictions'
 
-// import Template from './../template'
 // import userRoutes from './routes/user.routes'
 // import authRoutes from './routes/auth.routes'
 
