@@ -31,8 +31,8 @@ app.use(compress())
 app.use(helmet())
 // app.use(cors())
 app.use(cors());
-app.use(express.json());
-app.use(express.static('static'));
+// app.use(express.json());
+// app.use(express.static('static'));
 
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 
@@ -43,7 +43,7 @@ app.use('/api/questions', questionRoutes);
 app.use('/api/prospectives', prospectiveRoutes);
 app.use('/api/predictions', predictionRoutes);
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.status(200).send(Template())
 })
 
