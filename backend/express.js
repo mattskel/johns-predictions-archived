@@ -16,7 +16,7 @@ import theme from '../frontend/theme'
 
 import Template from './../template'
 import userRoutes from './routes/user.routes'
-// import questionRoutes from './routes/questions'
+import questionRoutes from './routes/question.routes'
 import prospectiveRoutes from './routes/prospective.routes'
 // import predictionRoutes from './routes/predictions'
 import authRoutes from './routes/auth.routes'
@@ -49,7 +49,7 @@ app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 app.use('/', authRoutes)
 app.use('/api/users', userRoutes);
 app.use('/api/user', userRoutes)
-// app.use('/api/questions', questionRoutes);
+app.use('/', questionRoutes);
 app.use('/', prospectiveRoutes);
 // app.use('/api/predictions', predictionRoutes);
 

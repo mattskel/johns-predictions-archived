@@ -1,9 +1,10 @@
 import { Outlet } from 'react-router-dom';
+import { read } from '../user/api-user';
 
 function Prospective() {
   return (
     <div className="prospective">
-      <Outlet />
+      Prospective
     </div>
 
   );

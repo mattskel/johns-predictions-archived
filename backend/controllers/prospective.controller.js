@@ -40,7 +40,7 @@ const getPropsectives = async (req, res) => {
 }
 
 // The submission from the prospective
-export const submitProspective = async (req, res) => {
+const submitProspective = async (req, res) => {
   const {id: prospectiveId} = req.params;
   const submission = req.body
 
@@ -87,7 +87,7 @@ const getPropsective = async (req, res, next, id) => {
   //   return res.status(400).json({error: 'prospectiveId is null or undefined.'});
   // }
 
-  // console.log('prospectiveId', id)
+  console.log('prospectiveId', id)
 
   // // let query = {_id: prospectiveId}
   // const prospective = await Prospective.findById(id);

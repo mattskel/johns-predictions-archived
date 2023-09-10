@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 import Question from '../models/questionModel';
 import mongoose from 'mongoose';
 
-export const createQuestion = async (req, res) => {
+const createQuestion = async (req, res) => {
   const {text, prospectiveId, options} = req.body;
 
   const emptyFields = [];
@@ -27,8 +27,9 @@ export const createQuestion = async (req, res) => {
   }
 }
 
-export const getQuestions = async (req, res) => {
-  const {prospectiveId} = req.query;
+const getQuestions = async (req, res) => {
+  // const {prospectiveId} = req.query;
+  const {_id: prospectiveId} = req.prospective;
 
   let query = {}
   if (prospectiveId) {
@@ -37,10 +38,11 @@ export const getQuestions = async (req, res) => {
 
   const questions = await Question.find(query).sort({createdAt: -1});
 
+  // const questions = [];
   res.status(200).json(questions);
 }
 
-export const deleteQuestion = async (req, res) => {
+const deleteQuestion = async (req, res) => {
   const {id} = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: 'Id is not valid'});
@@ -54,7 +56,7 @@ export const deleteQuestion = async (req, res) => {
   res.status(200).json(question);
 }
 
-export const updateQuestion = async (req, res) => {
+const updateQuestion = async (req, res) => {
   const {id} = req.params;
   const update = req.body || {};
 
@@ -73,9 +75,9 @@ export const updateQuestion = async (req, res) => {
 //   updateQuestion
 // }
 
-// export default {
-//   createQuestion,
-//   getQuestions,
-//   deleteQuestion,
-//   updateQuestion
-// }
+export default {
+  createQuestion,
+  getQuestions,
+  deleteQuestion,
+  updateQuestion
+}
