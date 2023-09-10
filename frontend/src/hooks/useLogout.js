@@ -1,3 +1,5 @@
+/*
+ * clearJWT in frontend/auth/auth-helper.js
 import useAuthContext from './useAuthContext';
 
 const useLogout = () => {
@@ -15,3 +17,4 @@ const useLogout = () => {
 };
 
 export default useLogout;
+*/
