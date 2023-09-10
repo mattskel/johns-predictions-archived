@@ -23,12 +23,13 @@ router.route('/api/prospectives')
   .post(prospectiveCtrl.createProspective);
 
 router.route('/api/prospectives/:id')
-  .get(prospectiveCtrl.getPropsective)
-  .delete(prospectiveCtrl.deleteProspective);
+  .get(prospectiveCtrl.read)
+  // .delete(prospectiveCtrl.deleteProspective);
 
 
 // router.post('/api/prospectives/:id/submit', submitProspective);
 // router.get('/api/prospectives/:id/questions-and-predictions', getProspectiveQuestionsAndPredictions);
 
 // module.exports = router;
+router.param('id', prospectiveCtrl.getPropsective)
 export default router;

@@ -5,7 +5,7 @@ const Question = require('../models/questionModel.js');
 const Prediction = require('../models/predictionModel');
 const mongoose = require('mongoose');
 */
-import Prospective from '../models/prospectiveModel.js';
+import Prospective from '../models/prospective.model.js';
 import Question from '../models/questionModel.js';
 import Prediction from '../models/predictionModel.js';
 import mongoose from 'mongoose';
@@ -81,16 +81,35 @@ export const submitProspective = async (req, res) => {
   }
 }
 
-const getPropsective = async (req, res) => {
-  const {id: prospectiveId} = req.params;
-  if (!prospectiveId) {
-    return res.status(400).json({error: 'prospectiveId is null or undefined.'});
+const getPropsective = async (req, res, next, id) => {
+  // const {id} = req.params;
+  // if (!id) {
+  //   return res.status(400).json({error: 'prospectiveId is null or undefined.'});
+  // }
+
+  // console.log('prospectiveId', id)
+
+  // // let query = {_id: prospectiveId}
+  // const prospective = await Prospective.findById(id);
+
+  // res.status(200).json(prospective);
+  try {
+    let prospective = await Prospective.findById(id)
+    if (!prospective)
+      return res.status('400').json({
+        error: "Prospective not found"
+      })
+    req.prospective = prospective
+    next()
+  } catch (err) {
+    return res.status('400').json({
+      error: "Could not retrieve prospective"
+    })
   }
+}
 
-  let query = {_id: prospectiveId}
-  const prospective = await Prospective.findOne(query);
-
-  res.status(200).json(prospective);
+const read = (req, res) => {
+  return res.json(req.prospective);
 }
 
 const deleteProspective = async (req, res) => {
@@ -161,4 +180,5 @@ export default {
   getPropsective,
   deleteProspective,
   getProspectiveQuestionsAndPredictions,
+  read
 }

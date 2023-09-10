@@ -1,40 +1,37 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-
-// class Prospectives extends React.Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = { prospectives: [] };
-//   }
-
-//   componentDidMount() {
-//     const user = JSON.parse(localStorage.getItem('user')) || {};
-//     fetch('/api/prospectives/', { headers: { Authorization: `Bearer ${user.token}` } })
-//       .then((response) => response.json())
-//       .then((prospectives) => this.setState({ prospectives }));
-//   }
-
-//   render() {
-//     const { prospectives } = this.state;
-//     return (
-//       <div>
-//         {prospectives.map((prospective) => (
-//           <div key={prospective._id}>
-//             <Link to={`${prospective._id}/`} relative="path">{prospective.title}</Link>
-//           </div>
-//         ))}
-//       </div>
-//     );
-//   }
-// }
+import {list} from './api-prospective.js';
 
 const ProspectivesList = () => {
+  const [prospectives, setProspectives] = useState([]);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    list(signal).then((data) => {
+      if (data && data.error) {
+        console.log(data.error);
+      } else {
+        setProspectives(data);
+      }
+    });
+
+    return function cleanup() {
+      abortController.abort();
+    };
+  }, []);
+
   return (
     <div>
-      <h1>Prospectives</h1>
+      {prospectives.map((prospective) => (
+        <div key={prospective._id}>
+          <Link to={`${prospective._id}/`} relative="path">{prospective.title}</Link>
+        </div>
+      ))}
     </div>
-  )
+  );
+  
 }
 
 export default ProspectivesList;
