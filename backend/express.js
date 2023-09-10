@@ -6,6 +6,14 @@ import compress from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
 
+// Modules for server-side rendering
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
+import StaticRouter from 'react-router-dom/StaticRouter'
+import MainRouter from '../frontend/MainRouter'
+import { ServerStyleSheets, ThemeProvider } from '@material-ui/styles'
+import theme from '../frontend/theme'
+
 import Template from './../template'
 import userRoutes from './routes/user.routes'
 import questionRoutes from './routes/questions'
@@ -46,7 +54,30 @@ app.use('/api/prospectives', prospectiveRoutes);
 app.use('/api/predictions', predictionRoutes);
 
 app.get('*', (req, res) => {
-  res.status(200).send(Template())
+  // 1. Generate CSS styles using Material-UI's ServerStyleSheets
+  // 2. Use renderToString to generate markup which renders components specific to the route requested
+  // 3. Return template with markup and CSS styles in the response
+  const sheets = new ServerStyleSheets();
+  const context = {};
+  const markup = ReactDOMServer.renderToString(
+    sheets.collect(
+      <StaticRouter location={req.url} context={context}>
+        <ThemeProvider theme={theme}>
+          <MainRouter />
+        </ThemeProvider>
+      </StaticRouter>
+    )
+  );
+
+  if (context.url) {
+    return res.redirect(303, context.url);
+  }
+
+  const css = sheets.toString();
+  res.status(200).send(Template({
+    markup: markup,
+    css: css
+  }))
 })
 
 // Catch unauthorised errors
