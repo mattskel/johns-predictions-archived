@@ -18,13 +18,15 @@ const Menu = withRouter(({history}) => {
   return (
     <header>
       <div className="container">
-        <Link to="/home">
+        <Link to="/">
           <h1>Johns predictions</h1>
         </Link>
         <nav>
           {auth.isAuthenticated() && (
             <div>
               <span>{auth.isAuthenticated().user.email}</span>
+              {auth.isAuthenticated().user.isAdmin && (
+                <Link to="/admin/prospectives">Prospectives</Link>)}
               <button type="button" onClick={handleClick}>Log out</button>
               {/* <Button type="button" handleClick={handleClick}><span>Log out</span></Button> */}
             </div>

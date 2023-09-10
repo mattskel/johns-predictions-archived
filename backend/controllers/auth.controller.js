@@ -37,7 +37,8 @@ export const signin = async (req, res) => {
       user: {
         _id: user._id,
         name: user.username,
-        email: user.email
+        email: user.email,
+        isAdmin: user.isAdmin
       }
     })
   } catch(error) {
@@ -52,7 +53,12 @@ const signout = (req, res) => {
   })
  }
 
+const hasAuthorization = (req, res, next) => {
+  next();
+}
+
 export default {
   signin,
-  signout
+  signout,
+  hasAuthorization
 }

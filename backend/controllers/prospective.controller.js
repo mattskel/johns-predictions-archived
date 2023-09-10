@@ -10,7 +10,7 @@ import Question from '../models/questionModel.js';
 import Prediction from '../models/predictionModel.js';
 import mongoose from 'mongoose';
 
-export const createProspective = async (req, res) => {
+const createProspective = async (req, res) => {
   const {title} = req.body;
 
   const emptyFields = [];
@@ -31,7 +31,7 @@ export const createProspective = async (req, res) => {
   }
 }
 
-export const getPropsectives = async (req, res) => {
+const getPropsectives = async (req, res) => {
 
   let query = {}
   const prospectives = await Prospective.find(query).sort({createdAt: -1});
@@ -81,7 +81,7 @@ export const submitProspective = async (req, res) => {
   }
 }
 
-export const getPropsective = async (req, res) => {
+const getPropsective = async (req, res) => {
   const {id: prospectiveId} = req.params;
   if (!prospectiveId) {
     return res.status(400).json({error: 'prospectiveId is null or undefined.'});
@@ -93,7 +93,7 @@ export const getPropsective = async (req, res) => {
   res.status(200).json(prospective);
 }
 
-export const deleteProspective = async (req, res) => {
+const deleteProspective = async (req, res) => {
   const {id} = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: 'Id is not valid'});
@@ -107,7 +107,7 @@ export const deleteProspective = async (req, res) => {
   res.status(200).json(prospective);
 }
 
-export const getProspectiveQuestionsAndPredictions = async (req, res) => {
+const getProspectiveQuestionsAndPredictions = async (req, res) => {
   const {id: prospectiveId} = req.params;
   const {_id: userId} = req.user;
   const questions = await Question.find({
@@ -154,11 +154,11 @@ export const getProspectiveQuestionsAndPredictions = async (req, res) => {
 //   getProspectiveQuestionsAndPredictions,
 // }
 
-// export default {
-//   createProspective,
-//   getPropsectives,
-//   submitProspective,
-//   getPropsective,
-//   deleteProspective,
-//   getProspectiveQuestionsAndPredictions,
-// }
+export default {
+  createProspective,
+  getPropsectives,
+  submitProspective,
+  getPropsective,
+  deleteProspective,
+  getProspectiveQuestionsAndPredictions,
+}
