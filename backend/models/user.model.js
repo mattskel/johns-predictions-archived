@@ -69,6 +69,12 @@ userSchema.statics.login = async function(email, password) {
   return user;
 }
 
+userSchema.methods = {
+  authenticate: function(plainText) {
+    return bcrypt.compare(plainText, this.password);
+  }
+}
+
 const User = mongoose.model('User', userSchema);
 // module.exports = User;
 export default User;

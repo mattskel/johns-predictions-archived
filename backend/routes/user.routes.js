@@ -13,17 +13,17 @@ const {
 const requireAuth = require('../middleware/requireAuth');
 */
 import express from 'express';
-import {createUser, getUser, deleteUser, updateUser, getUsers, loginUser, signupUser} from '../controllers/user.controller';
+import {createUser, getUser, deleteUser, updateUser, getUsers } from '../controllers/user.controller';
 import requireAuth from '../middleware/requireAuth';
 
 
 const router = express.Router();
 
 // login route
-router.post('/login', loginUser);
+// router.post('/login', loginUser);
 
 // signup router
-router.post('/signup', signupUser);
+// router.post('/signup', signupUser);
 
 /**
  * Don't need auth for login and signup

@@ -93,10 +93,13 @@ export const getUsers = async (req, res) => {
   res.status(200).json(users);
 }
 
-const createToken = (_id) => {
-  return jwt.sign({_id}, process.env.SECRET, {expiresIn: '3d'});
-}
+// const createToken = (_id) => {
+//   return jwt.sign({_id}, process.env.SECRET, {expiresIn: '3d'});
+// }
 
+/*
+ * Moved to backend/controllers/auth.controller.js
+ * And renamed signin
 // login user
 export const loginUser = async (req, res) => {
   const {email, password} = req.body;
@@ -111,7 +114,10 @@ export const loginUser = async (req, res) => {
     res.status(400).json({error: error.message})
   }
 }
+*/
 
+/*
+ * Refactored as create
 // signup user
 export const signupUser = async (req, res) => {
   const {email, password} = req.body;
@@ -125,6 +131,7 @@ export const signupUser = async (req, res) => {
     res.status(400).json({error: error.message})
   }
 }
+*/
 
 // module.exports = {
 //   getUser,

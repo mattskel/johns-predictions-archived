@@ -11,6 +11,7 @@ import userRoutes from './routes/user.routes'
 import questionRoutes from './routes/questions'
 import prospectiveRoutes from './routes/prospectives'
 import predictionRoutes from './routes/predictions'
+import authRoutes from './routes/auth.routes'
 
 // import userRoutes from './routes/user.routes'
 // import authRoutes from './routes/auth.routes'
@@ -37,6 +38,7 @@ app.use(cors());
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 
 // routes
+app.use('/', authRoutes)
 app.use('/api/users', userRoutes);
 app.use('/api/user', userRoutes)
 app.use('/api/questions', questionRoutes);

@@ -12,6 +12,8 @@ const useLogin = () => {
   const { state } = location || {};
   const { from = '/home' } = state || {};
 
+  /*
+   * Moved to frontend/auth/api-auth.js
   const login = async (email, password) => {
     setIsLoading(true);
     setError(null);
@@ -40,6 +42,7 @@ const useLogin = () => {
     }
     setIsLoading(false);
   };
+  */
 
   return { login, isLoading, error };
 };
