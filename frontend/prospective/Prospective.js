@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import { Outlet } from 'react-router-dom';
+import Button from '@material-ui/core/Button'
+// import { Outlet } from 'react-router-dom';
 import { read } from './api-prospective.js';
 import { listForProspective } from '../question/api-question.js';
+import {Link} from 'react-router-dom'
 
 function Prospective(props) {
   const [prospective, setProspective] = useState({});
@@ -45,7 +47,11 @@ function Prospective(props) {
           {questions && questions.map((question) => (
             <div key={question._id}>{question.text}</div>
           ))}
-          <button type="button">Add question</button>
+          <Link to={"/admin/question/new/" + prospective._id}>
+            <Button color="primary" variant="contained">
+              Add question
+            </Button>
+          </Link>
         </div>
       )}
     </div>

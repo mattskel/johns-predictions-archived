@@ -15,6 +15,24 @@ const listForProspective = async (params, signal) => {
   }
 }
 
+const create = async (params, question) => {
+  console.log('create');
+  try {
+    let response = await fetch('/api/questions/for/' + params.prospectiveId, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(question)
+    })
+    return await response.json()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export {
-  listForProspective
+  listForProspective,
+  create
 }

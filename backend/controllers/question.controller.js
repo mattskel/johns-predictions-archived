@@ -7,7 +7,8 @@ import Question from '../models/questionModel';
 import mongoose from 'mongoose';
 
 const createQuestion = async (req, res) => {
-  const {text, prospectiveId, options} = req.body;
+  const {text, options} = req.body;
+  const {_id: prospectiveId} = req.prospective;
 
   const emptyFields = [];
 

@@ -22,16 +22,16 @@ const router = express.Router();
 // A user must be authenticated to request these routes
 // router.use(requireAuth);
 
-// router.post('/', createQuestion);
-
-// router.get('/', getQuestions);
+router.route('/')
+  // .post(questionCtrl.createQuestion)
+  .get(questionCtrl.getQuestions);
 
 // router.delete('/:id', deleteQuestion);
 
 // router.patch('/:id', updateQuestion)
 router.route('/for/:prospectiveId')
   .get(questionCtrl.getQuestions)
-  // .post(questionCtrl.createQuestion);
+  .post(questionCtrl.createQuestion);
 
 // module.exports = router
 router.param('prospectiveId', prospectiveCtrl.getPropsective)
