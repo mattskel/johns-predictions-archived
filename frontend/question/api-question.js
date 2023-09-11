@@ -1,5 +1,6 @@
-const listForProspective = async (params, credentials, signal) => {
+const listForProspective = async (params, signal) => {
   try {
+    console.log('params', params)
     let response = await fetch('/api/questions/for/'+params.prospectiveId, {
       method: 'GET',
       signal: signal,
@@ -12,4 +13,8 @@ const listForProspective = async (params, credentials, signal) => {
   } catch(err){
     console.log(err)
   }
+}
+
+export {
+  listForProspective
 }

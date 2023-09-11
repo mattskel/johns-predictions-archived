@@ -49,7 +49,7 @@ app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 app.use('/', authRoutes)
 app.use('/api/users', userRoutes);
 app.use('/api/user', userRoutes)
-app.use('/', questionRoutes);
+app.use('/api/questions', questionRoutes);
 // app.use('/', prospectiveRoutes);
 app.use('/api/prospectives', prospectiveRoutes);
 // app.use('/api/predictions', predictionRoutes);

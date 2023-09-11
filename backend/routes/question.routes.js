@@ -29,7 +29,7 @@ const router = express.Router();
 // router.delete('/:id', deleteQuestion);
 
 // router.patch('/:id', updateQuestion)
-router.route('/api/questions/for/:prospectiveId')
+router.route('/for/:prospectiveId')
   .get(questionCtrl.getQuestions)
   // .post(questionCtrl.createQuestion);
 
