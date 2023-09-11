@@ -26,7 +26,7 @@ const ProspectivesList = () => {
     <div>
       {prospectives.map((prospective) => (
         <div key={prospective._id}>
-          <Link to={`${prospective._id}/`} relative="path">{prospective.title}</Link>
+          <Link to={`/admin/prospective/${prospective._id}`}>{prospective.title}</Link>
         </div>
       ))}
     </div>

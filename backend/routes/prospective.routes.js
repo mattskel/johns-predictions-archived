@@ -18,11 +18,11 @@ import authCtrl from '../controllers/auth.controller';
 const router = express.Router();
 
 // router.use(requireAuth);
-router.route('/api/prospectives')
+router.route('/')
   .get(prospectiveCtrl.getPropsectives)
   .post(prospectiveCtrl.createProspective);
 
-router.route('/api/prospectives/:id')
+router.route('/:prospectiveId')
   .get(prospectiveCtrl.read)
   // .delete(prospectiveCtrl.deleteProspective);
 
@@ -31,5 +31,5 @@ router.route('/api/prospectives/:id')
 // router.get('/api/prospectives/:id/questions-and-predictions', getProspectiveQuestionsAndPredictions);
 
 // module.exports = router;
-router.param('id', prospectiveCtrl.getPropsective)
+router.param('prospectiveId', prospectiveCtrl.getPropsective)
 export default router;
