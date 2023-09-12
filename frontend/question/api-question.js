@@ -16,7 +16,6 @@ const listForProspective = async (params, signal) => {
 }
 
 const create = async (params, question) => {
-  console.log('create');
   try {
     let response = await fetch('/api/questions/for/' + params.prospectiveId, {
       method: 'POST',

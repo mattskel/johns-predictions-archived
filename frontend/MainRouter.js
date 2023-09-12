@@ -8,6 +8,7 @@ import Menu from './core/Menu'
 import Prospectives from './prospective/Prospectives'
 import Prospective from './prospective/Prospective'
 import NewQuestion from './question/NewQuestion'
+import NewProspective from './prospective/NewProspective'
 
 const MainRouter = () => {
   return (
@@ -20,6 +21,7 @@ const MainRouter = () => {
         <Route path="/signin" component={Signin}/>
 
         <Route path="/admin/prospectives" component={Prospectives}/>
+        <Route path="/admin/prospective/new" component={NewProspective}/>
         <Route path="/admin/prospective/:prospectiveId" component={Prospective}/>
         <Route path="/admin/question/new/:prospectiveId" component={NewQuestion}/>
       </Switch>
