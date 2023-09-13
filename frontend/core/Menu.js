@@ -27,6 +27,7 @@ const Menu = withRouter(({history}) => {
               <span>{auth.isAuthenticated().user.email}</span>
               {auth.isAuthenticated().user.isAdmin && (
                 <Link to="/admin/prospectives">Prospectives</Link>)}
+              <Link to="/prospectives/published">Predictions</Link>  
               <button type="button" onClick={handleClick}>Log out</button>
               {/* <Button type="button" handleClick={handleClick}><span>Log out</span></Button> */}
             </div>

@@ -167,13 +167,22 @@ const getProspectiveQuestionsAndPredictions = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    console.log('here')
     let prospective = req.prospective
     prospective = extend(prospective, req.body)
     prospective.updated = Date.now()
-    console.log('prospective', prospective)
     await prospective.save()
     res.json(prospective)
+  } catch (err) {
+    return res.status(400).json({
+      error: err
+    })
+  }
+}
+
+const listPublished = async (req, res) => {
+  try {
+    let prospectives = await Prospective.find({published: true})
+    res.json(prospectives)
   } catch (err) {
     return res.status(400).json({
       error: err
@@ -189,5 +198,6 @@ export default {
   deleteProspective,
   getProspectiveQuestionsAndPredictions,
   read,
-  update
+  update,
+  listPublished
 }

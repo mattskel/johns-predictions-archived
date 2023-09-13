@@ -62,4 +62,17 @@ const update = async (params, prospective) => {
   }
 }
 
-export { list, read, create, update }
+const publishedList = async (signal) => {
+  try {
+    let response = await fetch('/api/prospectives/published/', {
+      method: 'GET',
+      signal: signal,
+    })
+
+    return await response.json();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export { list, read, create, update, publishedList }

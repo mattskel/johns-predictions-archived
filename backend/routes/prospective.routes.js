@@ -22,6 +22,9 @@ router.route('/')
   .get(prospectiveCtrl.getPropsectives)
   .post(prospectiveCtrl.createProspective);
 
+router.route('/published')
+  .get(prospectiveCtrl.listPublished);
+
 router.route('/:prospectiveId')
   .get(prospectiveCtrl.read)
   .put(prospectiveCtrl.update)
