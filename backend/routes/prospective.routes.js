@@ -24,6 +24,7 @@ router.route('/')
 
 router.route('/:prospectiveId')
   .get(prospectiveCtrl.read)
+  .put(prospectiveCtrl.update)
   // .delete(prospectiveCtrl.deleteProspective);
 
 

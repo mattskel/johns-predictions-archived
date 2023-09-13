@@ -14,10 +14,10 @@ export default function NewProspective(props) {
         setValues({ ...values, error: '', redirect: true });
       }
     });
+  }
 
-    if (values.redirect) {
-      return <Redirect to="/admin/prospectives/" />;
-    }
+  if (values.redirect) {
+    return <Redirect to="/admin/prospectives/" />;
   }
   return (
     <div>

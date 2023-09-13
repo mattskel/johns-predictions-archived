@@ -43,7 +43,9 @@ function Prospective(props) {
     <div className="prospective">
       {prospective && prospective._id && (
         <div>
-          <h3>{prospective.title}</h3>
+          <span>{prospective.title}</span>
+          <Link to={"/admin/prospective/edit/" + prospective._id}>Edit</Link>
+          
           {questions && questions.map((question) => (
             <div key={question._id}>{question.text}</div>
           ))}

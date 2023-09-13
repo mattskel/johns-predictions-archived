@@ -5,6 +5,7 @@ const Question = require('../models/questionModel.js');
 const Prediction = require('../models/predictionModel');
 const mongoose = require('mongoose');
 */
+import extend from 'lodash/extend.js';
 import Prospective from '../models/prospective.model.js';
 import Question from '../models/questionModel.js';
 import Prediction from '../models/predictionModel.js';
@@ -164,14 +165,21 @@ const getProspectiveQuestionsAndPredictions = async (req, res) => {
   res.status(200).json(questionsAndPredictions);
 }
 
-// module.exports = {
-//   createProspective,
-//   getPropsectives,
-//   submitProspective,
-//   getPropsective,
-//   deleteProspective,
-//   getProspectiveQuestionsAndPredictions,
-// }
+const update = async (req, res) => {
+  try {
+    console.log('here')
+    let prospective = req.prospective
+    prospective = extend(prospective, req.body)
+    prospective.updated = Date.now()
+    console.log('prospective', prospective)
+    await prospective.save()
+    res.json(prospective)
+  } catch (err) {
+    return res.status(400).json({
+      error: err
+    })
+  }
+}
 
 export default {
   createProspective,
@@ -180,5 +188,6 @@ export default {
   getPropsective,
   deleteProspective,
   getProspectiveQuestionsAndPredictions,
-  read
+  read,
+  update
 }
