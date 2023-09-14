@@ -12,6 +12,10 @@ const predictionSchema = new mongoose.Schema({
   },
   prediction: {
     type: String
+  },
+  prospectiveId: {
+    type: String,
+    required: true
   }
 }, {timestamps: true});
 

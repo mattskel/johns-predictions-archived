@@ -2,14 +2,14 @@
 import Prediction from '../models/predictionModel';
 
 const getPredictions = async (req, res) => {
-  console.log('req', req)
+  // console.log('req', req)
 
   // const {prospectiveId} = req;
   // const {_id: userId} = req.user;
   const {_id: userId} = req.profile;
   const {_id: prospectiveId} = req.prospective;
 
-  let query = {}
+  let query = {prospectiveId, userId};
   // if (prospectiveId) {
   //   query.prospectiveId = prospectiveId;
   // }
@@ -19,4 +19,27 @@ const getPredictions = async (req, res) => {
   res.status(200).json(predictions);
 }
 
-export default { getPredictions }
+const createPredictions = async (req, res) => {
+  const {prospectiveId} = req.params;
+  const {_id: userId} = req.profile;
+  const predictions = req.body;
+
+  console.log('predictions', predictions)
+
+  const predictionDocs = Object.keys(predictions).map((questionId) => {
+    return new Prediction({
+      userId,
+      questionId,
+      prediction: predictions[questionId],
+      prospectiveId,
+    });
+  });
+
+  const prediction = await Promise.all(predictionDocs.map((predictionDoc) => {
+    return predictionDoc.save();
+  } ));
+
+  res.status(200).json(prediction);
+}
+
+export default { getPredictions, createPredictions }

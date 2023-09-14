@@ -88,7 +88,7 @@ const getPropsective = async (req, res, next, id) => {
   //   return res.status(400).json({error: 'prospectiveId is null or undefined.'});
   // }
 
-  console.log('prospectiveId', id)
+  // console.log('prospectiveId', id)
 
   // // let query = {_id: prospectiveId}
   // const prospective = await Prospective.findById(id);
