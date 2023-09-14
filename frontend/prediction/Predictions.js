@@ -21,10 +21,11 @@ function Predictions(props) {
       if (data && data.error) {
         console.log(data.error);
       } else {
-        setPredictions(data.reduce((acc, prediction) => {
+        const initPredictions = data.reduce((acc, prediction) => {
           acc[prediction.questionId] = prediction.prediction;
           return acc;
-        }, {}));
+        }, {});
+        setPredictions(initPredictions);
       }
     });
 
