@@ -9,22 +9,25 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
 // get a single user
-export const getUser = async (req, res) => {
-  const {id} = req.params;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'Id is not valid'});
+const getUser = async (req, res, next, id) => {
+  try {
+    let user = await User.findById(id)
+    console.log('user', user)
+    if (!user)
+      return res.status('400').json({
+        error: "User not found"
+      })
+    req.profile = user
+    next()
+  } catch (err) {
+    return res.status('400').json({
+      error: "Could not retrieve user"
+    })
   }
-
-  const user = await User.findById(id);
-  if (!user) {
-    return res.status(404).json({error: 'User not found'});
-  }
-
-  res.status(200).json(user);
 }
 
 // create a new user
-export const createUser = async (req, res) => {
+const createUser = async (req, res) => {
   const {username, password, email} = req.body;
 
   const emptyFields = [];
@@ -55,7 +58,7 @@ export const createUser = async (req, res) => {
 }
 
 // delete a user
-export const deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
   const {id} = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: 'Id is not valid'});
@@ -70,7 +73,7 @@ export const deleteUser = async (req, res) => {
 }
 
 // update a user
-export const updateUser = async(req, res) => {
+const updateUser = async(req, res) => {
   const {id} = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: 'Id is not valid'});
@@ -87,7 +90,7 @@ export const updateUser = async(req, res) => {
 }
 
 // get all the users
-export const getUsers = async (req, res) => {
+const getUsers = async (req, res) => {
   const users = await User.find({}).sort({createdAt: -1});
 
   res.status(200).json(users);
@@ -143,12 +146,10 @@ export const signupUser = async (req, res) => {
 //   signupUser
 // }
 
-// export default {
-//   getUser,
-//   createUser,
-//   deleteUser,
-//   updateUser,
-//   getUsers,
-//   loginUser,
-//   signupUser
-// }
+export default {
+  getUser,
+  createUser,
+  deleteUser,
+  updateUser,
+  getUsers
+}

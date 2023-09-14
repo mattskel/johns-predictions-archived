@@ -11,6 +11,7 @@ import NewQuestion from './question/NewQuestion'
 import NewProspective from './prospective/NewProspective'
 import EditProspective from './prospective/EditProspective'
 import PublishedProspectives from './prospective/Published';
+import Predictions from './prediction/Predictions';
 
 const MainRouter = () => {
   return (
@@ -23,6 +24,7 @@ const MainRouter = () => {
         <Route path="/signin" component={Signin}/>
 
         <Route path="/prospectives/published"component={PublishedProspectives} />
+        <Route path="/predictions/for/:prospectiveId" component={Predictions} />
 
         <Route path="/admin/prospectives" component={Prospectives}/>
         <Route path="/admin/prospective/new" component={NewProspective}/>

@@ -13,7 +13,7 @@ const {
 const requireAuth = require('../middleware/requireAuth');
 */
 import express from 'express';
-import {createUser, getUser, deleteUser, updateUser, getUsers } from '../controllers/user.controller';
+import userCtrl from '../controllers/user.controller';
 import requireAuth from '../middleware/requireAuth';
 
 
@@ -35,22 +35,22 @@ const router = express.Router();
 // router.use(requireAuth);
 
 router.route('/')
-  .get(getUsers)
-  .post(createUser);
+  .get(userCtrl.getUsers)
+  .post(userCtrl.createUser);
 
 // router.post('/', createUser);
 
 // GET an existing user
-router.get('/:id', getUser)
+router.get('/:id', userCtrl.getUser)
 
 // GET all users
 // router.get('/', getUsers);
 
 // DELETE a user
-router.delete('/:id', deleteUser);
+router.delete('/:id', userCtrl.deleteUser);
 
 // PATCH a user
-router.patch('/:id', updateUser)
+router.patch('/:id',userCtrl.updateUser)
 
 // module.exports = router
 export default router;
