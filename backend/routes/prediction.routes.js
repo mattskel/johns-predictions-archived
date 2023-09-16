@@ -10,7 +10,7 @@ import express from 'express';
 import predictionCtrl from '../controllers/prediction.controller.js';
 import prospectiveCtrl from '../controllers/prospective.controller.js';
 import userCtrl from '../controllers/user.controller.js';
-import submissionController from '../controllers/submission.controller.js';
+import submissionCtrl from '../controllers/submission.controller.js';
 import requireAuth from '../middleware/requireAuth.js';
 
 const router = express.Router();
@@ -19,7 +19,8 @@ const router = express.Router();
 
 router.route('/for/:prospectiveId/by/:userId')
   .get(predictionCtrl.getPredictions)
-  .post(submissionController.create, predictionCtrl.createPredictions);
+  .post(submissionCtrl.create, predictionCtrl.createPredictions)
+  .put(submissionCtrl.update, predictionCtrl.createPredictions);
 
 // module.exports = router
 router.param('prospectiveId', prospectiveCtrl.getPropsective)

@@ -20,6 +20,7 @@ import questionRoutes from './routes/question.routes'
 import prospectiveRoutes from './routes/prospective.routes'
 import predictionRoutes from './routes/prediction.routes'
 import authRoutes from './routes/auth.routes'
+import submissionRoutes from './routes/submission.routes'
 
 // import userRoutes from './routes/user.routes'
 // import authRoutes from './routes/auth.routes'
@@ -53,6 +54,7 @@ app.use('/api/questions', questionRoutes);
 // app.use('/', prospectiveRoutes);
 app.use('/api/prospectives', prospectiveRoutes);
 app.use('/api/predictions', predictionRoutes);
+app.use('/api/submissions', submissionRoutes);
 
 app.get('*', (req, res) => {
   // 1. Generate CSS styles using Material-UI's ServerStyleSheets
