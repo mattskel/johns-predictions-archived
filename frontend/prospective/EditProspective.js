@@ -24,8 +24,8 @@ export default function EditProspective({match}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {title, published} = values || {};
-    const prospective = {title, published};
+    const {title, published, isClosed} = values || {};
+    const prospective = {title, published, isClosed};
     update(match.params, prospective).then((data) => {
       if (data.error) {
         console.log(data.error);
@@ -46,9 +46,16 @@ export default function EditProspective({match}) {
       <form onSubmit={handleSubmit}>
       <input onChange={(e) => setValues({...values, title: e.target.value})} 
         value={values.title || ''} />
-      <input type="checkbox" 
+      <input type="checkbox"
+        id="published"
         onChange={(e) => setValues({...values, published: e.target.checked})} 
         checked={values.published || false} />
+      <label htmlFor="published">Published</label>
+      <input type="checkbox"
+        id="isClosed"
+        onChange={(e) => setValues({...values, isClosed: e.target.checked})} 
+        checked={values.isClosed || false} />
+      <label htmlFor="isClosed">Closed</label>
       <button type="submit">Update</button>
       </form>
     </div>

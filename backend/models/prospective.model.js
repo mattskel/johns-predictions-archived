@@ -9,7 +9,11 @@ const prospectiveSchema = new mongoose.Schema({
   published: {
     type: Boolean,
     default: false
-  }
+  },
+  isClosed: {
+    type: Boolean,
+    default: false
+  },
 }, {timestamps: true});
 
 const Prospective = new mongoose.model('Prospective', prospectiveSchema);
