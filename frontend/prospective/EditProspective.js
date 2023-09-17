@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react'
+import Typography from '@material-ui/core/Typography'
+import { Divider } from '@material-ui/core';
 import { Redirect } from "react-router-dom";
 import {update, read} from './api-prospective.js'
 
@@ -42,8 +44,14 @@ export default function EditProspective({match}) {
 
   return (
     <div>
+      <Typography variant="h6" color="inherit" display="inline">
+        Edit
+      </Typography>
+      <Divider />
       {/* <h1>{values.title}</h1> */}
+      <br />
       <form onSubmit={handleSubmit}>
+        <div>
       <input onChange={(e) => setValues({...values, title: e.target.value})} 
         value={values.title || ''} />
       <input type="checkbox"
@@ -56,6 +64,7 @@ export default function EditProspective({match}) {
         onChange={(e) => setValues({...values, isClosed: e.target.checked})} 
         checked={values.isClosed || false} />
       <label htmlFor="isClosed">Closed</label>
+      </div>
       <button type="submit">Update</button>
       </form>
     </div>

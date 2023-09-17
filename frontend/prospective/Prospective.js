@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import Button from '@material-ui/core/Button'
 // import { Outlet } from 'react-router-dom';
+import { Divider } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography'
 import { read } from './api-prospective.js';
 import { listForProspective } from '../question/api-question.js';
 import {Link} from 'react-router-dom'
@@ -43,8 +45,16 @@ function Prospective(props) {
     <div className="prospective">
       {prospective && prospective._id && (
         <div>
-          <span>{prospective.title}</span>
-          <Link to={"/admin/prospective/edit/" + prospective._id}>Edit</Link>
+          <div>
+            <Typography variant="h6" color="inherit" display="inline">
+            {prospective.title}
+            </Typography>
+            <Link to={"/admin/prospective/edit/" + prospective._id} display="inline">
+              Edit
+            </Link>
+          </div>
+
+          <Divider />
           
           {questions && questions.map((question) => (
             <div key={question._id}>
@@ -54,9 +64,9 @@ function Prospective(props) {
             
           ))}
           <Link to={"/admin/question/new/" + prospective._id}>
-            <Button color="primary" variant="contained">
+            <button color="primary" variant="contained">
               Add question
-            </Button>
+            </button>
           </Link>
         </div>
       )}

@@ -1,4 +1,7 @@
 import React, {useState} from 'react'
+import { Typography } from '@material-ui/core';
+import { Divider } from '@material-ui/core';
+import Button from '@material-ui/core/Button'
 import {create} from './api-prospective.js'
 
 export default function NewProspective(props) {
@@ -21,10 +24,22 @@ export default function NewProspective(props) {
   }
   return (
     <div>
-      <h1>New Prospective</h1>
+      <Typography variant="h6" color="inherit" display="inline">
+        New prospective
+      </Typography> 
+      <Divider />
+      <br />
       <form onSubmit={handleSubmit}>
-      <input onChange={(e) => setValues({...values, title: e.target.value})} value={values.title} />
-      <button type="submit">Add</button>
+        Title
+        <div>
+          <input
+            id="title"
+            onChange={(e) => setValues({...values, title: e.target.value})} 
+            value={values.title} />
+        </div>  
+        <button>
+          Ok
+        </button>
       </form>
     </div>
   )
