@@ -9,10 +9,13 @@ import { Link } from 'react-router-dom';
 function Prospectives() {
   return (
     <div className="prospectives">
-      <Link to="/admin/prospective/new">
-        <button>New</button>
-      </Link>
+        
       <ProspectivesList />
+      <Link to="/admin/prospective/new">
+          <Button color="primary" variant="contained">
+            New
+          </Button>
+        </Link>
     </div>
   );
 }
