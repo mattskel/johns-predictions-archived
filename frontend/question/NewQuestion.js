@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import {create} from './api-question.js'
-import { Redirect } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography'
+import { Divider } from '@material-ui/core';
+import { Redirect, Link } from 'react-router-dom';
 
 
 export default function NewQuestion(props) {
@@ -51,21 +53,44 @@ export default function NewQuestion(props) {
 
   return (
     <div>
+      <Typography variant="h6" color="inherit">
+      New Question
+      </Typography>
+      <Divider />
+      <br />
       <form onSubmit={handleSubmit}>
-      <h1>New Question</h1>
-      <input type="text" onChange={handleChange('text')} value={values.text}/>
-      <button type="submit">Add question</button>
-      </form>
+        Question:
+        <div>
+          <input 
+          type="text" 
+          style={{width: '500px'}}
+          onChange={handleChange('text')} value={values.text}/>
+        </div>
+        <br />
+      Options: 
       <div>
       {options && options.map((option, index) => (
-          <div key={index}>
+        <div key={index}>
             {option}
             <button onClick={() => setOptions(options.filter((o, i) => i !== index))}>Delete</button>
           </div>
       ))}
       </div>
+      <div>
+
       <input type="text" onChange={handleChange('option')} value={values.option}/>
       <button onClick={() => setOptions([...options, values.option])}>Add option</button>
+      </div>
+      <br />
+      <div>
+        <Link to={'/admin/prospective/' + match.params.prospectiveId}>
+          <button >
+            Cancel
+          </button>
+        </Link>
+        <button type="submit">Add question</button>
+      </div>
+      </form>
     </div>
   )
 }

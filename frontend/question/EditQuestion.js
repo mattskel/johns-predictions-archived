@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
+import Typography from '@material-ui/core/Typography'
+import { Divider } from '@material-ui/core';
 import {read, update} from './api-question.js'
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 export default function EditQuestion(props) {
   const {match} = props || {};
@@ -65,27 +67,51 @@ export default function EditQuestion(props) {
 
   return (
     <div>
+      <Typography variant="h6" color="inherit" display="inline">
+        Edit
+      </Typography>
+      <Divider />
+      <br />
       <form onSubmit={handleSubmit}>
-      <input type="text" onChange={handleQuestionChange('text')} value={question && question.text}/>
-      <select value={question.answer} onChange={handleQuestionChange('answer')}>
+      <input 
+        type="text"
+        style={{width: '500px'}}
+        onChange={handleQuestionChange('text')} 
+        value={question && question.text}/>
+      <br />
+      Answer:
+      <div>
+      <select id="answer" value={question.answer} onChange={handleQuestionChange('answer')}>
         <option value="">Select...</option>
         {options && options.map((option, index) => (
           <option key={index}>{option}</option>
         ))}
       </select>
-      <button type="submit">Update question</button>
-      </form>
+      </div>
+      <br />
       <div>
+      Options:
       {options && options.map((option, index) => (
         <div key={index}>
           {option}
           <button onClick={() => setOptions(options.filter((o, i) => i !== index))}>Delete</button>
         </div>
       ))}
-      </div>
       <input type="text" onChange={handleValuesChange('option')}/>
       <button onClick={() => setOptions([...options, values.option])}>Add option</button>
+      </div>
+      <br />
+      <div>
+        <Link to={"/admin/prospective/" + question.prospectiveId}>
+          <button >
+            Cancel
+          </button>
+        </Link>
+        <button type="submit">Update question</button>
+      </div>
+      </form>
       
+
        
     </div>
   )
