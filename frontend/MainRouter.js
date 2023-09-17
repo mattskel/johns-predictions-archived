@@ -8,10 +8,12 @@ import Menu from './core/Menu'
 import Prospectives from './prospective/Prospectives'
 import Prospective from './prospective/Prospective'
 import NewQuestion from './question/NewQuestion'
+import EditQuestion from './question/EditQuestion'
 import NewProspective from './prospective/NewProspective'
 import EditProspective from './prospective/EditProspective'
 import PublishedProspectives from './prospective/Published';
 import Predictions from './prediction/Predictions';
+import Submitted from './prediction/Submitted'
 
 const MainRouter = () => {
   return (
@@ -25,12 +27,14 @@ const MainRouter = () => {
 
         <Route path="/prospectives/published"component={PublishedProspectives} />
         <Route path="/predictions/for/:prospectiveId" component={Predictions} />
+        <Route path="/predictions/submitted/for/:prospectiveId" component={Submitted} />
 
         <Route path="/admin/prospectives" component={Prospectives}/>
         <Route path="/admin/prospective/new" component={NewProspective}/>
         <Route path="/admin/prospective/edit/:prospectiveId" component={EditProspective}/>
         <Route path="/admin/prospective/:prospectiveId" component={Prospective}/>
         <Route path="/admin/question/new/:prospectiveId" component={NewQuestion}/>
+        <Route path="/admin/question/edit/:questionId" component={EditQuestion}/>
       </Switch>
     </div>
   )

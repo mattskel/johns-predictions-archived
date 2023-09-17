@@ -31,7 +31,44 @@ const create = async (params, question) => {
   }
 }
 
+const read = async (params, signal) => {
+  try {
+    console.log('params.questionId', params.questionId);
+    let response = await fetch('/api/questions/' + params.questionId, {
+      method: 'GET',
+      signal: signal,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        // 'Authorization': 'Bearer ' + credentials.t
+      }
+    })
+    return await response.json()
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+const update = async (params, question) => {
+  console.log('question', question);
+  try {
+    let response = await fetch('/api/questions/' + params.questionId, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(question)
+    })
+    return await response.json()
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 export {
   listForProspective,
-  create
+  create,
+  read,
+  update
 }

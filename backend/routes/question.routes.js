@@ -33,6 +33,11 @@ router.route('/for/:prospectiveId')
   .get(questionCtrl.getQuestions)
   .post(questionCtrl.createQuestion);
 
+router.route('/:id')  
+  .get(questionCtrl.read)
+  .put(questionCtrl.updateQuestion);
+
 // module.exports = router
-router.param('prospectiveId', prospectiveCtrl.getPropsective)
+router.param('prospectiveId', prospectiveCtrl.getPropsective);
+router.param('id', questionCtrl.getQuestionById)
 export default router;

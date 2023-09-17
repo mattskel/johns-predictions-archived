@@ -59,7 +59,9 @@ const deleteQuestion = async (req, res) => {
 
 const updateQuestion = async (req, res) => {
   const {id} = req.params;
+  console.log('id', id)
   const update = req.body || {};
+  console.log('update', update)
 
   const question = await Question.findOneAndUpdate({_id: id}, {...update});
   if (!question) {
@@ -67,6 +69,28 @@ const updateQuestion = async (req, res) => {
   }
 
   res.status(200).json(question)
+}
+
+const getQuestionById = async (req, res, next, id) => {
+  console.log('getQuestionById')
+  console.log('id', id)
+  try {
+    let question = await Question.findById(id)
+    if (!question)
+      return res.status('400').json({
+        error: "Question not found"
+      })
+    req.question = question
+    next()
+  } catch (err) {
+    return res.status('400').json({
+      error: "Could not retrieve question"
+    })
+  }
+}
+
+const read = (req, res) => {
+  return res.json(req.question);
 }
 
 // module.exports = {
@@ -80,5 +104,7 @@ export default {
   createQuestion,
   getQuestions,
   deleteQuestion,
-  updateQuestion
+  updateQuestion,
+  getQuestionById,
+  read
 }

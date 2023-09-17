@@ -47,7 +47,11 @@ function Prospective(props) {
           <Link to={"/admin/prospective/edit/" + prospective._id}>Edit</Link>
           
           {questions && questions.map((question) => (
-            <div key={question._id}>{question.text}</div>
+            <div key={question._id}>
+              {question.text}
+              <Link to={"/admin/question/edit/" + question._id}>edit</Link>
+            </div>
+            
           ))}
           <Link to={"/admin/question/new/" + prospective._id}>
             <Button color="primary" variant="contained">
