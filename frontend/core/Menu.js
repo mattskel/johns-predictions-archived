@@ -1,46 +1,53 @@
 import React from 'react'
-import { Link, withRouter } from 'react-router-dom';
-// import useLogout from '../hooks/useLogout';
-// import useAuthContext from '../hooks/useAuthContext';
-// import Button from './button';
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import auth from '../auth/auth-helper';
+import { Link, withRouter } from 'react-router-dom';
 
 const Menu = withRouter(({history}) => {
-  // const { logout } = useLogout();
-  // const { user } = useAuthContext();
 
   const handleClick = () => {
-    // logout();
-    console.log('logout');
     auth.clearJWT(() => history.push('/'))
   };
 
   return (
-    <header>
-      <div className="container">
+    <AppBar position="static">
+      <Toolbar >
         <Link to="/">
-          <h1>Johns predictions</h1>
+          <Typography variant="h6" color="inherit">
+            Johns predictions
+          </Typography>
         </Link>
-        <nav>
-          {auth.isAuthenticated() && (
-            <div>
+        {auth.isAuthenticated() && (
+          <>
+            {auth.isAuthenticated().user.isAdmin && (
+              <Link to="/admin/prospectives">
+                <Button>
+                  Prospectives
+                </Button>
+              </Link>)}
+            <Link to="/prospectives/published">
+              <Button>
+                Predictions
+              </Button>
+            </Link>
+
+            <div style={{'position':'absolute', 'right': '10px'}}><span style={{'float': 'right'}}>
               <span>{auth.isAuthenticated().user.email}</span>
-              {auth.isAuthenticated().user.isAdmin && (
-                <Link to="/admin/prospectives">Prospectives</Link>)}
-              <Link to="/prospectives/published">Predictions</Link>  
-              <button type="button" onClick={handleClick}>Log out</button>
-              {/* <Button type="button" handleClick={handleClick}><span>Log out</span></Button> */}
-            </div>
-          )}
-          {!auth.isAuthenticated() && (
-            <div>
-              <Link to="/signin">Login</Link>
-              <Link to="/signup">Signup</Link>
-            </div>
-          )}
-        </nav>
-      </div>
-    </header>
+              <Button type="button" onClick={handleClick}>Log out</Button>
+            </span></div>
+          </>
+        )}
+        {!auth.isAuthenticated() && (
+          <div style={{'position':'absolute', 'right': '10px'}}><span style={{'float': 'right'}}>
+            <Link to="/signin">Login</Link>
+            <Link to="/signup">Signup</Link>
+          </span></div>
+        )}
+      </Toolbar>
+    </AppBar>
 
   );
 });
