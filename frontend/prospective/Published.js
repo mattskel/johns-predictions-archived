@@ -53,7 +53,7 @@ function Published() {
             <div>
               <span>
                 Submitted
-                {prospective.isClosed && <Link>See predictions</Link>}
+                {prospective.isClosed && <Link to={`/predictions/submitted/for/${prospective._id}`}>See predictions</Link>}
               </span>
             </div>
           )}
