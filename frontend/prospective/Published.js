@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import auth from '../auth/auth-helper';
+import Typography from '@material-ui/core/Typography'
+import { Divider } from '@material-ui/core';
 import { publishedList } from './api-prospective';
 import { listForUser } from '../submission/api-submission';
 import { Link } from 'react-router-dom';
@@ -43,6 +45,12 @@ function Published() {
   })
   return (
     <div>
+      <div className="predictions">
+      <Typography variant="h6" color="inherit" display="inline">
+        My Predictions
+      </Typography> 
+      <Divider />
+      </div>
       {published.map((prospective) => (
         <div key={prospective._id}>
           <Link 
@@ -50,12 +58,12 @@ function Published() {
             onClick={(event) => prospective.isClosed && event.preventDefault()}
             >{prospective.title}</Link>
           {submissions.find((submission) => submission.prospectiveId === prospective._id) && (
-            <div>
+            <>
               <span>
                 Submitted
                 {prospective.isClosed && <Link to={`/predictions/submitted/for/${prospective._id}`}>See predictions</Link>}
               </span>
-            </div>
+            </>
           )}
         </div>
       ))}
