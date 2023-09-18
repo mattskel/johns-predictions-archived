@@ -6,6 +6,13 @@ import Button from '@material-ui/core/Button'
 import auth from '../auth/auth-helper';
 import { Link, withRouter } from 'react-router-dom';
 
+const isActive = (history, path) => {
+  if (history.location.pathname == path)
+    return {color: '#bef67a'}
+  else
+    return {color: '#ffffff'}
+}
+
 const Menu = withRouter(({history}) => {
 
   const handleClick = () => {
@@ -24,12 +31,12 @@ const Menu = withRouter(({history}) => {
           <>
             {auth.isAuthenticated().user.isAdmin && (
               <Link to="/admin/prospectives">
-                <Button>
+                <Button style={isActive(history, "/admin/prospectives")}>
                   Prospectives
                 </Button>
               </Link>)}
             <Link to="/prospectives/published">
-              <Button>
+              <Button style={isActive(history, "/prospectives/published")}>
                 Predictions
               </Button>
             </Link>
