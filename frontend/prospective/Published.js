@@ -6,9 +6,6 @@ import { publishedList } from './api-prospective';
 import { listForUser } from '../submission/api-submission';
 import { Link } from 'react-router-dom';
 
-const prospectiveDetails = (prospective) => {
-}
-
 function Published() {
   const [published, setPublished] = useState([]);
   const [submissions, setSubmissions] = useState([]);
@@ -18,7 +15,7 @@ function Published() {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    publishedList(signal).then((data) => {
+    publishedList(signal, {t: jwt.token}).then((data) => {
       if (data && data.error) {
         console.log(data.error);
       } else {

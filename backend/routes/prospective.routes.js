@@ -23,11 +23,11 @@ router.route('/')
   .post(prospectiveCtrl.createProspective);
 
 router.route('/published')
-  .get(prospectiveCtrl.listPublished);
+  .get(authCtrl.requireSignin, prospectiveCtrl.listPublished);
 
 router.route('/:prospectiveId')
   .get(prospectiveCtrl.read)
-  .put(prospectiveCtrl.update)
+  .put(authCtrl.requireSignin, prospectiveCtrl.update)
   // .delete(prospectiveCtrl.deleteProspective);
 
 

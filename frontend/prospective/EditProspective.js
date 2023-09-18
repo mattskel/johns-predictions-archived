@@ -3,9 +3,11 @@ import Typography from '@material-ui/core/Typography'
 import { Divider } from '@material-ui/core';
 import { Redirect } from "react-router-dom";
 import {update, read} from './api-prospective.js'
+import auth from '../auth/auth-helper'
 
 export default function EditProspective({match}) {
   const [values, setValues] = useState({});
+  const jwt = auth.isAuthenticated()
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -28,7 +30,7 @@ export default function EditProspective({match}) {
     e.preventDefault();
     const {title, published, isClosed} = values || {};
     const prospective = {title, published, isClosed};
-    update(match.params, prospective).then((data) => {
+    update(match.params, {t: jwt.token}, prospective).then((data) => {
       if (data.error) {
         console.log(data.error);
         setValues({ ...values, error: data.error });

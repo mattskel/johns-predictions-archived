@@ -19,7 +19,6 @@ const read = async (params, signal) => {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        // 'Authorization': 'Bearer ' + credentials.t
       }
     })
     return await response.json()
@@ -46,13 +45,14 @@ const create = async (params, prospective) => {
   }
 }
 
-const update = async (params, prospective) => {
+const update = async (params, credentials, prospective) => {
   try {
     let response = await fetch('/api/prospectives/' + params.prospectiveId, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + credentials.t
       },
       body: JSON.stringify(prospective)
     })
@@ -62,11 +62,16 @@ const update = async (params, prospective) => {
   }
 }
 
-const publishedList = async (signal) => {
+const publishedList = async (signal, credentials) => {
   try {
     let response = await fetch('/api/prospectives/published/', {
       method: 'GET',
       signal: signal,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + credentials.t
+      },
     })
 
     return await response.json();
