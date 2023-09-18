@@ -1,9 +1,3 @@
-/**
- * 
-const User = require('../models/user.model');
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-*/
 import User from '../models/user.model';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
@@ -24,6 +18,12 @@ const getUser = async (req, res, next, id) => {
       error: "Could not retrieve user"
     })
   }
+}
+
+const read = (req, res) => {
+  // req.profile.hashed_password = undefined
+  // req.profile.salt = undefined
+  return res.json(req.profile)
 }
 
 // create a new user
@@ -96,60 +96,11 @@ const getUsers = async (req, res) => {
   res.status(200).json(users);
 }
 
-// const createToken = (_id) => {
-//   return jwt.sign({_id}, process.env.SECRET, {expiresIn: '3d'});
-// }
-
-/*
- * Moved to backend/controllers/auth.controller.js
- * And renamed signin
-// login user
-export const loginUser = async (req, res) => {
-  const {email, password} = req.body;
-  try {
-    const user = await User.login(email, password);
-    const {isAdmin} = user
-
-    // create a token
-    const token = createToken(user._id);
-    res.status(200).json({email, token, isAdmin});
-  } catch(error) {
-    res.status(400).json({error: error.message})
-  }
-}
-*/
-
-/*
- * Refactored as create
-// signup user
-export const signupUser = async (req, res) => {
-  const {email, password} = req.body;
-  try {
-    const user = await User.signup(email, password);
-
-    // create a token
-    const token = createToken(user._id);
-    res.status(200).json({email, token});
-  } catch(error) {
-    res.status(400).json({error: error.message})
-  }
-}
-*/
-
-// module.exports = {
-//   getUser,
-//   createUser,
-//   deleteUser,
-//   updateUser,
-//   getUsers,
-//   loginUser,
-//   signupUser
-// }
-
 export default {
   getUser,
   createUser,
   deleteUser,
   updateUser,
-  getUsers
+  getUsers,
+  read
 }

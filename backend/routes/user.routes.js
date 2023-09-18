@@ -1,56 +1,22 @@
-/**
- * 
-const express = require('express');
-const {
-  createUser,
-  getUser,
-  deleteUser,
-  updateUser,
-  getUsers,
-  loginUser,
-  signupUser
-} = require('../controllers/user.controller');
-const requireAuth = require('../middleware/requireAuth');
-*/
 import express from 'express';
 import userCtrl from '../controllers/user.controller';
+import authCtrl from '../controllers/auth.controller';
 import requireAuth from '../middleware/requireAuth';
 
 
 const router = express.Router();
 
-// login route
-// router.post('/login', loginUser);
-
-// signup router
-// router.post('/signup', signupUser);
-
-/**
- * Don't need auth for login and signup
- * Normally login and signup would be in a different route file
- * Because they are in the same file need to put them before the auth
- */
-
-// require auth for all routes
-// router.use(requireAuth);
-
 router.route('/')
   .get(userCtrl.getUsers)
   .post(userCtrl.createUser);
 
-// router.post('/', createUser);
 
-// GET an existing user
-router.get('/:id', userCtrl.getUser)
+router.route('/:userId')
+  .get(authCtrl.requireSignin, userCtrl.read)
+  .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.deleteUser)
+  .put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.updateUser)
 
-// GET all users
-// router.get('/', getUsers);
-
-// DELETE a user
-router.delete('/:id', userCtrl.deleteUser);
-
-// PATCH a user
-router.patch('/:id',userCtrl.updateUser)
+router.param('userId', userCtrl.getUser)
 
 // module.exports = router
 export default router;
