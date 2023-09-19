@@ -20,7 +20,7 @@ const router = express.Router();
 router.route('/for/:prospectiveId/by/:userId')
   .get(predictionCtrl.getPredictions)
   .post(submissionCtrl.create, predictionCtrl.createPredictions)
-  .put(submissionCtrl.update, predictionCtrl.createPredictions);
+  .put(submissionCtrl.update, predictionCtrl.upsertPredictions);
 
 // module.exports = router
 router.param('prospectiveId', prospectiveCtrl.getPropsective)

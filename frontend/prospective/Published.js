@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 function Published() {
   const [published, setPublished] = useState([]);
-  const [submissions, setSubmissions] = useState([]);
+  const [submissions, setSubmissions] = useState({});
   const jwt = auth.isAuthenticated();
   
   useEffect(() => {
@@ -36,10 +36,15 @@ function Published() {
       if (data && data.error) {
         console.log(data.error);
       } else {
-        setSubmissions(data);
+        const _submissions = data.reduce((acc, submission) => {
+          acc[submission.prospectiveId] = submission;
+          return acc;
+        }, {});
+        console.log('submissions', _submissions);
+        setSubmissions(_submissions);
       }
     });
-  })
+  }, [published])
   return (
     <div>
       <div className="predictions">
@@ -48,20 +53,18 @@ function Published() {
       </Typography> 
       <Divider />
       </div>
-      {published.map((prospective) => (
-        <div key={prospective._id}>
-          <Link 
+      {published.map(({_id: prospectiveId, isClosed, title}) => (
+        <div key={prospectiveId}>
+          {/* <Link 
             to={`/predictions/for/${prospective._id}`}
             onClick={(event) => prospective.isClosed && event.preventDefault()}
-            >{prospective.title}</Link>
-          {submissions.find((submission) => submission.prospectiveId === prospective._id) && (
-            <>
-              <span>
-                Submitted
-                {prospective.isClosed && <Link to={`/predictions/submitted/for/${prospective._id}`}>See predictions</Link>}
-              </span>
-            </>
-          )}
+            >{prospective.title}</Link> */}
+          {title}
+          <span>
+          {!submissions[prospectiveId] && !isClosed && <Link to={`/predictions/for/${prospectiveId}`}>Submit predictions</Link>}
+          {submissions[prospectiveId] && !isClosed && <Link to={`/predictions/edit/for/${prospectiveId}`}>Edit predictions</Link>}
+          {isClosed && <Link to={`/predictions/submitted/for/${prospectiveId}`}>See predictions</Link>}
+          </span>
         </div>
       ))}
     </div>

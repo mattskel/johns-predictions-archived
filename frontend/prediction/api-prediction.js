@@ -32,7 +32,30 @@ const createPredictions = async (params, credentials, predictions) => {
   }
 }
 
+
+const update = async (params, credentials, predictions) => {
+  console.log('params', params);
+  try {
+    let response = await fetch('/api/predictions/for/' + params.prospectiveId + '/by/' + params.userId, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer' + credentials.t,
+      },
+      body: JSON.stringify(predictions)
+    });
+
+    console.log('response', response);
+    return response.json();
+  } catch(err) {
+    console.log(err);
+  }
+}
+
 export {
   predictionsForProspective,
+  createPredictions,
   createPredictions
+  update
 }
