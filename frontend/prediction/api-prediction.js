@@ -32,6 +32,21 @@ const createPredictions = async (params, credentials, predictions) => {
   }
 }
 
+const predictionsForAllUsers = async (params, signal) => {
+  console.log('params', params);
+  try {
+    let response = await fetch('/api/predictions/for/' + params.prospectiveId, {
+      method: 'GET',
+      signal: signal,
+      headers: {
+        Accept: 'application/json',
+      }
+    });
+    return response.json();
+  } catch(err) {
+    console.log(err);
+  }
+}
 
 const update = async (params, credentials, predictions) => {
   console.log('params', params);
@@ -56,6 +71,6 @@ const update = async (params, credentials, predictions) => {
 export {
   predictionsForProspective,
   createPredictions,
-  createPredictions
+  predictionsForAllUsers,
   update
 }

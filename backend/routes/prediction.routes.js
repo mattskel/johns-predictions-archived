@@ -22,7 +22,9 @@ router.route('/for/:prospectiveId/by/:userId')
   .post(submissionCtrl.create, predictionCtrl.createPredictions)
   .put(submissionCtrl.update, predictionCtrl.update);
 
-// module.exports = router
+router.route('/for/:prospectiveId')
+  .get(prospectiveCtrl.isClosed, predictionCtrl.getPredictions);
+
 router.param('prospectiveId', prospectiveCtrl.getPropsective)
 router.param('userId', userCtrl.getUser)
 export default router;
