@@ -36,7 +36,7 @@ const createPredictions = async (req, res) => {
   res.status(200).json(prediction);
 }
 
-const upsertPredictions = async (req, res) => {
+const update = async (req, res) => {
   const {_id: userId} = req.profile || {};
   const {_id: prospectiveId} = req.prospective || {};
   const submission = req.body;
@@ -72,13 +72,13 @@ const upsertPredictions = async (req, res) => {
   console.log(insertArray)
 
   try {
-    const predictions = await Promise.all(insertArray.map((insert) => Prediction.replaceOne({
+    const predictions = await Promise.all(insertArray.map((insert) => Prediction.findOneAndUpdate({
       userId: insert.userId, questionId: insert.questionId
-    }, {...insert}, {upsert: true})));
+    }, {...insert})));
     res.status(200).json(predictions);
   } catch (error) {
     res.status(400).json({error: error.message});
   }
 }
 
-export default { getPredictions, createPredictions, upsertPredictions }
+export default { getPredictions, createPredictions, update }
