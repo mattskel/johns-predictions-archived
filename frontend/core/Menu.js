@@ -30,11 +30,16 @@ const Menu = withRouter(({history}) => {
         {auth.isAuthenticated() && (
           <>
             {auth.isAuthenticated().user.isAdmin && (
+              <><Link to="/users">
+                <Button style={isActive(history, "/users")}>
+                  Users
+                </Button>
+              </Link>
               <Link to="/admin/prospectives">
                 <Button style={isActive(history, "/admin/prospectives")}>
                   Prospectives
                 </Button>
-              </Link>)}
+              </Link></>)}
             <Link to="/prospectives/published">
               <Button style={isActive(history, "/prospectives/published")}>
                 Predictions
