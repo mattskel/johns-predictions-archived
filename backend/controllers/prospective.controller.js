@@ -26,7 +26,6 @@ const createProspective = async (req, res) => {
 }
 
 const getPropsectives = async (req, res) => {
-
   let query = {}
   const prospectives = await Prospective.find(query).sort({createdAt: -1});
 
@@ -35,8 +34,11 @@ const getPropsectives = async (req, res) => {
 
 // The submission from the prospective
 const submitProspective = async (req, res) => {
-  const {id: prospectiveId} = req.params;
-  const submission = req.body
+  // const {id: prospectiveId} = req.params;
+  // const submission = req.body
+  const {_id: userId} = req.profile || {};
+  const {_id: prospectiveId} = req.prospective || {};
+  const submission = req.body;
 
   // Validation
   // Get the questions for this prospective
@@ -55,7 +57,7 @@ const submitProspective = async (req, res) => {
 
   // Finally can insert the Answers
   const insertArray = [];
-  const userId = req.user._id;
+  // const userId = req.user._id;
   Object.keys(submission).map((questionId) => {
     const prediction = submission[questionId];
     insertArray.push({
@@ -172,6 +174,17 @@ const listPublished = async (req, res) => {
   }
 }
 
+const isClosed = (req, res, next) => {
+  const isClosed = req.prospective && req.prospective.isClosed;
+  if (!isClosed) {
+    return res.status(400).json({
+      error: 'Prospective is not closed'
+    })
+  }
+
+  next();
+}
+
 export default {
   createProspective,
   getPropsectives,
@@ -181,5 +194,6 @@ export default {
   getProspectiveQuestionsAndPredictions,
   read,
   update,
-  listPublished
+  listPublished,
+  isClosed,
 }

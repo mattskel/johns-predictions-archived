@@ -37,6 +37,7 @@ function Published() {
         console.log(data.error);
       } else {
         const _submissions = data.reduce((acc, submission) => {
+          console.log('submission', submission)
           acc[submission.prospectiveId] = submission;
           return acc;
         }, {});
@@ -61,9 +62,9 @@ function Published() {
             >{prospective.title}</Link> */}
           {title}
           <span>
-          {!submissions[prospectiveId] && !isClosed && <Link to={`/predictions/for/${prospectiveId}`}>Submit predictions</Link>}
-          {submissions[prospectiveId] && !isClosed && <Link to={`/predictions/edit/for/${prospectiveId}`}>Edit predictions</Link>}
-          {isClosed && <Link to={`/predictions/submitted/for/${prospectiveId}`}>See predictions</Link>}
+          {!isClosed && !submissions[prospectiveId] && <Link to={`/predictions/for/${prospectiveId}`}>Submit predictions</Link>}
+          {!isClosed && submissions[prospectiveId] && <Link to={`/predictions/edit/for/${prospectiveId}`}>Edit predictions</Link>}
+          {isClosed && <> Submissions are now closed <Link to={`/predictions/submitted/for/${prospectiveId}`}>See predictions</Link></>}
           </span>
         </div>
       ))}
