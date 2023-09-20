@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import _ from 'lodash';
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,6 +14,26 @@ import {predictionsForAllUsers} from './api-prediction.js';
 import { listForProspective } from '../question/api-question.js';
 import {list} from '../user/api-user.js';
 import auth from '../auth/auth-helper'
+
+const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    height: '85vh',
+  },
+  container: {
+    maxHeight: '100%',
+  },
+  firstColumn: {
+    position: '-webkit-sticky',
+    position: 'sticky',
+    background: '#fff',
+    left: 0,
+    zIndex: 1,
+  },
+  questionCell: {
+    zIndex: 99,
+  }
+});
 
 function ForAllUsers(props) {
   const {match} = props || {};
@@ -50,7 +73,7 @@ function ForAllUsers(props) {
     const userId = jwt.user._id;
 
     predictionsForAllUsers({prospectiveId, userId}, signal).then((data) => {
-      console.log('data', data)
+      // console.log('data', data)
       if (data && data.error) {
         console.log(data.error);
       } else {
@@ -70,7 +93,7 @@ function ForAllUsers(props) {
           })
         });
 
-        console.log('_predictions', _predictions)
+        // console.log('_predictions', _predictions)
         setPredictions({...predictions, ..._predictions});
       }
     });
@@ -80,13 +103,20 @@ function ForAllUsers(props) {
     };
   }, [users, questions])
 
+  const classes = useStyles();
+
   return (
-    <TableContainer>
-      <Table>
+    <div className={classes.root}>
+      <Typography variant="h6" color="inherit" display="inline">
+        All predictions
+      </Typography> 
+      <Divider />
+    <TableContainer className={classes.container}>
+      <Table stickyHeader aria-label="sticky table">
         <TableHead>
           <TableRow>
-            <TableCell>Question</TableCell>
-            <TableCell>Answer</TableCell>
+            <TableCell className={classes.questionCell}>Question</TableCell>
+            <TableCell >Answer</TableCell>
             {users.map((user) => (
               <TableCell key={user._id}>{user.username || user.email}</TableCell>
             ))}
@@ -95,7 +125,7 @@ function ForAllUsers(props) {
         <TableBody>
           {questions.map((question) => (
             <TableRow key={question._id}>
-              <TableCell>{question.text}</TableCell>
+              <TableCell className={classes.firstColumn}>{question.text}</TableCell>
               <TableCell>{question.answer}</TableCell>
               {users.map((user) => (
                 <TableCell key={user._id}>
@@ -107,6 +137,7 @@ function ForAllUsers(props) {
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
   )
 }
 
