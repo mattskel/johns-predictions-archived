@@ -35,6 +35,7 @@ const useStyles = makeStyles({
   }
 });
 
+
 function ForAllUsers(props) {
   const {match} = props || {};
   const jwt = auth.isAuthenticated();
@@ -104,6 +105,19 @@ function ForAllUsers(props) {
   }, [users, questions])
 
   const classes = useStyles();
+    // return '#d4edda';
+    // const _classes = _useStyles({test: 'test'})(); 
+  const getBackgroundColor = (answer, questionId, userId) => {
+    if (!answer) {
+      return '#fff';
+    }
+    const prediction = predictions[questionId] && predictions[questionId][userId] && predictions[questionId][userId].prediction;
+    if (answer === prediction) {
+      return '#d4edda';
+    }
+    return '#f8d7da';
+  }
+
 
   return (
     <div className={classes.root}>
@@ -128,7 +142,7 @@ function ForAllUsers(props) {
               <TableCell className={classes.firstColumn}>{question.text}</TableCell>
               <TableCell>{question.answer}</TableCell>
               {users.map((user) => (
-                <TableCell key={user._id}>
+                <TableCell key={user._id} style={{background: getBackgroundColor(question.answer, question._id, user._id)}}>
                   {predictions[question._id] && predictions[question._id][user._id] && predictions[question._id][user._id].prediction}
                 </TableCell>
               ))}
