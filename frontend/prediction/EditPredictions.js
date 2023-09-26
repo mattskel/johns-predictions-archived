@@ -64,8 +64,6 @@ function Predictions(props) {
 
   const handlePredictionChange = (questionId) => (event) => {
     const prediction = event.target.value;
-    // console.log('prediction', prediction)
-    // console.log('questionId', questionId)
     setPredictions({
       ...predictions,
       [questionId]: prediction,

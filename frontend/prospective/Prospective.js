@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import Button from '@material-ui/core/Button'
-// import { Outlet } from 'react-router-dom';
 import { Divider } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography'
 import { read } from './api-prospective.js';

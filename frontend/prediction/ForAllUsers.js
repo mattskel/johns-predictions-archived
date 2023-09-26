@@ -35,7 +35,6 @@ const useStyles = makeStyles({
   }
 });
 
-
 function ForAllUsers(props) {
   const {match} = props || {};
   const jwt = auth.isAuthenticated();
@@ -74,7 +73,6 @@ function ForAllUsers(props) {
     const userId = jwt.user._id;
 
     predictionsForAllUsers({prospectiveId, userId}, signal).then((data) => {
-      // console.log('data', data)
       if (data && data.error) {
         console.log(data.error);
       } else {
@@ -90,11 +88,9 @@ function ForAllUsers(props) {
             const predictionsForUser = groupByUser[user._id] || [];
             const [predictionForQuestionForUser] = _.intersectionBy(predictionsForQuestion, predictionsForUser, '_id');
             _predictions[question._id][user._id] = predictionForQuestionForUser;
-            // console.log('predictionsForQuestionForUser', predictionsForQuestionForUser)
           })
         });
 
-        // console.log('_predictions', _predictions)
         setPredictions({...predictions, ..._predictions});
       }
     });
@@ -105,8 +101,6 @@ function ForAllUsers(props) {
   }, [users, questions])
 
   const classes = useStyles();
-    // return '#d4edda';
-    // const _classes = _useStyles({test: 'test'})(); 
   const getBackgroundColor = (answer, questionId, userId) => {
     if (!answer) {
       return '#fff';
@@ -117,7 +111,6 @@ function ForAllUsers(props) {
     }
     return '#f8d7da';
   }
-
 
   return (
     <div className={classes.root}>

@@ -6,8 +6,6 @@ import { Redirect, Link } from 'react-router-dom';
 
 
 export default function NewQuestion(props) {
-  // const [text, setText] = useState('');
-  // const [option, setOption] = useState('');
   const {match} = props || {};
   const [options, setOptions] = useState([]);
   const [values, setValues] = useState({
@@ -17,16 +15,7 @@ export default function NewQuestion(props) {
     text: '',
   });
 
-  // const handleOptionChange = (e) => {
-  //   setOption(e.target.value);
-  // }
-
-  // const handleTextChange = (e) => {
-  //   setText(e.target.value);
-  // }
-
   const handleChange = (key) => (e) => {
-    // setText(e.target.value);
     setValues({ ...values, [key]: e.target.value })
   }
 

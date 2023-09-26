@@ -50,7 +50,6 @@ export default function EditProspective({match}) {
         Edit
       </Typography>
       <Divider />
-      {/* <h1>{values.title}</h1> */}
       <br />
       <form onSubmit={handleSubmit}>
         <div>

@@ -56,10 +56,6 @@ function Published() {
       </div>
       {published.map(({_id: prospectiveId, isClosed, title}) => (
         <div key={prospectiveId}>
-          {/* <Link 
-            to={`/predictions/for/${prospective._id}`}
-            onClick={(event) => prospective.isClosed && event.preventDefault()}
-            >{prospective.title}</Link> */}
           {title}
           <span>
           {!isClosed && !submissions[prospectiveId] && <Link to={`/predictions/for/${prospectiveId}`}>Submit predictions</Link>}
