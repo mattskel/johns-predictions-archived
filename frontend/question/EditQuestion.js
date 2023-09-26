@@ -27,7 +27,6 @@ export default function EditQuestion(props) {
       if (data && data.error) {
         console.log(data.error);
       } else {
-        // setOptions(data.options);
         setQuestion(data);
       }
     });
@@ -97,8 +96,10 @@ export default function EditQuestion(props) {
           <button onClick={() => setOptions(options.filter((o, i) => i !== index))}>Delete</button>
         </div>
       ))}
-      <input type="text" onChange={handleValuesChange('option')}/>
-      <button onClick={() => setOptions([...options, values.option])}>Add option</button>
+      <div>
+        <input type="text" onChange={handleValuesChange('option')}/>
+        <button type="button" onClick={() => setOptions([...options, values.option])}>Add option</button>
+      </div>
       </div>
       <br />
       <div>
@@ -110,9 +111,6 @@ export default function EditQuestion(props) {
         <button type="submit">Update question</button>
       </div>
       </form>
-      
-
-       
     </div>
   )
 }
