@@ -68,7 +68,6 @@ const update = async (req, res) => {
     })
   });
 
-  console.log(insertArray)
 
   try {
     const predictions = await Promise.all(insertArray.map((insert) => Prediction.findOneAndUpdate({

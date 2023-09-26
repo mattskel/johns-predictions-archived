@@ -37,11 +37,9 @@ function Published() {
         console.log(data.error);
       } else {
         const _submissions = data.reduce((acc, submission) => {
-          console.log('submission', submission)
           acc[submission.prospectiveId] = submission;
           return acc;
         }, {});
-        console.log('submissions', _submissions);
         setSubmissions(_submissions);
       }
     });

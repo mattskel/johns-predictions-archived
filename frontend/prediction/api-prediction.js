@@ -15,7 +15,6 @@ const predictionsForProspective = async (params, signal) => {
 }
 
 const createPredictions = async (params, credentials, predictions) => {
-  // console.log('predictions', predictions)
   try {
     let response = await fetch('/api/predictions/for/' + params.prospectiveId + '/by/' + params.userId, {
       method: 'POST',
@@ -33,7 +32,6 @@ const createPredictions = async (params, credentials, predictions) => {
 }
 
 const predictionsForAllUsers = async (params, signal) => {
-  console.log('params', params);
   try {
     let response = await fetch('/api/predictions/for/' + params.prospectiveId, {
       method: 'GET',
@@ -49,7 +47,6 @@ const predictionsForAllUsers = async (params, signal) => {
 }
 
 const update = async (params, credentials, predictions) => {
-  console.log('params', params);
   try {
     let response = await fetch('/api/predictions/for/' + params.prospectiveId + '/by/' + params.userId, {
       method: 'PUT',
@@ -61,7 +58,6 @@ const update = async (params, credentials, predictions) => {
       body: JSON.stringify(predictions)
     });
 
-    console.log('response', response);
     return response.json();
   } catch(err) {
     console.log(err);

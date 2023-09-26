@@ -6,7 +6,6 @@ import jwt from 'jsonwebtoken';
 const getUser = async (req, res, next, id) => {
   try {
     let user = await User.findById(id)
-    // console.log('user', user)
     if (!user)
       return res.status('400').json({
         error: "User not found"
@@ -44,7 +43,6 @@ const createUser = async (req, res) => {
 
   
   if (emptyFields.length > 0) {
-    console.log('emptyFields', emptyFields)
     return res.status(400).json({error: 'Please fill in all the fields', emptyFields});
   }
 

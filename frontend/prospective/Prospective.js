@@ -31,7 +31,6 @@ function Prospective(props) {
     const abortController = new AbortController();
     const signal = abortController.signal;
     listForProspective(match.params, signal).then((data) => {
-      console.log('data', data)
       if (data && data.error) {
         console.log(data.error);
       } else {

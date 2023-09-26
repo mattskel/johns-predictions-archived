@@ -20,7 +20,6 @@ export default function NewQuestion(props) {
   }
 
   const handleSubmit = (e) => {
-    console.log('handleSubmit')
     e.preventDefault();
     const {text} = values || {};
     const question = {

@@ -1,6 +1,5 @@
 const listForProspective = async (params, signal) => {
   try {
-    console.log('params', params)
     let response = await fetch('/api/questions/for/'+params.prospectiveId, {
       method: 'GET',
       signal: signal,
@@ -33,7 +32,6 @@ const create = async (params, question) => {
 
 const read = async (params, signal) => {
   try {
-    console.log('params.questionId', params.questionId);
     let response = await fetch('/api/questions/' + params.questionId, {
       method: 'GET',
       signal: signal,
@@ -50,7 +48,6 @@ const read = async (params, signal) => {
 }
 
 const update = async (params, question) => {
-  console.log('question', question);
   try {
     let response = await fetch('/api/questions/' + params.questionId, {
       method: 'PUT',

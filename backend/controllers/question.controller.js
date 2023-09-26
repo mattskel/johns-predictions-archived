@@ -59,9 +59,7 @@ const deleteQuestion = async (req, res) => {
 
 const updateQuestion = async (req, res) => {
   const {id} = req.params;
-  console.log('id', id)
   const update = req.body || {};
-  console.log('update', update)
 
   const question = await Question.findOneAndUpdate({_id: id}, {...update});
   if (!question) {
@@ -72,8 +70,6 @@ const updateQuestion = async (req, res) => {
 }
 
 const getQuestionById = async (req, res, next, id) => {
-  console.log('getQuestionById')
-  console.log('id', id)
   try {
     let question = await Question.findById(id)
     if (!question)
