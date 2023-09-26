@@ -26,7 +26,7 @@ const createProspective = async (req, res) => {
 }
 
 const getPropsectives = async (req, res) => {
-  let query = {}
+  let query = {isDeleted: {$ne: true}};
   const prospectives = await Prospective.find(query).sort({createdAt: -1});
 
   res.status(200).json(prospectives);
@@ -165,7 +165,7 @@ const update = async (req, res) => {
 
 const listPublished = async (req, res) => {
   try {
-    let prospectives = await Prospective.find({published: true})
+    let prospectives = await Prospective.find({published: true, isDeleted: {$ne: true}})
     res.json(prospectives)
   } catch (err) {
     return res.status(400).json({
