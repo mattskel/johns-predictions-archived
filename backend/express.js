@@ -22,9 +22,6 @@ import predictionRoutes from './routes/prediction.routes'
 import authRoutes from './routes/auth.routes'
 import submissionRoutes from './routes/submission.routes'
 
-// import userRoutes from './routes/user.routes'
-// import authRoutes from './routes/auth.routes'
-
 // comment out before building for production
 import devBundle from './devBundle'
 
@@ -39,10 +36,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(compress())
 app.use(helmet())
-// app.use(cors())
 app.use(cors());
-// app.use(express.json());
-// app.use(express.static('static'));
 
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 
@@ -51,7 +45,6 @@ app.use('/', authRoutes)
 app.use('/api/users', userRoutes);
 app.use('/api/user', userRoutes)
 app.use('/api/questions', questionRoutes);
-// app.use('/', prospectiveRoutes);
 app.use('/api/prospectives', prospectiveRoutes);
 app.use('/api/predictions', predictionRoutes);
 app.use('/api/submissions', submissionRoutes);

@@ -1,4 +1,3 @@
-// const Prediction = require('../models/predictionModel');
 import Prediction from '../models/predictionModel';
 
 const getPredictions = async (req, res) => {

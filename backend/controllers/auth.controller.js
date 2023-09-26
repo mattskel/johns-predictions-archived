@@ -13,7 +13,6 @@ export const signin = async (req, res) => {
     let user = await User.findOne({
       "email": req.body.email
     })
-    // const {isAdmin} = user
 
     if (!user) {
       return res.status('401').json({
@@ -29,7 +28,6 @@ export const signin = async (req, res) => {
 
     // create a token
     const token = createToken(user._id);
-    // res.status(200).json({email, token});
     res.cookie("t", token, {
       expire: new Date() + 9999
     });
