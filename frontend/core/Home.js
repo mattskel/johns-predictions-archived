@@ -32,10 +32,11 @@ export default function Home(){
       {/* <CardMedia className={classes.media} image={unicornbikeImg} title="Unicorn Bicycle"/> */}
       <CardContent>
         <Typography variant="body2" component="p">
-          Welcome to the MERN Skeleton home page.
+          Welcome to Johns Predictions home page. 🔮
+          <br />
+          Click <Link to="/prospectives/published">here</Link> to see what predictions are available to you.
         </Typography>
       </CardContent>
-      <Link to="/users">Users</Link>
     </Card>
   )
  }
