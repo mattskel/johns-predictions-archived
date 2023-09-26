@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
+import { Redirect } from "react-router-dom";
 import { Typography } from '@material-ui/core';
 import { Divider } from '@material-ui/core';
 import Button from '@material-ui/core/Button'
 import {create} from './api-prospective.js'
 
 export default function NewProspective(props) {
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({title: '', error: '', redirect: false});
   const handleSubmit = (e) => {
     e.preventDefault();
     const {title} = values || {};
