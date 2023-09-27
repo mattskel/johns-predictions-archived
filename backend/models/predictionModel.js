@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const predictionSchema = new mongoose.Schema({
   userId: {
@@ -11,8 +12,12 @@ const predictionSchema = new mongoose.Schema({
   },
   prediction: {
     type: String
+  },
+  prospectiveId: {
+    type: String,
+    required: true
   }
 }, {timestamps: true});
 
 const Prediction = mongoose.model('Prediction', predictionSchema);
-module.exports = Prediction;
+export default Prediction;
