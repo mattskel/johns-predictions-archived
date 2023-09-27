@@ -60,14 +60,14 @@ export default function NewQuestion(props) {
       {options && options.map((option, index) => (
         <div key={index}>
             {option}
-            <button onClick={() => setOptions(options.filter((o, i) => i !== index))}>Delete</button>
+            <button type="button" onClick={() => setOptions(options.filter((o, i) => i !== index))}>Delete</button>
           </div>
       ))}
       </div>
       <div>
 
       <input type="text" onChange={handleChange('option')} value={values.option}/>
-      <button onClick={() => setOptions([...options, values.option])}>Add option</button>
+      <button type="button" onClick={() => setOptions([...options, values.option])}>Add option</button>
       </div>
       <br />
       <div>
