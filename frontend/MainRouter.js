@@ -14,8 +14,8 @@ import EditProspective from './prospective/EditProspective'
 import PublishedProspectives from './prospective/Published';
 import Predictions from './prediction/Predictions';
 import EditPredictions from './prediction/EditPredictions';
-// import Submitted from './prediction/Submitted'
 import ForAllUsers from './prediction/ForAllUsers'
+import PrivateRoute from './auth/PrivateRoute'
 
 const MainRouter = () => {
   return (
@@ -27,17 +27,17 @@ const MainRouter = () => {
         <Route path="/signup" component={Signup}/>
         <Route path="/signin" component={Signin}/>
 
-        <Route path="/prospectives/published"component={PublishedProspectives} />
-        <Route path="/predictions/for/:prospectiveId" component={Predictions} />
-        <Route path="/predictions/edit/for/:prospectiveId" component={EditPredictions} />
-        <Route path="/predictions/submitted/for/:prospectiveId" component={ForAllUsers} />
+        <PrivateRoute path="/prospectives/published"component={PublishedProspectives} />
+        <PrivateRoute path="/predictions/for/:prospectiveId" component={Predictions} />
+        <PrivateRoute path="/predictions/edit/for/:prospectiveId" component={EditPredictions} />
+        <PrivateRoute path="/predictions/submitted/for/:prospectiveId" component={ForAllUsers} />
 
-        <Route path="/admin/prospectives" component={Prospectives}/>
-        <Route path="/admin/prospective/new" component={NewProspective}/>
-        <Route path="/admin/prospective/edit/:prospectiveId" component={EditProspective}/>
-        <Route path="/admin/prospective/:prospectiveId" component={Prospective}/>
-        <Route path="/admin/question/new/:prospectiveId" component={NewQuestion}/>
-        <Route path="/admin/question/edit/:questionId" component={EditQuestion}/>
+        <PrivateRoute path="/admin/prospectives" component={Prospectives}/>
+        <PrivateRoute path="/admin/prospective/new" component={NewProspective}/>
+        <PrivateRoute path="/admin/prospective/edit/:prospectiveId" component={EditProspective}/>
+        <PrivateRoute path="/admin/prospective/:prospectiveId" component={Prospective}/>
+        <PrivateRoute path="/admin/question/new/:prospectiveId" component={NewQuestion}/>
+        <PrivateRoute path="/admin/question/edit/:questionId" component={EditQuestion}/>
       </Switch>
     </div>
   )
