@@ -28,8 +28,6 @@ const read = async (params, signal) => {
 }
 
 const create = async (params, prospective) => {
-  console.log('api-prospective.js create')
-  console.log('prospective', prospective)
   try {
     let response = await fetch('/api/prospectives/', {
       method: 'POST',

@@ -14,6 +14,10 @@ const prospectiveSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  isDeleted: {
+    type: Boolean,
+    default: false
+  }
 }, {timestamps: true});
 
 const Prospective = new mongoose.model('Prospective', prospectiveSchema);

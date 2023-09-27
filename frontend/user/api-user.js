@@ -1,5 +1,4 @@
 const create = async (user) => {
-  console.log('user', user)
   try {
     let response = await fetch('/api/users/', {
       method: 'POST',

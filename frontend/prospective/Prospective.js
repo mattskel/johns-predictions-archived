@@ -1,15 +1,19 @@
 import React, {useState, useEffect} from 'react';
-import Button from '@material-ui/core/Button'
 import { Divider } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography'
-import { read } from './api-prospective.js';
+import { read, update } from './api-prospective.js';
 import { listForProspective } from '../question/api-question.js';
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
+import auth from '../auth/auth-helper'
 
 function Prospective(props) {
   const [prospective, setProspective] = useState({});
   const [questions, setQuestions] = useState([]);
   const {match} = props || {};
+  const [open, setOpen] = useState(false)
+  const [redirect, setRedirect] = useState(false)
+  const jwt = auth.isAuthenticated()
+
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
@@ -31,7 +35,6 @@ function Prospective(props) {
     const abortController = new AbortController();
     const signal = abortController.signal;
     listForProspective(match.params, signal).then((data) => {
-      console.log('data', data)
       if (data && data.error) {
         console.log(data.error);
       } else {
@@ -39,6 +42,26 @@ function Prospective(props) {
       }
     });
   }, [match.params.prospectiveId]);
+
+  const clickButton = () => {
+    setOpen(true)
+  }
+  const handleRequestClose = () => {
+    setOpen(false)
+  }
+  const deleteAccount = () => { 
+    update(match.params, {t: jwt.token}, {isDeleted: true}).then((data) => {
+      if (data && data.error) {
+        console.log(data.error)
+      } else {
+        setRedirect(true)
+      }
+    })
+  }
+
+  if (redirect) {
+    return <Redirect to='/admin/prospectives'/>
+  }
 
   return (
     <div className="prospective">
@@ -51,6 +74,21 @@ function Prospective(props) {
             <Link to={"/admin/prospective/edit/" + prospective._id} display="inline">
               Edit
             </Link>
+            <span>
+            <button aria-label="Delete" onClick={clickButton} color="secondary">
+              Delete
+            </button>
+
+            <dialog open={open} onClose={handleRequestClose}>
+              <h1>Are you sure you want to delete this?</h1>
+              <button onClick={handleRequestClose} color="primary">
+                Cancel
+              </button>
+              <button onClick={deleteAccount} color="secondary" autoFocus="autoFocus">
+                Confirm
+              </button>
+            </dialog>
+            </span>
           </div>
 
           <Divider />
