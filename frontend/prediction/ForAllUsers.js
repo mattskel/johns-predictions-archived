@@ -41,6 +41,7 @@ function ForAllUsers(props) {
   const [predictions, setPredictions] = useState({});
   const [questions, setQuestions] = useState([]);
   const [users, setUsers] = useState([]);
+  const [totals, setTotals] = useState([]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -91,13 +92,25 @@ function ForAllUsers(props) {
           })
         });
 
-        setPredictions({...predictions, ..._predictions});
+        const _totals = [];
+        _.forEach(users, (user) => {
+          // Initialise the totals for the user
+          let total = 0;
+          _.forEach(questions, (question) => {
+            const {prediction} = _predictions[question._id][user._id] || {};
+            const {answer} = question || {};
+            if (answer && answer === prediction) {
+              total += 1;
+            }
+          })
+          _totals.push(total);
+        })
+
+        setTotals(_totals)
+        setPredictions({..._predictions});
       }
     });
 
-    return function cleanup() {
-      abortController.abort();
-    };
   }, [users, questions])
 
   const classes = useStyles();
@@ -141,6 +154,13 @@ function ForAllUsers(props) {
               ))}
             </TableRow>
           ))}
+          <TableRow key='totals'>
+            <TableCell className={classes.firstColumn}>Totals</TableCell>
+            <TableCell></TableCell>
+            {totals.map((total, index) => (
+              <TableCell key={index}>{total}</TableCell>
+            ))} 
+          </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
